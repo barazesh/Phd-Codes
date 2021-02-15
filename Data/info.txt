@@ -1,0 +1,3 @@
+"https://www.eia.gov/electricity/data/browser/#/topic/56?agg=0,1&geo=vvvvvvvvvvvvo&endsec=vg&freq=A&start=2001&end=2019&ctype=linechart&ltype=pin&rtype=s&pin=&rse=0&maptype=0"
+"Mon Feb 15 2021 12:48:44 GMT+0330 (Iran Standard Time)"
+"Source: U.S. Energy Information Administration"

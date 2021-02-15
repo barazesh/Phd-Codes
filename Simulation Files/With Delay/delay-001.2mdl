@@ -1,0 +1,560 @@
+{UTF-8}
+Average Conventional Cunsumer demand change=
+	IF THEN ELSE( (Average Conventional Customer Demand+indicated average demand change>=\
+		Maximum Average demand per customer
+	) , correcting factor1*(Maximum Average demand per customer-Average Conventional Customer Demand\
+		) , IF THEN ELSE((Average Conventional Customer Demand
+	+indicated average demand change)<=Minimum Average demand per customer, correcting factor1\
+		*(Minimum Average demand per customer-Average Conventional Customer Demand
+	) , indicated average demand change ))
+	~	kWh/(Month*Month*consumer)
+	~		|
+
+correcting factor1=
+	1
+	~	1/Month
+	~		|
+
+Maximum Average demand per customer=
+	1300
+	~	kWh/(Month*consumer)
+	~		|
+
+indicated average demand change=
+	Tariff change*Average Conventional Customer Demand*Price Elasticity of Conventional Cunsumers\
+		/Electricity Tariff
+	~	kWh/(Month*Month*consumer)
+	~		|
+
+Tariff change=
+	IF THEN ELSE( MODULO(Time , Tariff correction Period )=0 , (correcting factor*Budget Deficit\
+		/(Utility Sale*Tariff correction Period)) , 0 )
+	~	dollars/(Month*kWh)
+	~		|
+
+Monthly Income Shortfall=
+	Desired Income-Income
+	~	dollars/Month
+	~		|
+
+Budget Deficit= INTEG (
+	Monthly Income Shortfall,
+		0)
+	~	dollars
+	~		|
+
+Tariff correction Period=
+	1
+	~	Month
+	~		|
+
+maximum fraction of PV customers=
+	0.7
+	~	Dmnl
+	~		|
+
+Consumers addition=
+	Consumer Growth-New Homes with PV
+	~	consumer/Month
+	~		|
+
+Installing PV=
+	Conventional Customers*(normal rate of Customer shift to prosumer+normalized PV attractiveness\
+		)*effect of PV fraction limit
+	~	consumer/Month
+	~		|
+
+New Homes with PV=
+	Consumer Growth*normalized PV attractiveness*effect of PV fraction limit
+	~	consumer/Month
+	~		|
+
+effect of PV fraction limit = WITH LOOKUP (
+	fraction of PV customers/maximum fraction of PV customers,
+		([(0,0)-(1,1)],(0,1),(0.2,0.97),(0.4,0.85),(0.47,0.65),(0.5,0.5),(0.53,0.35),(0.6,0.15\
+		),(0.8,0.03),(1,0) ))
+	~	Dmnl
+	~		|
+
+fraction of PV customers=
+	Customers with PV/Total Consumers
+	~	Dmnl
+	~		|
+
+Conventional Customers= INTEG (
+	Consumers addition-Installing PV,
+		1e+06)
+	~	consumer
+	~		|
+
+Effect of learning on PV cost reduction=
+	Customers with PV/1e+07
+	~	Dmnl
+	~		|
+
+Customers with PV= INTEG (
+	Installing PV+New Homes with PV,
+		0)
+	~	consumer
+	~		|
+
+effect of attractiveness limit = WITH LOOKUP (
+	normalized PV attractiveness,
+		([(0,0)-(1,1)],(0,1),(0.85,0.85),(1,0) ))
+	~	Dmnl
+	~		|
+
+normalized PV attractiveness=
+	Rooftop PV Attractiveness/Maximum PV Attractiveness
+	~	Dmnl
+	~		|
+
+Min PV cost=
+	0.05
+	~	dollars/kWh [0.01,1,0.01]
+	~		|
+
+effect of pv cost limit = WITH LOOKUP (
+	PV LCOE/Min PV cost,
+		([(0,0)-(2,1)],(0,0),(1,0),(2,1) ))
+	~	Dmnl
+	~		|
+
+Cost Reduction=
+	(Effect of learning on PV cost reduction+normal PV cost reduction)*PV LCOE*effect of pv cost limit
+	~	dollars/(kWh*Month)
+	~		|
+
+Maximum PV Attractiveness=
+	10
+	~	Dmnl
+	~		|
+
+Number of months to reach max attractiveness=
+	30
+	~	Month
+	~		|
+
+Minimum Average demand per customer=
+	500
+	~	kWh/(Month*consumer) [10,100]
+	~		|
+
+PV Attractiveness change=
+	effect of attractiveness limit*effect of price ratio on PV attractiveness/Number of months to reach max attractiveness
+	~	1/Month
+	~		|
+
+effect of price ratio on PV attractiveness = WITH LOOKUP (
+	Utility to PV price Ratio,
+		([(0.5,0)-(3,1)],(0.5,0.2),(3,1) ))
+	~	Dmnl
+	~		|
+
+Rooftop PV Attractiveness= INTEG (
+	PV Attractiveness change,
+		0)
+	~	Dmnl
+	~		|
+
+Utility to PV price Ratio=
+	Electricity Tariff/PV LCOE
+	~	Dmnl
+	~		|
+
+Average Conventional Customer Demand= INTEG (
+	Average Conventional Cunsumer demand change,
+		900)
+	~	kWh/(Month*consumer) [500,1300]
+	~		|
+
+Utility Sale=
+	Conventional Customers*Average Conventional Customer Demand
+	~	kWh/Month
+	~		|
+
+Price Elasticity of Conventional Cunsumers=
+	-1
+	~	Dmnl
+	~		|
+
+Consumer Growth=
+	Growth rate*Total Consumers
+	~	consumer/Month
+	~		|
+
+normal PV cost reduction=
+	0.0002
+	~	1/Month
+	~		|
+
+correcting factor=
+	1
+	~	1/Month
+	~		|
+
+PV LCOE= INTEG (
+	-Cost Reduction,
+		0.18)
+	~	dollars/kWh
+	~		|
+
+Desired Income=
+	(1+Expected Profit)*Total Costs
+	~	dollars/Month
+	~		|
+
+Income=
+	Electricity Tariff*Utility Sale
+	~	dollars/Month
+	~		|
+
+Electricity Tariff= INTEG (
+	Tariff change,
+		0.13)
+	~	dollars/kWh
+	~		|
+
+normal rate of Customer shift to prosumer=
+	0.001
+	~	1/Month
+	~		|
+
+Total Consumers= INTEG (
+	Consumer Growth,
+		1e+06)
+	~	consumer
+	~		|
+
+Expected Profit=
+	0.2
+	~	Dmnl [0.05,1,0.05]
+	~		|
+
+fixed costs=
+	7.95e+07
+	~	dollars/Month [100000,1e+06]
+	~		|
+
+Generation=
+	Utility Sale
+	~	kWh/Month
+	~		|
+
+generation price=
+	0.02
+	~	dollars/kWh
+	~		|
+
+Growth rate=
+	0.002
+	~	1/Month [0,0.005]
+	~		|
+
+Total Costs=
+	fixed costs+Variable Costs
+	~	dollars/Month
+	~		|
+
+Variable Costs=
+	Generation*generation price
+	~	dollars/Month
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 50
+	~	Month
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Month
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP
+	~	Month [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 1
+	~	Month [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,84,0
+10,1,Conventional Customers,688,713,46,20,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+12,2,48,370,709,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,3,5,1,4,0,0,22,0,0,0,-1--1--1,,1|(556,709)|
+1,4,5,2,100,0,0,22,0,0,0,-1--1--1,,1|(419,709)|
+11,5,48,464,709,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,6,Consumers addition,464,736,36,19,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,7,Growth rate,180,873,39,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,8,Utility Sale,583,223,35,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,9,1,8,1,0,43,0,0,64,0,-1--1--1,,1|(513,513)|
+10,10,Generation,555,399,35,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,11,8,10,1,0,43,0,0,64,0,-1--1--1,,1|(593,285)|
+10,12,Variable Costs,679,395,47,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,13,Expected Profit,1020,511,49,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,14,fixed costs,778,361,34,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,15,Total Costs,792,430,37,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,16,10,12,0,0,43,0,0,64,0,-1--1--1,,1|(604,397)|
+1,17,12,15,1,0,0,0,0,64,0,-1--1--1,,1|(729,400)|
+1,18,14,15,1,0,0,0,0,64,0,-1--1--1,,1|(807,387)|
+10,19,generation price,617,455,55,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,20,19,12,1,0,43,0,0,64,0,-1--1--1,,1|(649,439)|
+10,21,Effect of learning on PV cost reduction,962,748,64,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,22,Electricity Tariff,1317,295,40,20,3,3,0,0,0,0,0,0,0,0,0,0,0,0
+12,23,48,969,289,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,24,26,22,4,0,0,22,0,0,0,-1--1--1,,1|(1181,287)|
+1,25,26,23,100,0,0,22,0,0,0,-1--1--1,,1|(1026,287)|
+11,26,48,1080,287,6,8,34,3,0,0,3,0,0,0,0,0,0,0,0,0
+10,27,Tariff change,1080,260,40,19,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,28,Desired Income,925,446,50,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,29,15,28,1,0,0,0,0,64,0,-1--1--1,,1|(847,442)|
+1,30,13,28,1,0,0,0,0,64,0,-1--1--1,,1|(980,501)|
+10,31,Income,842,333,25,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,32,8,31,1,0,0,0,0,64,0,-1--1--1,,1|(691,300)|
+1,33,22,31,1,0,0,0,0,64,0,-1--1--1,,1|(1183,362)|
+1,34,8,27,1,0,0,0,0,64,0,-1--1--1,,1|(822,240)|
+10,35,PV LCOE,939,590,40,20,3,3,0,0,0,0,0,0,0,0,0,0,0,0
+12,36,48,739,587,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,37,39,36,4,0,0,22,0,0,0,-1--1--1,,1|(783,587)|
+1,38,39,35,100,0,0,22,0,0,0,-1--1--1,,1|(864,587)|
+11,39,48,824,587,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,40,Cost Reduction,824,606,49,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,41,21,40,1,0,0,0,0,64,0,-1--1--1,,1|(893,717)|
+1,42,35,40,1,0,0,0,0,64,0,-1--1--1,,1|(921,635)|
+10,43,normal PV cost reduction,714,651,50,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,44,43,40,1,0,0,0,0,64,0,-1--1--1,,1|(804,665)|
+10,45,normal rate of Customer shift to prosumer,584,790,55,28,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,46,correcting factor,892,194,52,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,47,46,27,1,0,0,0,0,64,0,-1--1--1,,1|(974,205)|
+10,48,Total Consumers,430,832,40,31,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+12,49,48,212,805,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,50,52,48,4,0,0,22,0,0,0,-1--1--1,,1|(352,806)|
+1,51,52,49,100,0,0,22,0,0,0,-1--1--1,,1|(262,806)|
+11,52,48,308,806,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,53,Consumer Growth,308,825,58,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,54,7,53,1,0,0,0,0,64,0,-1--1--1,,1|(254,872)|
+1,55,48,53,1,0,0,0,0,64,0,-1--1--1,,1|(397,875)|
+10,56,Average Conventional Customer Demand,417,378,57,33,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+12,57,48,171,370,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,58,60,56,4,0,0,22,0,0,0,-1--1--1,,1|(315,373)|
+1,59,60,57,100,0,0,22,0,0,0,-1--1--1,,1|(220,373)|
+11,60,48,265,373,6,8,34,3,0,0,3,0,0,0,0,0,0,0,0,0
+10,61,Average Conventional Cunsumer demand change,265,329,72,36,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
+1,62,56,8,1,0,0,0,0,64,0,-1--1--1,,1|(474,275)|
+10,64,Price Elasticity of Conventional Cunsumers,133,237,79,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,66,53,6,1,0,0,0,0,64,0,-1--1--1,,1|(321,778)|
+10,69,Rooftop PV Attractiveness,1165,763,56,30,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+12,70,48,1366,754,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,71,73,69,4,0,0,22,0,0,0,-1--1--1,,1|(1251,754)|
+1,72,73,70,100,0,0,22,0,0,0,-1--1--1,,1|(1325,754)|
+11,73,48,1288,754,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,74,PV Attractiveness change,1288,781,58,19,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,75,Utility to PV price Ratio,1144,544,58,18,8,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,76,35,75,1,0,45,0,0,64,0,-1--1--1,,1|(1050,579)|
+1,77,22,75,1,0,43,0,0,64,0,-1--1--1,,1|(1319,439)|
+10,78,Number of months to reach max attractiveness,1356,619,67,29,8,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,79,78,73,1,0,0,0,0,64,0,-1--1--1,,1|(1332,703)|
+10,80,effect of price ratio on PV attractiveness,1200,658,70,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,81,75,80,0,0,0,0,0,64,0,-1--1--1,,1|(1167,594)|
+1,82,80,73,1,0,0,0,0,64,0,-1--1--1,,1|(1271,710)|
+10,83,Maximum PV Attractiveness,1198,1022,45,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,84,effect of attractiveness limit,1300,863,58,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,85,84,74,0,0,43,0,0,64,0,-1--1--1,,1|(1295,828)|
+10,86,Minimum Average demand per customer,342,473,69,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,91,Min PV cost,701,506,41,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,92,effect of pv cost limit,836,523,52,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,93,91,92,1,0,0,0,0,64,0,-1--1--1,,1|(769,467)|
+1,94,35,92,1,0,0,0,0,64,0,-1--1--1,,1|(918,515)|
+1,95,92,40,1,0,0,0,0,64,0,-1--1--1,,1|(840,559)|
+10,96,normalized PV attractiveness,1167,916,52,24,8,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,97,69,96,0,0,43,0,0,64,0,-1--1--1,,1|(1165,835)|
+1,98,83,96,0,0,45,0,0,64,0,-1--1--1,,1|(1185,978)|
+1,99,96,84,1,0,45,0,0,64,0,-1--1--1,,1|(1302,944)|
+10,100,Customers with PV,711,933,47,26,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+12,101,48,713,1075,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,102,104,100,4,0,0,22,0,0,0,-1--1--1,,1|(711,987)|
+1,103,104,101,100,0,0,22,0,0,0,-1--1--1,,1|(711,1047)|
+11,104,48,711,1021,8,6,33,3,0,0,2,0,0,0,0,0,0,0,0,0
+10,105,New Homes with PV,662,1021,41,19,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,106,108,100,4,0,0,22,0,0,0,-1--1--1,,1|(714,867)|
+1,107,108,1,100,0,0,22,0,0,0,-1--1--1,,1|(714,774)|
+11,108,574,714,821,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,109,Installing PV,762,821,40,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,110,100,21,1,0,0,0,0,64,0,-1--1--1,,1|(890,864)|
+1,111,45,108,0,0,0,0,0,64,0,-1--1--1,,1|(665,809)|
+1,112,1,108,1,0,0,0,0,64,0,-1--1--1,,1|(666,749)|
+1,113,53,105,1,0,0,0,0,64,0,-1--1--1,,1|(351,953)|
+1,114,96,109,1,0,0,0,0,64,0,-1--1--1,,1|(969,848)|
+1,115,96,104,1,0,0,0,0,64,0,-1--1--1,,1|(856,1052)|
+10,116,fraction of PV customers,474,948,45,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,117,48,116,1,0,0,0,0,64,0,-1--1--1,,1|(429,913)|
+1,118,100,116,1,0,0,0,0,64,0,-1--1--1,,1|(572,989)|
+10,119,maximum fraction of PV customers,317,1049,65,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,120,104,6,1,0,0,0,0,64,0,-1--1--1,,1|(534,890)|
+10,121,effect of PV fraction limit,563,1106,39,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,122,116,121,1,0,0,0,0,64,0,-1--1--1,,1|(463,1053)|
+1,123,119,121,1,0,0,0,0,64,0,-1--1--1,,1|(469,1135)|
+1,124,121,104,1,0,0,0,0,64,0,-1--1--1,,1|(670,1076)|
+1,125,121,108,1,0,0,0,0,64,0,-1--1--1,,1|(797,1037)|
+10,126,Time,1101,93,26,11,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+1,127,126,27,1,0,0,0,0,64,0,-1--1--1,,1|(1068,167)|
+10,128,Tariff correction Period,1244,104,52,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,129,128,27,1,0,0,0,0,64,0,-1--1--1,,1|(1102,208)|
+10,130,Budget Deficit,1098,345,40,20,3,3,0,0,0,0,0,0,0,0,0,0,0,0
+12,131,48,1206,423,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,132,134,130,4,0,0,22,0,0,0,-1--1--1,,1|(1080,385)|
+1,133,134,131,100,0,0,22,0,0,0,-1--1--1,,1|(1206,413)|
+11,134,48,1080,413,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,135,Monthly Income Shortfall,1080,440,53,19,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,136,28,135,1,0,0,0,0,64,0,-1--1--1,,1|(1039,466)|
+1,137,31,135,1,0,0,0,0,64,0,-1--1--1,,1|(915,382)|
+1,138,130,26,1,0,0,0,0,64,0,-1--1--1,,1|(1052,318)|
+10,140,Maximum Average demand per customer,160,474,69,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,151,indicated average demand change,264,182,56,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,152,64,151,0,0,0,0,0,64,0,-1--1--1,,1|(191,212)|
+1,153,56,151,1,0,0,0,0,64,0,-1--1--1,,1|(375,209)|
+1,154,27,151,1,0,0,0,0,64,0,-1--1--1,,1|(626,121)|
+1,155,22,151,1,0,0,0,0,64,0,-1--1--1,,1|(653,72)|
+1,156,151,61,0,0,0,0,0,64,0,-1--1--1,,1|(264,240)|
+1,159,140,61,1,0,0,0,0,64,0,-1--1--1,,1|(125,338)|
+1,160,86,61,1,0,0,0,0,64,0,-1--1--1,,1|(334,417)|
+1,161,56,61,1,0,0,0,0,64,0,-1--1--1,,1|(363,283)|
+10,164,correcting factor1,65,298,56,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,165,164,61,1,0,0,0,0,64,0,-1--1--1,,1|(185,271)|
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 2
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,150,0
+12,1,0,497,87,48,19,8,71,0,0,-1,0,0,0,0,0,0,0,0,0
+Utility Variable Costs
+12,2,0,369,272,38,11,8,71,0,0,-1,0,0,0,0,0,0,0,0,0
+Utility Sales
+12,3,0,470,206,44,11,8,71,0,0,-1,0,0,0,0,0,0,0,0,0
+Utility Income
+12,4,0,646,209,52,19,8,71,0,0,-1,0,0,0,0,0,0,0,0,0
+Electricity Retail Price
+12,5,0,631,370,46,22,8,199,0,0,-1,0,0,0,0,0,0,0,0,0
+PV Attractiveness
+12,6,0,459,396,50,19,8,71,0,0,-1,0,0,0,0,0,0,0,0,0
+Customers with PV
+12,7,0,539,296,30,11,8,71,0,0,-1,0,0,0,0,0,0,0,0,0
+PV Price
+1,8,2,1,1,0,43,13,2,192,0,-1--1--1,|12||0-0-0,1|(361,172)|
+1,9,2,3,1,0,43,13,2,64,0,-1--1--1,|12||0-0-0,1|(395,234)|
+1,10,3,4,1,0,45,13,2,192,0,-1--1--1,|12||0-0-0,1|(514,185)|
+1,11,1,4,1,0,43,13,2,192,0,-1--1--1,|12||0-0-0,1|(609,111)|
+1,12,4,5,1,0,43,13,2,192,0,-1--1--1,|12||0-0-0,1|(675,289)|
+1,13,7,5,1,0,45,13,2,64,0,-1--1--1,|12||0-0-0,1|(609,311)|
+1,14,5,6,1,0,43,13,2,64,0,-1--1--1,|12||0-0-0,1|(562,441)|
+1,15,6,2,1,0,45,13,2,192,0,-1--1--1,|12||0-0-0,1|(368,321)|
+1,16,6,7,1,0,45,13,2,192,0,-1--1--1,|12||0-0-0,1|(464,328)|
+12,17,0,543,249,20,20,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
+R1
+12,18,0,543,365,20,20,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
+R2
+12,19,0,504,143,20,20,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
+B1
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 3
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,5,0
+12,1,0,628,212,44,44,6,199,0,0,-1,0,0,0,0,0,0,0,0,0
+Electricity Price
+12,2,0,641,471,33,33,6,199,0,0,-1,0,0,0,0,0,0,0,0,0
+PV LCOE
+12,3,0,472,531,46,46,6,199,0,0,-1,0,0,0,0,0,0,0,0,0
+Customers with PV
+12,4,0,636,336,58,19,8,71,0,0,-1,0,0,0,0,0,0,0,0,0
+Utility to PV price ratio
+12,5,0,474,360,55,11,8,71,0,0,-1,0,0,0,0,0,0,0,0,0
+PV attractiveness
+12,6,0,756,111,58,11,8,71,0,0,-1,0,0,0,0,0,0,0,0,0
+Utility Fixed Costs
+12,7,0,455,173,48,19,8,71,0,0,-1,0,0,0,0,0,0,0,0,0
+Utility Variable Costs
+12,8,0,465,67,44,11,8,71,0,0,-1,0,0,0,0,0,0,0,0,0
+Utility Income
+12,9,0,356,230,38,11,8,71,0,0,-1,0,0,0,0,0,0,0,0,0
+Utility Sales
+12,10,0,339,330,42,19,8,71,0,0,-1,0,0,0,0,0,0,0,0,0
+Conventional Customers
+12,11,0,363,453,34,11,8,71,0,0,-1,0,0,0,0,0,0,0,0,0
+Population
+12,12,0,476,273,54,11,8,71,0,0,-1,0,0,0,0,0,0,0,0,0
+Average demand
+1,13,9,7,1,0,43,13,2,64,0,-1--1--1,|12||0-0-0,1|(390,183)|
+1,14,12,9,1,0,43,13,2,64,0,-1--1--1,|12||0-0-0,1|(400,284)|
+1,15,10,9,1,0,43,13,2,64,0,-1--1--1,|12||0-0-0,1|(326,269)|
+1,16,11,10,1,0,43,13,2,192,0,-1--1--1,|12||0-0-0,1|(318,394)|
+1,17,7,1,1,0,43,13,2,64,0,-1--1--1,|12||0-0-0,1|(529,157)|
+1,18,9,8,1,0,43,13,2,64,0,-1--1--1,|12||0-0-0,1|(386,103)|
+1,19,8,1,1,0,45,13,2,64,0,-1--1--1,|12||0-0-0,1|(576,110)|
+1,20,1,8,1,0,43,13,2,192,0,-1--1--1,|12||0-0-0,1|(621,77)|
+1,21,6,1,1,0,43,13,2,64,0,-1--1--1,|12||0-0-0,1|(673,154)|
+1,22,1,4,1,0,43,13,2,64,0,-1--1--1,|12||0-0-0,1|(648,305)|
+1,23,2,4,1,0,45,13,2,192,0,-1--1--1,|12||0-0-0,1|(667,397)|
+1,24,4,5,1,0,43,13,2,192,0,-1--1--1,|12||0-0-0,1|(565,375)|
+1,25,5,3,1,0,43,13,2,64,0,-1--1--1,|12||0-0-0,1|(445,465)|
+1,26,3,2,1,0,45,13,2,64,0,-1--1--1,|12||0-0-0,1|(601,530)|
+1,27,5,10,1,0,45,13,2,192,0,-1--1--1,|12||0-0-0,1|(372,360)|
+1,28,1,12,1,0,45,13,2,64,0,-1--1--1,|12||0-0-0,1|(549,217)|
+///---\\\
+:TABLE Output_data
+:TITLE Output_data
+:PRETTYNUM
+:FIRST-CELLWIDTH 30
+:CELLWIDTH 14
+:FONT Times New Roman|12||0-0-0
+:VAR PV LCOE
+:VAR Electricity Tariff
+:VAR Conventional Customers
+:VAR Customers with PV
+:VAR Income Shortfall
+:VAR fraction of PV customers
+:VAR Utility to PV price Ratio
+:VAR Utility Sale
+:L<%^E!@
+1:1year delay.vdfx
+1:without delay.vdfx
+9:1year delay
+23:0
+15:0,0,0,0,0,0
+19:84,0
+27:0,
+34:0,
+42:0
+72:0
+73:0
+4:Time
+5:Electricity Tariff
+35:Date
+36:YYYY-MM-DD
+37:2000
+38:1
+39:1
+40:2
+41:0
+76:0
+77:0
+78:0
+79:0
+80:0
+81:0
+24:0
+25:50
+26:50
+75:
+43:

@@ -1,0 +1,440 @@
+"Revenue from retail sales of electricity"
+"https://www.eia.gov/electricity/data/browser/#/topic/6?agg=0,1&geo=vvvvvvvvvvvvo&freq=A&start=2008&end=2019&ctype=linechart&ltype=pin&rtype=s&pin=&rse=0&maptype=0"
+"Mon Feb 15 2021 12:54:32 GMT+0330 (Iran Standard Time)"
+"Source: U.S. Energy Information Administration"
+"description","units","source key","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019"
+"Revenue from retail sales of electricity","million dollars",,,,,,,,,,,,,
+"United States","million dollars","ELEC.REV.US-ALL.A",,,,,,,,,,,,
+"United States : all sectors","million dollars","ELEC.REV.US-ALL.A",363583,353289,368918,371049,363687,375058,393096,391341,386509,390322,406420,401738
+"United States : residential","million dollars","ELEC.REV.US-RES.A",155496,157044,166778,166714,163280,169131,176178,177624,177077,177661,189033,187436
+"United States : commercial","million dollars","ELEC.REV.US-COM.A",137036,132747,135554,135927,133898,137188,145253,144781,142643,144242,147425,145280
+"United States : industrial","million dollars","ELEC.REV.US-IND.A",70231,62670,65772,67606,65761,67934,70855,68166,66068,67691,69218,68285
+"United States : transportation","million dollars","ELEC.REV.US-TRA.A",820,828,814,803,747,805,810,771,722,728,744,737
+"United States : other","million dollars","ELEC.REV.US-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"New England","million dollars","ELEC.REV.NEW-ALL.A",,,,,,,,,,,,
+"New England : all sectors","million dollars","ELEC.REV.NEW-ALL.A",19761,18646,18363,17536,16885,17558,18541,19852,18996,19138,20918,20328
+"New England : residential","million dollars","ELEC.REV.NEW-RES.A",8172,8024,7886,7546,7418,7846,8414,9227,8751,8897,9910,9744
+"New England : commercial","million dollars","ELEC.REV.NEW-COM.A",8619,6880,6764,6441,6137,6277,7806,8255,8009,8080,8709,8412
+"New England : industrial","million dollars","ELEC.REV.NEW-IND.A",2907,3697,3665,3504,3292,3365,2263,2312,2191,2114,2249,2122
+"New England : transportation","million dollars","ELEC.REV.NEW-TRA.A",63,45,48,45,38,70,58,58,45,46,50,50
+"New England : other","million dollars","ELEC.REV.NEW-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Connecticut","million dollars","ELEC.REV.CT-ALL.A",,,,,,,,,,,,
+"Connecticut : all sectors","million dollars","ELEC.REV.CT-ALL.A",5510,5370,5283,4882,4584,4669,5004,5239,4989,4938,5309,5206
+"Connecticut : residential","million dollars","ELEC.REV.CT-RES.A",2488,2557,2514,2339,2213,2306,2523,2699,2537,2512,2769,2733
+"Connecticut : commercial","million dollars","ELEC.REV.CT-COM.A",2340,2236,2209,2038,1901,1904,2005,2070,2000,1981,2075,2036
+"Connecticut : industrial","million dollars","ELEC.REV.CT-IND.A",653,553,539,486,452,440,454,445,432,425,442,413
+"Connecticut : transportation","million dollars","ELEC.REV.CT-TRA.A",29,22,21,19,19,20,22,25,20,19,23,24
+"Connecticut : other","million dollars","ELEC.REV.CT-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Maine","million dollars","ELEC.REV.ME-ALL.A",,,,,,,,,,,,
+"Maine : all sectors","million dollars","ELEC.REV.ME-ALL.A",1611,1481,1481,1436,1366,1406,1518,1519,1465,1460,1660,1647
+"Maine : residential","million dollars","ELEC.REV.ME-RES.A",707,682,687,674,657,669,712,728,726,741,821,858
+"Maine : commercial","million dollars","ELEC.REV.ME-COM.A",537,513,513,494,467,471,506,501,482,475,556,532
+"Maine : industrial","million dollars","ELEC.REV.ME-IND.A",367,286,281,268,242,265,300,290,258,245,283,257
+"Maine : transportation","million dollars","ELEC.REV.ME-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"Maine : other","million dollars","ELEC.REV.ME-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Massachusetts","million dollars","ELEC.REV.MA-ALL.A",,,,,,,,,,,,
+"Massachusetts : all sectors","million dollars","ELEC.REV.MA-ALL.A",9072,8397,8145,7842,7627,8020,8364,9232,8812,8991,9860,9445
+"Massachusetts : residential","million dollars","ELEC.REV.MA-RES.A",3449,3286,3125,3003,3029,3282,3491,4000,3742,3879,4383,4233
+"Massachusetts : commercial","million dollars","ELEC.REV.MA-COM.A",4271,2731,2651,2547,2453,2521,3827,4136,4046,4138,4457,4255
+"Massachusetts : industrial","million dollars","ELEC.REV.MA-IND.A",1319,2357,2347,2270,2127,2169,1014,1069,1004,952,998,936
+"Massachusetts : transportation","million dollars","ELEC.REV.MA-TRA.A",33,22,23,22,17,47,32,27,20,22,22,21
+"Massachusetts : other","million dollars","ELEC.REV.MA-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"New Hampshire","million dollars","ELEC.REV.NH-ALL.A",,,,,,,,,,,,
+"New Hampshire : all sectors","million dollars","ELEC.REV.NH-ALL.A",1606,1615,1616,1602,1543,1579,1666,1762,1707,1744,1880,1838
+"New Hampshire : residential","million dollars","ELEC.REV.NH-RES.A",689,725,732,736,713,744,791,838,816,853,914,904
+"New Hampshire : commercial","million dollars","ELEC.REV.NH-COM.A",646,638,636,629,598,611,640,672,645,650,703,682
+"New Hampshire : industrial","million dollars","ELEC.REV.NH-IND.A",271,252,248,238,231,225,235,252,247,241,263,252
+"New Hampshire : transportation","million dollars","ELEC.REV.NH-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"New Hampshire : other","million dollars","ELEC.REV.NH-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Rhode Island","million dollars","ELEC.REV.RI-ALL.A",,,,,,,,,,,,
+"Rhode Island : all sectors","million dollars","ELEC.REV.RI-ALL.A",1254,1083,1098,1008,982,1067,1178,1304,1225,1213,1373,1359
+"Rhode Island : residential","million dollars","ELEC.REV.RI-RES.A",531,458,496,449,450,481,527,605,574,555,642,648
+"Rhode Island : commercial","million dollars","ELEC.REV.RI-COM.A",570,504,484,453,432,474,533,584,543,548,613,597
+"Rhode Island : industrial","million dollars","ELEC.REV.RI-IND.A",153,121,114,103,99,109,114,110,103,106,113,108
+"Rhode Island : transportation","million dollars","ELEC.REV.RI-TRA.A",0,0,4,4,2,3,4,5,5,5,5,5
+"Rhode Island : other","million dollars","ELEC.REV.RI-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Vermont","million dollars","ELEC.REV.VT-ALL.A",,,,,,,,,,,,
+"Vermont : all sectors","million dollars","ELEC.REV.VT-ALL.A",708,701,741,766,784,817,811,795,798,792,837,834
+"Vermont : residential","million dollars","ELEC.REV.VT-RES.A",309,316,331,346,356,364,371,357,357,358,381,369
+"Vermont : commercial","million dollars","ELEC.REV.VT-COM.A",255,258,272,281,285,296,296,292,293,289,305,309
+"Vermont : industrial","million dollars","ELEC.REV.VT-IND.A",144,127,138,139,142,157,145,146,148,145,150,156
+"Vermont : transportation","million dollars","ELEC.REV.VT-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"Vermont : other","million dollars","ELEC.REV.VT-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Middle Atlantic","million dollars","ELEC.REV.MAT-ALL.A",,,,,,,,,,,,
+"Middle Atlantic : all sectors","million dollars","ELEC.REV.MAT-ALL.A",49372,46439,50713,49420,46285,47399,49331,48212,46276,45624,47336,45088
+"Middle Atlantic : residential","million dollars","ELEC.REV.MAT-RES.A",19675,19146,21587,21395,20195,20972,21649,21487,20977,20552,21974,21039
+"Middle Atlantic : commercial","million dollars","ELEC.REV.MAT-COM.A",23137,21541,22956,21713,20395,20596,21572,20937,19808,19601,19729,18705
+"Middle Atlantic : industrial","million dollars","ELEC.REV.MAT-IND.A",6085,5246,5661,5803,5206,5344,5621,5331,5071,5040,5191,4925
+"Middle Atlantic : transportation","million dollars","ELEC.REV.MAT-TRA.A",474,505,509,509,489,486,489,457,419,431,441,418
+"Middle Atlantic : other","million dollars","ELEC.REV.MAT-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"New Jersey","million dollars","ELEC.REV.NJ-ALL.A",,,,,,,,,,,,
+"New Jersey : all sectors","million dollars","ELEC.REV.NJ-ALL.A",11615,11012,11626,10991,10267,10222,10303,10370,10082,9777,10057,9922
+"New Jersey : residential","million dollars","ELEC.REV.NJ-RES.A",4560,4541,5022,4773,4524,4490,4400,4607,4574,4344,4550,4535
+"New Jersey : commercial","million dollars","ELEC.REV.NJ-COM.A",5694,5450,5571,5268,4899,4884,5016,4952,4740,4663,4737,4651
+"New Jersey : industrial","million dollars","ELEC.REV.NJ-IND.A",1322,981,995,918,816,817,856,779,741,743,742,710
+"New Jersey : transportation","million dollars","ELEC.REV.NJ-TRA.A",40,40,38,33,28,32,32,31,26,27,28,27
+"New Jersey : other","million dollars","ELEC.REV.NJ-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"New York","million dollars","ELEC.REV.NY-ALL.A",,,,,,,,,,,,
+"New York : all sectors","million dollars","ELEC.REV.NY-ALL.A",23726,21624,23735,22889,21683,22836,23951,22747,21388,21366,22233,20884
+"New York : residential","million dollars","ELEC.REV.NY-RES.A",8978,8443,9548,9357,8930,9544,10031,9456,8934,8849,9659,8995
+"New York : commercial","million dollars","ELEC.REV.NY-COM.A",13000,11660,12601,12079,11446,11722,12341,11786,11054,11111,11128,10557
+"New York : industrial","million dollars","ELEC.REV.NY-IND.A",1379,1123,1185,1051,918,1179,1184,1141,1068,1055,1088,985
+"New York : transportation","million dollars","ELEC.REV.NY-TRA.A",369,397,402,401,390,391,394,365,332,350,359,346
+"New York : other","million dollars","ELEC.REV.NY-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Pennsylvania","million dollars","ELEC.REV.PA-ALL.A",,,,,,,,,,,,
+"Pennsylvania : all sectors","million dollars","ELEC.REV.PA-ALL.A",14030,13803,15352,15540,14335,14341,15078,15095,14806,14481,15045,14282
+"Pennsylvania : residential","million dollars","ELEC.REV.PA-RES.A",6137,6162,7017,7265,6742,6938,7218,7423,7470,7359,7765,7509
+"Pennsylvania : commercial","million dollars","ELEC.REV.PA-COM.A",4444,4431,4784,4365,4050,3991,4216,4199,4014,3826,3864,3498
+"Pennsylvania : industrial","million dollars","ELEC.REV.PA-IND.A",3384,3142,3481,3834,3472,3348,3581,3412,3262,3242,3362,3230
+"Pennsylvania : transportation","million dollars","ELEC.REV.PA-TRA.A",65,68,70,75,71,64,63,61,60,54,55,45
+"Pennsylvania : other","million dollars","ELEC.REV.PA-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"East North Central","million dollars","ELEC.REV.ENC-ALL.A",,,,,,,,,,,,
+"East North Central : all sectors","million dollars","ELEC.REV.ENC-ALL.A",50064,48707,52400,53191,53269,53558,56337,55713,56600,56053,58523,56642
+"East North Central : residential","million dollars","ELEC.REV.ENC-RES.A",19780,19943,22253,22595,22730,22820,23784,23730,24536,23951,25681,24929
+"East North Central : commercial","million dollars","ELEC.REV.ENC-COM.A",16827,16554,17171,17404,17336,17519,18328,18252,18498,18465,18887,18378
+"East North Central : industrial","million dollars","ELEC.REV.ENC-IND.A",13407,12158,12933,13153,13164,13182,14179,13690,13525,13598,13912,13290
+"East North Central : transportation","million dollars","ELEC.REV.ENC-TRA.A",50,51,43,40,39,36,46,41,40,39,43,45
+"East North Central : other","million dollars","ELEC.REV.ENC-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Illinois","million dollars","ELEC.REV.IL-ALL.A",,,,,,,,,,,,
+"Illinois : all sectors","million dollars","ELEC.REV.IL-ALL.A",13346,12504,13213,12821,12053,11707,13246,13033,13231,13020,13696,13228
+"Illinois : residential","million dollars","ELEC.REV.IL-RES.A",5178,4996,5599,5545,5335,4928,5481,5581,5765,5662,6029,5891
+"Illinois : commercial","million dollars","ELEC.REV.IL-COM.A",4786,4552,4565,4361,4058,4111,4688,4540,4592,4543,4631,4476
+"Illinois : industrial","million dollars","ELEC.REV.IL-IND.A",3339,2911,3011,2879,2625,2638,3037,2875,2840,2782,2999,2822
+"Illinois : transportation","million dollars","ELEC.REV.IL-TRA.A",43,44,38,35,34,31,40,36,35,33,37,39
+"Illinois : other","million dollars","ELEC.REV.IL-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Indiana","million dollars","ELEC.REV.IN-ALL.A",,,,,,,,,,,,
+"Indiana : all sectors","million dollars","ELEC.REV.IN-ALL.A",7582,7567,8127,8474,8721,9205,9686,9399,9557,9673,10161,10114
+"Indiana : residential","million dollars","ELEC.REV.IN-RES.A",3015,3093,3350,3410,3470,3673,3862,3753,3892,3878,4240,4183
+"Indiana : commercial","million dollars","ELEC.REV.IN-COM.A",1921,1971,2041,2116,2196,2328,2403,2349,2425,2495,2576,2594
+"Indiana : industrial","million dollars","ELEC.REV.IN-IND.A",2644,2501,2734,2946,3053,3202,3419,3295,3238,3298,3343,3335
+"Indiana : transportation","million dollars","ELEC.REV.IN-TRA.A",2,2,2,2,2,2,2,2,2,2,2,2
+"Indiana : other","million dollars","ELEC.REV.IN-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Michigan","million dollars","ELEC.REV.MI-ALL.A",,,,,,,,,,,,
+"Michigan : all sectors","million dollars","ELEC.REV.MI-ALL.A",9447,9227,10245,10926,11510,11550,11398,11023,11543,11496,11954,11701
+"Michigan : residential","million dollars","ELEC.REV.MI-RES.A",3685,3813,4321,4621,4871,4962,4846,4811,5258,5078,5427,5273
+"Michigan : commercial","million dollars","ELEC.REV.MI-COM.A",3575,3501,3741,3989,4211,4171,4060,4057,4147,4217,4339,4313
+"Michigan : industrial","million dollars","ELEC.REV.MI-IND.A",2186,1913,2183,2315,2427,2417,2491,2155,2138,2201,2187,2114
+"Michigan : transportation","million dollars","ELEC.REV.MI-TRA.A",1,1,1,0,1,1,0,0,0,1,1,1
+"Michigan : other","million dollars","ELEC.REV.MI-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Ohio","million dollars","ELEC.REV.OH-ALL.A",,,,,,,,,,,,
+"Ohio : all sectors","million dollars","ELEC.REV.OH-ALL.A",13376,13195,14091,13969,13908,13831,14661,14886,14825,14433,15203,14229
+"Ohio : residential","million dollars","ELEC.REV.OH-RES.A",5371,5484,6162,6133,6148,6264,6598,6591,6551,6287,6840,6464
+"Ohio : commercial","million dollars","ELEC.REV.OH-COM.A",4367,4380,4528,4535,4429,4367,4618,4743,4762,4640,4769,4470
+"Ohio : industrial","million dollars","ELEC.REV.OH-IND.A",3632,3326,3398,3298,3328,3196,3441,3549,3509,3503,3592,3292
+"Ohio : transportation","million dollars","ELEC.REV.OH-TRA.A",5,4,3,2,2,3,4,3,3,3,3,3
+"Ohio : other","million dollars","ELEC.REV.OH-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Wisconsin","million dollars","ELEC.REV.WI-ALL.A",,,,,,,,,,,,
+"Wisconsin : all sectors","million dollars","ELEC.REV.WI-ALL.A",6313,6214,6723,7003,7078,7265,7345,7372,7443,7430,7508,7370
+"Wisconsin : residential","million dollars","ELEC.REV.WI-RES.A",2530,2557,2821,2885,2905,2993,2996,2994,3069,3046,3146,3118
+"Wisconsin : commercial","million dollars","ELEC.REV.WI-COM.A",2177,2150,2296,2403,2442,2542,2558,2562,2572,2571,2571,2525
+"Wisconsin : industrial","million dollars","ELEC.REV.WI-IND.A",1606,1508,1606,1715,1731,1730,1791,1816,1802,1814,1791,1727
+"Wisconsin : transportation","million dollars","ELEC.REV.WI-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"Wisconsin : other","million dollars","ELEC.REV.WI-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"West North Central","million dollars","ELEC.REV.WNC-ALL.A",,,,,,,,,,,,
+"West North Central : all sectors","million dollars","ELEC.REV.WNC-ALL.A",20749,21050,23307,24319,25069,26716,27477,27379,28312,28874,30256,29360
+"West North Central : residential","million dollars","ELEC.REV.WNC-RES.A",8997,9301,10394,10751,10888,11633,11860,11654,12127,12190,13184,12643
+"West North Central : commercial","million dollars","ELEC.REV.WNC-COM.A",7096,7259,7867,8185,8446,9064,9319,9431,9802,9995,10223,9911
+"West North Central : industrial","million dollars","ELEC.REV.WNC-IND.A",4653,4487,5042,5380,5733,6015,6295,6289,6378,6685,6845,6802
+"West North Central : transportation","million dollars","ELEC.REV.WNC-TRA.A",3,3,3,3,3,4,4,4,4,4,4,4
+"West North Central : other","million dollars","ELEC.REV.WNC-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Iowa","million dollars","ELEC.REV.IA-ALL.A",,,,,,,,,,,,
+"Iowa : all sectors","million dollars","ELEC.REV.IA-ALL.A",3135,3215,3480,3451,3524,3769,3847,3936,4143,4273,4566,4636
+"Iowa : residential","million dollars","ELEC.REV.IA-RES.A",1336,1371,1517,1499,1513,1615,1610,1604,1682,1693,1817,1806
+"Iowa : commercial","million dollars","ELEC.REV.IA-COM.A",875,884,952,949,978,1050,1070,1077,1127,1148,1203,1230
+"Iowa : industrial","million dollars","ELEC.REV.IA-IND.A",925,961,1011,1003,1033,1104,1167,1255,1333,1432,1546,1600
+"Iowa : transportation","million dollars","ELEC.REV.IA-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"Iowa : other","million dollars","ELEC.REV.IA-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Kansas","million dollars","ELEC.REV.KS-ALL.A",,,,,,,,,,,,
+"Kansas : all sectors","million dollars","ELEC.REV.KS-ALL.A",2979,3051,3374,3623,3761,3872,4120,4042,4283,4270,4505,4224
+"Kansas : residential","million dollars","ELEC.REV.KS-RES.A",1201,1254,1437,1527,1551,1583,1666,1635,1764,1732,1894,1733
+"Kansas : commercial","million dollars","ELEC.REV.KS-COM.A",1153,1182,1273,1370,1427,1476,1558,1553,1664,1667,1723,1638
+"Kansas : industrial","million dollars","ELEC.REV.KS-IND.A",625,616,664,725,783,814,897,854,855,870,887,853
+"Kansas : transportation","million dollars","ELEC.REV.KS-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"Kansas : other","million dollars","ELEC.REV.KS-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Minnesota","million dollars","ELEC.REV.MN-ALL.A",,,,,,,,,,,,
+"Minnesota : all sectors","million dollars","ELEC.REV.MN-ALL.A",5358,5209,5701,5929,6025,6458,6541,6346,6646,6898,7122,6915
+"Minnesota : residential","million dollars","ELEC.REV.MN-RES.A",2177,2212,2379,2469,2504,2698,2738,2631,2763,2814,3001,2907
+"Minnesota : commercial","million dollars","ELEC.REV.MN-COM.A",1781,1766,1887,1930,1989,2171,2249,2207,2316,2439,2429,2369
+"Minnesota : industrial","million dollars","ELEC.REV.MN-IND.A",1399,1229,1433,1528,1531,1587,1552,1506,1564,1643,1689,1637
+"Minnesota : transportation","million dollars","ELEC.REV.MN-TRA.A",2,2,2,2,2,2,2,2,2,2,2,2
+"Minnesota : other","million dollars","ELEC.REV.MN-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Missouri","million dollars","ELEC.REV.MO-ALL.A",,,,,,,,,,,,
+"Missouri : all sectors","million dollars","ELEC.REV.MO-ALL.A",5768,5872,6699,7008,7029,7538,7644,7696,7661,7672,8148,7636
+"Missouri : residential","million dollars","ELEC.REV.MO-RES.A",2832,2924,3386,3503,3492,3745,3808,3800,3851,3844,4249,3976
+"Missouri : commercial","million dollars","ELEC.REV.MO-COM.A",2057,2131,2358,2491,2499,2687,2729,2798,2846,2858,2931,2734
+"Missouri : industrial","million dollars","ELEC.REV.MO-IND.A",879,816,954,1013,1037,1105,1106,1096,962,968,966,925
+"Missouri : transportation","million dollars","ELEC.REV.MO-TRA.A",1,1,1,2,2,2,2,2,2,2,2,2
+"Missouri : other","million dollars","ELEC.REV.MO-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Nebraska","million dollars","ELEC.REV.NE-ALL.A",,,,,,,,,,,,
+"Nebraska : all sectors","million dollars","ELEC.REV.NE-ALL.A",1895,2050,2244,2338,2581,2683,2671,2627,2732,2756,2792,2759
+"Nebraska : residential","million dollars","ELEC.REV.NE-RES.A",768,820,903,927,972,1038,1043,1011,1056,1060,1114,1110
+"Nebraska : commercial","million dollars","ELEC.REV.NE-COM.A",631,683,728,730,774,807,831,807,819,822,843,837
+"Nebraska : industrial","million dollars","ELEC.REV.NE-IND.A",496,547,613,681,835,837,797,809,858,873,834,813
+"Nebraska : transportation","million dollars","ELEC.REV.NE-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"Nebraska : other","million dollars","ELEC.REV.NE-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"North Dakota","million dollars","ELEC.REV.ND-ALL.A",,,,,,,,,,,,
+"North Dakota : all sectors","million dollars","ELEC.REV.ND-ALL.A",830,839,921,1030,1152,1315,1535,1586,1655,1768,1842,1908
+"North Dakota : residential","million dollars","ELEC.REV.ND-RES.A",320,337,357,391,406,459,490,468,482,499,526,528
+"North Dakota : commercial","million dollars","ELEC.REV.ND-COM.A",304,310,340,370,410,477,475,555,580,600,622,634
+"North Dakota : industrial","million dollars","ELEC.REV.ND-IND.A",207,191,224,269,336,378,570,564,593,669,694,747
+"North Dakota : transportation","million dollars","ELEC.REV.ND-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"North Dakota : other","million dollars","ELEC.REV.ND-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"South Dakota","million dollars","ELEC.REV.SD-ALL.A",,,,,,,,,,,,
+"South Dakota : all sectors","million dollars","ELEC.REV.SD-ALL.A",784,813,888,940,996,1081,1118,1146,1193,1238,1282,1281
+"South Dakota : residential","million dollars","ELEC.REV.SD-RES.A",365,383,415,435,448,495,505,507,530,548,582,584
+"South Dakota : commercial","million dollars","ELEC.REV.SD-COM.A",295,303,330,345,369,397,406,435,450,460,472,469
+"South Dakota : industrial","million dollars","ELEC.REV.SD-IND.A",124,128,143,160,179,190,206,205,213,230,228,228
+"South Dakota : transportation","million dollars","ELEC.REV.SD-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"South Dakota : other","million dollars","ELEC.REV.SD-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"South Atlantic","million dollars","ELEC.REV.SAT-ALL.A",,,,,,,,,,,,
+"South Atlantic : all sectors","million dollars","ELEC.REV.SAT-ALL.A",74890,77377,79324,78000,75973,76733,81144,81280,79906,79761,82683,83250
+"South Atlantic : residential","million dollars","ELEC.REV.SAT-RES.A",36779,39176,41172,39652,38314,39047,41752,42175,41790,41439,43771,44201
+"South Atlantic : commercial","million dollars","ELEC.REV.SAT-COM.A",28510,29181,28807,28912,28421,28451,29710,29576,28983,29092,29507,29764
+"South Atlantic : industrial","million dollars","ELEC.REV.SAT-IND.A",9458,8883,9221,9317,9129,9120,9569,9421,9028,9128,9299,9175
+"South Atlantic : transportation","million dollars","ELEC.REV.SAT-TRA.A",143,137,124,119,109,114,113,109,105,102,105,109
+"South Atlantic : other","million dollars","ELEC.REV.SAT-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Delaware","million dollars","ELEC.REV.DE-ALL.A",,,,,,,,,,,,
+"Delaware : all sectors","million dollars","ELEC.REV.DE-ALL.A",1455,1374,1390,1319,1274,1237,1272,1285,1249,1214,1242,1207
+"Delaware : residential","million dollars","ELEC.REV.DE-RES.A",617,610,657,635,614,592,617,651,639,622,635,628
+"Delaware : commercial","million dollars","ELEC.REV.DE-COM.A",525,504,491,453,430,424,441,433,426,414,419,421
+"Delaware : industrial","million dollars","ELEC.REV.DE-IND.A",313,260,242,231,230,221,214,201,183,177,188,157
+"Delaware : transportation","million dollars","ELEC.REV.DE-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"Delaware : other","million dollars","ELEC.REV.DE-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"District Of Columbia","million dollars","ELEC.REV.DC-ALL.A",,,,,,,,,,,,
+"District Of Columbia : all sectors","million dollars","ELEC.REV.DC-ALL.A",1530,1513,1586,1481,1335,1314,1356,1362,1337,1288,1367,1354
+"District Of Columbia : residential","million dollars","ELEC.REV.DC-RES.A",245,261,297,276,246,256,264,324,308,310,333,331
+"District Of Columbia : commercial","million dollars","ELEC.REV.DC-COM.A",1214,1192,1236,1157,1048,1015,1042,987,981,933,986,975
+"District Of Columbia : industrial","million dollars","ELEC.REV.DC-IND.A",27,20,18,15,12,13,20,21,17,15,16,15
+"District Of Columbia : transportation","million dollars","ELEC.REV.DC-TRA.A",44,40,34,32,29,31,29,30,32,30,32,33
+"District Of Columbia : other","million dollars","ELEC.REV.DC-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Florida","million dollars","ELEC.REV.FL-ALL.A",,,,,,,,,,,,
+"Florida : all sectors","million dollars","ELEC.REV.FL-ALL.A",24296,25825,24460,23880,23029,22678,24339,24719,23348,24286,24614,25103
+"Florida : residential","million dollars","ELEC.REV.FL-RES.A",13279,14303,13982,13389,12807,12770,13855,14217,13545,14098,14485,14883
+"Florida : commercial","million dollars","ELEC.REV.FL-COM.A",9446,9937,8942,9040,8895,8653,9170,9106,8507,8882,8845,8950
+"Florida : industrial","million dollars","ELEC.REV.FL-IND.A",1562,1577,1529,1444,1320,1247,1306,1388,1288,1299,1276,1263
+"Florida : transportation","million dollars","ELEC.REV.FL-TRA.A",9,9,7,8,7,8,9,9,8,7,7,7
+"Florida : other","million dollars","ELEC.REV.FL-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Georgia","million dollars","ELEC.REV.GA-ALL.A",,,,,,,,,,,,
+"Georgia : all sectors","million dollars","ELEC.REV.GA-ALL.A",11951,11516,12481,13109,12275,12650,13614,13070,13240,13115,13453,13740
+"Georgia : residential","million dollars","ELEC.REV.GA-RES.A",5517,5588,6198,6384,5996,6136,6659,6511,6659,6517,6847,6979
+"Georgia : commercial","million dollars","ELEC.REV.GA-COM.A",4250,4120,4338,4631,4400,4529,4827,4663,4688,4667,4633,4752
+"Georgia : industrial","million dollars","ELEC.REV.GA-IND.A",2170,1796,1932,2080,1866,1972,2116,1887,1884,1922,1963,1999
+"Georgia : transportation","million dollars","ELEC.REV.GA-TRA.A",13,13,13,14,12,13,12,9,9,9,9,10
+"Georgia : other","million dollars","ELEC.REV.GA-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Maryland","million dollars","ELEC.REV.MD-ALL.A",,,,,,,,,,,,
+"Maryland : all sectors","million dollars","ELEC.REV.MD-ALL.A",8237,8194,8301,7591,6974,7215,7465,7458,7492,7106,7182,6823
+"Maryland : residential","million dollars","ELEC.REV.MD-RES.A",3757,4037,4143,3634,3425,3638,3746,3787,3886,3641,3742,3611
+"Maryland : commercial","million dollars","ELEC.REV.MD-COM.A",3831,3572,3617,3468,3141,3202,3325,3296,3262,3107,3083,2880
+"Maryland : industrial","million dollars","ELEC.REV.MD-IND.A",587,527,487,439,364,330,348,331,301,318,318,290
+"Maryland : transportation","million dollars","ELEC.REV.MD-TRA.A",62,58,54,49,44,46,46,45,42,41,39,42
+"Maryland : other","million dollars","ELEC.REV.MD-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"North Carolina","million dollars","ELEC.REV.NC-ALL.A",,,,,,,,,,,,
+"North Carolina : all sectors","million dollars","ELEC.REV.NC-ALL.A",10359,10821,11823,11332,11721,11991,12422,12547,12362,11881,12797,12893
+"North Carolina : residential","million dollars","ELEC.REV.NC-RES.A",5306,5627,6288,5955,5963,6172,6511,6532,6446,6138,6835,6834
+"North Carolina : commercial","million dollars","ELEC.REV.NC-COM.A",3515,3690,3911,3780,4030,4085,4158,4210,4189,4043,4229,4331
+"North Carolina : industrial","million dollars","ELEC.REV.NC-IND.A",1537,1504,1623,1597,1727,1733,1752,1804,1725,1699,1732,1727
+"North Carolina : transportation","million dollars","ELEC.REV.NC-TRA.A",0,0,0,1,1,1,1,1,1,0,1,2
+"North Carolina : other","million dollars","ELEC.REV.NC-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"South Carolina","million dollars","ELEC.REV.SC-ALL.A",,,,,,,,,,,,
+"South Carolina : all sectors","million dollars","ELEC.REV.SC-ALL.A",6335,6432,7004,7081,7080,7265,7890,7792,7788,7783,7891,8036
+"South Carolina : residential","million dollars","ELEC.REV.SC-RES.A",2939,3087,3450,3405,3338,3456,3824,3778,3874,3804,3963,4048
+"South Carolina : commercial","million dollars","ELEC.REV.SC-COM.A",1826,1873,1986,2008,2046,2086,2226,2240,2289,2301,2248,2345
+"South Carolina : industrial","million dollars","ELEC.REV.SC-IND.A",1570,1472,1568,1669,1696,1723,1840,1774,1625,1677,1681,1643
+"South Carolina : transportation","million dollars","ELEC.REV.SC-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"South Carolina : other","million dollars","ELEC.REV.SC-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Virginia","million dollars","ELEC.REV.VA-ALL.A",,,,,,,,,,,,
+"Virginia : all sectors","million dollars","ELEC.REV.VA-ALL.A",8809,9689,9894,9748,9780,9897,10284,10425,10211,10234,11204,11271
+"Virginia : residential","million dollars","ELEC.REV.VA-RES.A",4288,4748,5062,4871,4823,4925,5155,5221,5131,5079,5624,5632
+"Virginia : commercial","million dollars","ELEC.REV.VA-COM.A",3433,3772,3676,3743,3778,3820,3893,3970,3909,4023,4347,4417
+"Virginia : industrial","million dollars","ELEC.REV.VA-IND.A",1072,1153,1141,1118,1163,1136,1220,1219,1157,1118,1217,1206
+"Virginia : transportation","million dollars","ELEC.REV.VA-TRA.A",15,16,15,15,16,16,17,16,14,14,16,16
+"Virginia : other","million dollars","ELEC.REV.VA-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"West Virginia","million dollars","ELEC.REV.WV-ALL.A",,,,,,,,,,,,
+"West Virginia : all sectors","million dollars","ELEC.REV.WV-ALL.A",1920,2013,2386,2460,2507,2485,2502,2621,2879,2855,2933,2823
+"West Virginia : residential","million dollars","ELEC.REV.WV-RES.A",831,916,1094,1103,1103,1103,1120,1153,1302,1230,1306,1255
+"West Virginia : commercial","million dollars","ELEC.REV.WV-COM.A",469,521,610,632,654,636,629,672,732,723,719,693
+"West Virginia : industrial","million dollars","ELEC.REV.WV-IND.A",620,576,681,724,750,745,753,796,846,903,908,875
+"West Virginia : transportation","million dollars","ELEC.REV.WV-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"West Virginia : other","million dollars","ELEC.REV.WV-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"East South Central","million dollars","ELEC.REV.ESC-ALL.A",,,,,,,,,,,,
+"East South Central : all sectors","million dollars","ELEC.REV.ESC-ALL.A",26366,25434,27561,28197,27468,27737,28973,28387,28264,28236,29736,29364
+"East South Central : residential","million dollars","ELEC.REV.ESC-RES.A",11178,11185,12451,12429,11814,12228,13100,12796,12888,12633,13862,13668
+"East South Central : commercial","million dollars","ELEC.REV.ESC-COM.A",7700,7564,7993,8203,8124,8964,9284,9458,9542,9546,9983,9997
+"East South Central : industrial","million dollars","ELEC.REV.ESC-IND.A",7488,6685,7116,7566,7530,6544,6589,6133,5835,6058,5891,5699
+"East South Central : transportation","million dollars","ELEC.REV.ESC-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"East South Central : other","million dollars","ELEC.REV.ESC-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Alabama","million dollars","ELEC.REV.AL-ALL.A",,,,,,,,,,,,
+"Alabama : all sectors","million dollars","ELEC.REV.AL-ALL.A",7709,7315,8075,8100,7910,7924,8386,8292,8436,8476,8694,8659
+"Alabama : residential","million dollars","ELEC.REV.AL-RES.A",3348,3356,3791,3661,3491,3533,3782,3732,3843,3787,4028,4061
+"Alabama : commercial","million dollars","ELEC.REV.AL-COM.A",2223,2204,2339,2331,2318,2377,2474,2539,2627,2638,2639,2658
+"Alabama : industrial","million dollars","ELEC.REV.AL-IND.A",2138,1755,1945,2107,2101,2014,2131,2021,1966,2052,2028,1940
+"Alabama : transportation","million dollars","ELEC.REV.AL-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"Alabama : other","million dollars","ELEC.REV.AL-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Kentucky","million dollars","ELEC.REV.KY-ALL.A",,,,,,,,,,,,
+"Kentucky : all sectors","million dollars","ELEC.REV.KY-ALL.A",5848,5796,6300,6418,6462,6515,6425,6189,6276,6227,6525,6484
+"Kentucky : residential","million dollars","ELEC.REV.KY-RES.A",2190,2223,2497,2503,2461,2623,2785,2680,2763,2700,2936,2869
+"Kentucky : commercial","million dollars","ELEC.REV.KY-COM.A",1433,1430,1530,1589,1637,1798,1808,1848,1912,1900,1946,1991
+"Kentucky : industrial","million dollars","ELEC.REV.KY-IND.A",2224,2143,2274,2326,2365,2094,1833,1661,1600,1627,1643,1624
+"Kentucky : transportation","million dollars","ELEC.REV.KY-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"Kentucky : other","million dollars","ELEC.REV.KY-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Mississippi","million dollars","ELEC.REV.MS-ALL.A",,,,,,,,,,,,
+"Mississippi : all sectors","million dollars","ELEC.REV.MS-ALL.A",4289,4074,4271,4331,4163,4445,4744,4643,4253,4348,4655,4543
+"Mississippi : residential","million dollars","ELEC.REV.MS-RES.A",1902,1850,1992,1966,1847,1990,2141,2092,1932,1933,2147,2109
+"Mississippi : commercial","million dollars","ELEC.REV.MS-COM.A",1325,1236,1286,1302,1267,1433,1525,1518,1390,1449,1516,1498
+"Mississippi : industrial","million dollars","ELEC.REV.MS-IND.A",1062,988,993,1062,1049,1023,1077,1033,931,966,993,936
+"Mississippi : transportation","million dollars","ELEC.REV.MS-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"Mississippi : other","million dollars","ELEC.REV.MS-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Tennessee","million dollars","ELEC.REV.TN-ALL.A",,,,,,,,,,,,
+"Tennessee : all sectors","million dollars","ELEC.REV.TN-ALL.A",8520,8249,8915,9348,8933,8853,9418,9263,9299,9185,9861,9678
+"Tennessee : residential","million dollars","ELEC.REV.TN-RES.A",3739,3755,4172,4298,4016,4083,4392,4292,4350,4214,4752,4629
+"Tennessee : commercial","million dollars","ELEC.REV.TN-COM.A",2718,2695,2839,2980,2902,3357,3477,3553,3612,3559,3882,3851
+"Tennessee : industrial","million dollars","ELEC.REV.TN-IND.A",2063,1798,1904,2070,2015,1413,1549,1418,1337,1413,1228,1198
+"Tennessee : transportation","million dollars","ELEC.REV.TN-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"Tennessee : other","million dollars","ELEC.REV.TN-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"West South Central","million dollars","ELEC.REV.WSC-ALL.A",,,,,,,,,,,,
+"West South Central : all sectors","million dollars","ELEC.REV.WSC-ALL.A",53565,46665,48034,48692,45104,48110,50925,49786,48980,49550,52340,53134
+"West South Central : residential","million dollars","ELEC.REV.WSC-RES.A",23279,21875,22708,23019,21435,22813,23818,23870,22999,22828,25056,25587
+"West South Central : commercial","million dollars","ELEC.REV.WSC-COM.A",16923,15370,15527,15767,15131,15617,16228,15880,16211,16221,16564,16257
+"West South Central : industrial","million dollars","ELEC.REV.WSC-IND.A",13357,9413,9791,9899,8529,9673,10869,10025,9755,10485,10703,11277
+"West South Central : transportation","million dollars","ELEC.REV.WSC-TRA.A",7,8,8,8,8,7,10,11,16,16,16,13
+"West South Central : other","million dollars","ELEC.REV.WSC-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Arkansas","million dollars","ELEC.REV.AR-ALL.A",,,,,,,,,,,,
+"Arkansas : all sectors","million dollars","ELEC.REV.AR-ALL.A",3507,3267,3507,3562,3570,3704,3721,3804,3753,3805,3859,3952
+"Arkansas : residential","million dollars","ELEC.REV.AR-RES.A",1613,1552,1703,1694,1665,1746,1753,1794,1765,1750,1889,1835
+"Arkansas : commercial","million dollars","ELEC.REV.AR-COM.A",890,867,891,911,934,957,965,1011,1002,1014,951,1050
+"Arkansas : industrial","million dollars","ELEC.REV.AR-IND.A",1004,847,913,957,971,1000,1002,999,986,1041,1019,1068
+"Arkansas : transportation","million dollars","ELEC.REV.AR-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"Arkansas : other","million dollars","ELEC.REV.AR-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Louisiana","million dollars","ELEC.REV.LA-ALL.A",,,,,,,,,,,,
+"Louisiana : all sectors","million dollars","ELEC.REV.LA-ALL.A",7428,5550,6640,6632,5844,6896,7336,7011,6825,7105,7263,7179
+"Louisiana : residential","million dollars","ELEC.REV.LA-RES.A",2967,2411,2935,2870,2514,2895,3005,2944,2862,2875,3074,3035
+"Louisiana : commercial","million dollars","ELEC.REV.LA-COM.A",2322,1793,2058,2050,1880,2174,2229,2166,2139,2193,2185,2164
+"Louisiana : industrial","million dollars","ELEC.REV.LA-IND.A",2139,1346,1646,1711,1449,1825,2100,1901,1822,2036,2003,1979
+"Louisiana : transportation","million dollars","ELEC.REV.LA-TRA.A",1,1,1,1,1,1,1,1,1,1,1,1
+"Louisiana : other","million dollars","ELEC.REV.LA-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Oklahoma","million dollars","ELEC.REV.OK-ALL.A",,,,,,,,,,,,
+"Oklahoma : all sectors","million dollars","ELEC.REV.OK-ALL.A",4394,3784,4390,4666,4472,4713,5036,4846,4814,4963,5224,5092
+"Oklahoma : residential","million dollars","ELEC.REV.OK-RES.A",1987,1837,2164,2313,2168,2244,2343,2294,2324,2317,2484,2430
+"Oklahoma : commercial","million dollars","ELEC.REV.OK-COM.A",1499,1261,1415,1490,1461,1541,1654,1588,1586,1662,1713,1603
+"Oklahoma : industrial","million dollars","ELEC.REV.OK-IND.A",908,686,811,863,843,927,1039,964,905,984,1027,1059
+"Oklahoma : transportation","million dollars","ELEC.REV.OK-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"Oklahoma : other","million dollars","ELEC.REV.OK-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Texas","million dollars","ELEC.REV.TX-ALL.A",,,,,,,,,,,,
+"Texas : all sectors","million dollars","ELEC.REV.TX-ALL.A",38236,34063,33497,33832,31218,32797,34832,34124,33588,33678,35994,36910
+"Texas : residential","million dollars","ELEC.REV.TX-RES.A",16712,16074,15906,16142,15088,15926,16716,16838,16048,15886,17610,18287
+"Texas : commercial","million dollars","ELEC.REV.TX-COM.A",12212,11448,11163,11315,10857,10945,11380,11115,11484,11352,11715,11440
+"Texas : industrial","million dollars","ELEC.REV.TX-IND.A",9307,6534,6420,6368,5266,5920,6727,6161,6042,6424,6654,7171
+"Texas : transportation","million dollars","ELEC.REV.TX-TRA.A",6,7,7,7,7,6,9,10,14,15,15,12
+"Texas : other","million dollars","ELEC.REV.TX-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Mountain","million dollars","ELEC.REV.MTN-ALL.A",,,,,,,,,,,,
+"Mountain : all sectors","million dollars","ELEC.REV.MTN-ALL.A",22072,22008,22647,23189,23935,25073,25669,26073,25698,26452,26866,26629
+"Mountain : residential","million dollars","ELEC.REV.MTN-RES.A",9256,9512,9795,10012,10378,10902,10946,11264,11298,11717,11974,11866
+"Mountain : commercial","million dollars","ELEC.REV.MTN-COM.A",7897,7878,8042,8275,8464,8844,9058,9212,9066,9333,9470,9373
+"Mountain : industrial","million dollars","ELEC.REV.MTN-IND.A",4911,4611,4802,4892,5083,5313,5650,5583,5320,5388,5407,5372
+"Mountain : transportation","million dollars","ELEC.REV.MTN-TRA.A",7,7,8,9,10,13,14,13,13,14,15,17
+"Mountain : other","million dollars","ELEC.REV.MTN-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Arizona","million dollars","ELEC.REV.AZ-ALL.A",,,,,,,,,,,,
+"Arizona : all sectors","million dollars","ELEC.REV.AZ-ALL.A",6951,7017,7059,7279,7361,7669,7764,7999,8082,8259,8501,8197
+"Arizona : residential","million dollars","ELEC.REV.AZ-RES.A",3412,3524,3558,3666,3718,3878,3849,4023,4094,4259,4425,4317
+"Arizona : commercial","million dollars","ELEC.REV.AZ-COM.A",2693,2748,2742,2803,2830,2958,2968,3043,3078,3115,3158,3014
+"Arizona : industrial","million dollars","ELEC.REV.AZ-IND.A",846,745,759,810,813,833,948,933,909,884,916,865
+"Arizona : transportation","million dollars","ELEC.REV.AZ-TRA.A",0,0,0,0,0,0,0,1,1,1,1,1
+"Arizona : other","million dollars","ELEC.REV.AZ-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Colorado","million dollars","ELEC.REV.CO-ALL.A",,,,,,,,,,,,
+"Colorado : all sectors","million dollars","ELEC.REV.CO-ALL.A",4480,4242,4840,5018,5042,5282,5369,5380,5386,5476,5655,5750
+"Colorado : residential","million dollars","ELEC.REV.CO-RES.A",1794,1740,1998,2059,2088,2210,2204,2228,2274,2265,2343,2363
+"Colorado : commercial","million dollars","ELEC.REV.CO-COM.A",1762,1631,1790,1878,1878,1982,2029,2017,1996,2041,2106,2203
+"Colorado : industrial","million dollars","ELEC.REV.CO-IND.A",919,867,1048,1076,1071,1083,1129,1129,1110,1163,1199,1175
+"Colorado : transportation","million dollars","ELEC.REV.CO-TRA.A",4,4,4,5,5,7,7,6,6,7,8,10
+"Colorado : other","million dollars","ELEC.REV.CO-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Idaho","million dollars","ELEC.REV.ID-ALL.A",,,,,,,,,,,,
+"Idaho : all sectors","million dollars","ELEC.REV.ID-ALL.A",1361,1481,1492,1498,1642,1833,1841,1865,1865,1965,1941,1892
+"Idaho : residential","million dollars","ELEC.REV.ID-RES.A",597,667,650,661,707,804,791,800,813,876,855,860
+"Idaho : commercial","million dollars","ELEC.REV.ID-COM.A",346,389,389,383,410,460,476,489,487,513,511,494
+"Idaho : industrial","million dollars","ELEC.REV.ID-IND.A",418,424,453,455,525,569,574,576,564,576,575,538
+"Idaho : transportation","million dollars","ELEC.REV.ID-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"Idaho : other","million dollars","ELEC.REV.ID-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Montana","million dollars","ELEC.REV.MT-ALL.A",,,,,,,,,,,,
+"Montana : all sectors","million dollars","ELEC.REV.MT-ALL.A",1183,1087,1079,1135,1143,1205,1211,1264,1246,1312,1312,1382
+"Montana : residential","million dollars","ELEC.REV.MT-RES.A",426,428,434,479,482,509,506,525,531,572,570,591
+"Montana : commercial","million dollars","ELEC.REV.MT-COM.A",412,399,409,446,449,466,473,501,492,503,497,516
+"Montana : industrial","million dollars","ELEC.REV.MT-IND.A",344,261,235,210,213,230,232,239,223,237,245,276
+"Montana : transportation","million dollars","ELEC.REV.MT-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"Montana : other","million dollars","ELEC.REV.MT-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Nevada","million dollars","ELEC.REV.NV-ALL.A",,,,,,,,,,,,
+"Nevada : all sectors","million dollars","ELEC.REV.NV-ALL.A",3480,3553,3286,3041,3148,3180,3411,3413,3031,3212,3277,3247
+"Nevada : residential","million dollars","ELEC.REV.NV-RES.A",1439,1527,1436,1334,1434,1444,1541,1574,1448,1550,1593,1545
+"Nevada : commercial","million dollars","ELEC.REV.NV-COM.A",937,953,878,814,822,839,892,889,788,886,939,939
+"Nevada : industrial","million dollars","ELEC.REV.NV-IND.A",1103,1072,972,892,891,896,977,949,795,775,744,763
+"Nevada : transportation","million dollars","ELEC.REV.NV-TRA.A",1,1,1,1,1,1,1,1,1,1,1,1
+"Nevada : other","million dollars","ELEC.REV.NV-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"New Mexico","million dollars","ELEC.REV.NM-ALL.A",,,,,,,,,,,,
+"New Mexico : all sectors","million dollars","ELEC.REV.NM-ALL.A",1840,1752,1883,2015,2047,2132,2232,2223,2101,2208,2250,2236
+"New Mexico : residential","million dollars","ELEC.REV.NM-RES.A",639,652,711,756,769,795,812,828,799,837,866,860
+"New Mexico : commercial","million dollars","ELEC.REV.NM-COM.A",765,734,773,840,855,875,922,915,858,895,905,884
+"New Mexico : industrial","million dollars","ELEC.REV.NM-IND.A",436,367,400,419,423,463,498,480,443,476,478,492
+"New Mexico : transportation","million dollars","ELEC.REV.NM-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"New Mexico : other","million dollars","ELEC.REV.NM-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Utah","million dollars","ELEC.REV.UT-ALL.A",,,,,,,,,,,,
+"Utah : all sectors","million dollars","ELEC.REV.UT-ALL.A",1830,1868,1948,2057,2331,2484,2510,2579,2632,2632,2565,2565
+"Utah : residential","million dollars","ELEC.REV.UT-RES.A",725,740,769,802,912,975,954,992,1032,1042,1011,1013
+"Utah : commercial","million dollars","ELEC.REV.UT-COM.A",686,712,741,775,870,916,943,1002,1012,1015,994,979
+"Utah : industrial","million dollars","ELEC.REV.UT-IND.A",417,414,434,476,545,588,606,580,581,569,554,567
+"Utah : transportation","million dollars","ELEC.REV.UT-TRA.A",3,3,3,3,4,6,6,6,6,6,5,5
+"Utah : other","million dollars","ELEC.REV.UT-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Wyoming","million dollars","ELEC.REV.WY-ALL.A",,,,,,,,,,,,
+"Wyoming : all sectors","million dollars","ELEC.REV.WY-ALL.A",947,1007,1061,1146,1221,1288,1330,1349,1355,1389,1365,1358
+"Wyoming : residential","million dollars","ELEC.REV.WY-RES.A",223,233,239,255,268,287,289,294,306,315,310,318
+"Wyoming : commercial","million dollars","ELEC.REV.WY-COM.A",296,312,320,336,350,349,355,358,354,365,360,345
+"Wyoming : industrial","million dollars","ELEC.REV.WY-IND.A",428,462,501,555,603,652,686,698,695,709,695,695
+"Wyoming : transportation","million dollars","ELEC.REV.WY-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"Wyoming : other","million dollars","ELEC.REV.WY-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Pacific Contiguous","million dollars","ELEC.REV.PCC-ALL.A",,,,,,,,,,,,
+"Pacific Contiguous : all sectors","million dollars","ELEC.REV.PCC-ALL.A",42778,43871,43132,44342,45370,47981,50456,51088,50125,53023,53882,54053
+"Pacific Contiguous : residential","million dollars","ELEC.REV.PCC-RES.A",17026,17779,17351,17924,18699,19524,19507,20234,20585,22240,22308,22432
+"Pacific Contiguous : commercial","million dollars","ELEC.REV.PCC-COM.A",18897,19370,19162,19506,19885,20301,22380,22443,21477,22573,22954,23067
+"Pacific Contiguous : industrial","million dollars","ELEC.REV.PCC-IND.A",6783,6650,6549,6842,6735,8082,8492,8332,7984,8135,8552,8474
+"Pacific Contiguous : transportation","million dollars","ELEC.REV.PCC-TRA.A",72,72,70,70,52,74,77,78,79,75,68,80
+"Pacific Contiguous : other","million dollars","ELEC.REV.PCC-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"California","million dollars","ELEC.REV.CA-ALL.A",,,,,,,,,,,,
+"California : all sectors","million dollars","ELEC.REV.CA-ALL.A",33497,34369,33637,34193,35123,37372,39780,40285,39116,41315,42318,42290
+"California : residential","million dollars","ELEC.REV.CA-RES.A",12595,13239,12874,13061,13822,14481,14517,15188,15360,16501,16782,16764
+"California : commercial","million dollars","ELEC.REV.CA-COM.A",15684,16075,15864,16018,16327,16598,18663,18627,17603,18552,18924,19052
+"California : industrial","million dollars","ELEC.REV.CA-IND.A",5147,4985,4832,5046,4925,6222,6526,6394,6077,6190,6546,6406
+"California : transportation","million dollars","ELEC.REV.CA-TRA.A",71,70,68,67,49,71,74,75,77,72,65,68
+"California : other","million dollars","ELEC.REV.CA-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Oregon","million dollars","ELEC.REV.OR-ALL.A",,,,,,,,,,,,
+"Oregon : all sectors","million dollars","ELEC.REV.OR-ALL.A",3562,3554,3478,3793,3835,4019,4110,4134,4182,4409,4364,4438
+"Oregon : residential","million dollars","ELEC.REV.OR-RES.A",1691,1719,1672,1853,1849,1913,1949,1948,1981,2139,2079,2124
+"Oregon : commercial","million dollars","ELEC.REV.OR-COM.A",1189,1198,1173,1284,1314,1396,1404,1410,1431,1468,1468,1453
+"Oregon : industrial","million dollars","ELEC.REV.OR-IND.A",681,636,632,654,671,708,755,773,768,801,814,859
+"Oregon : transportation","million dollars","ELEC.REV.OR-TRA.A",1,2,2,2,2,2,2,2,2,2,2,2
+"Oregon : other","million dollars","ELEC.REV.OR-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Washington","million dollars","ELEC.REV.WA-ALL.A",,,,,,,,,,,,
+"Washington : all sectors","million dollars","ELEC.REV.WA-ALL.A",5719,5948,6017,6356,6412,6589,6566,6669,6827,7299,7200,7325
+"Washington : residential","million dollars","ELEC.REV.WA-RES.A",2741,2822,2806,3010,3028,3129,3041,3098,3245,3601,3446,3545
+"Washington : commercial","million dollars","ELEC.REV.WA-COM.A",2024,2097,2125,2203,2244,2307,2314,2406,2443,2553,2562,2561
+"Washington : industrial","million dollars","ELEC.REV.WA-IND.A",955,1029,1085,1142,1139,1152,1211,1165,1139,1144,1191,1209
+"Washington : transportation","million dollars","ELEC.REV.WA-TRA.A",0,0,1,1,1,0,0,0,1,1,1,9
+"Washington : other","million dollars","ELEC.REV.WA-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Pacific Noncontiguous","million dollars","ELEC.REV.PCN-ALL.A",,,,,,,,,,,,
+"Pacific Noncontiguous : all sectors","million dollars","ELEC.REV.PCN-ALL.A",3966,3094,3438,4163,4329,4194,4244,3572,3352,3610,3881,3891
+"Pacific Noncontiguous : residential","million dollars","ELEC.REV.PCN-RES.A",1355,1102,1180,1392,1409,1346,1348,1187,1125,1214,1313,1327
+"Pacific Noncontiguous : commercial","million dollars","ELEC.REV.PCN-COM.A",1430,1151,1264,1521,1559,1554,1568,1337,1246,1336,1398,1416
+"Pacific Noncontiguous : industrial","million dollars","ELEC.REV.PCN-IND.A",1181,841,993,1250,1361,1294,1328,1048,981,1060,1169,1148
+"Pacific Noncontiguous : transportation","million dollars","ELEC.REV.PCN-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"Pacific Noncontiguous : other","million dollars","ELEC.REV.PCN-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Alaska","million dollars","ELEC.REV.AK-ALL.A",,,,,,,,,,,,
+"Alaska : all sectors","million dollars","ELEC.REV.AK-ALL.A",932,946,922,1016,1048,1033,1076,1083,1098,1181,1156,1176
+"Alaska : residential","million dollars","ELEC.REV.AK-RES.A",353,363,340,376,386,381,391,405,407,438,433,442
+"Alaska : commercial","million dollars","ELEC.REV.AK-COM.A",389,411,395,431,429,440,472,482,480,511,492,522
+"Alaska : industrial","million dollars","ELEC.REV.AK-IND.A",191,172,187,209,232,212,213,196,211,232,231,212
+"Alaska : transportation","million dollars","ELEC.REV.AK-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"Alaska : other","million dollars","ELEC.REV.AK-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Hawaii","million dollars","ELEC.REV.HI-ALL.A",,,,,,,,,,,,
+"Hawaii : all sectors","million dollars","ELEC.REV.HI-ALL.A",3034,2148,2516,3147,3281,3161,3167,2489,2254,2429,2725,2715
+"Hawaii : residential","million dollars","ELEC.REV.HI-RES.A",1003,739,840,1016,1023,965,957,782,717,776,880,885
+"Hawaii : commercial","million dollars","ELEC.REV.HI-COM.A",1040,741,870,1090,1130,1114,1095,855,767,825,907,894
+"Hawaii : industrial","million dollars","ELEC.REV.HI-IND.A",991,668,806,1041,1129,1082,1115,852,770,828,938,936
+"Hawaii : transportation","million dollars","ELEC.REV.HI-TRA.A",0,0,0,0,0,0,0,0,0,0,0,0
+"Hawaii : other","million dollars","ELEC.REV.HI-OTH.A","--","--","--","--","--","--","--","--","--","--","--","--"

@@ -1,0 +1,502 @@
+"Receipts of fossil fuels by electricity plants for all sectors"
+"https://www.eia.gov/electricity/data/browser/#/topic/12?agg=0,1&fuel=f007&geo=vvvvvvvvvvvvo&freq=A&start=2008&end=2019&ctype=linechart&ltype=pin&rtype=s&pin=&rse=0&maptype=0"
+"Mon Feb 15 2021 12:52:56 GMT+0330 (Iran Standard Time)"
+"Source: U.S. Energy Information Administration"
+"description","units","source key","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019"
+"Receipts of fossil fuels by electricity plants for all sectors",,,,,,,,,,,,,,
+"United States",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"United States : coal","thousand tons","ELEC.RECEIPTS.COW-US-99.A",1069709,981477,979918,956538,841183,823222,854560,782929,650770,642364,596215,560153
+"United States : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-US-99.A",463943,418688,403619,380184,317398,312821,334082,289093,245141,224500,205783,198016
+"United States : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-US-99.A",522228,484007,491425,488366,442674,429283,440013,421127,333241,350580,329974,309029
+"United States : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-US-99.A",68945,64966,71416,75675,71848,71191,71534,65826,64426,59665,52438,46781
+"United States : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-US-99.A",61139,54181,45472,36158,19464,20413,28514,24320,16807,16127,22290,14711
+"United States : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-US-99.A",7040,6954,5963,5980,4180,4660,5195,4897,4166,3309,3010,1969
+"United States : natural gas","thousand mcf","ELEC.RECEIPTS.NG-US-99.A",7879046,8118550,8673070,9056164,9531389,8503424,8431423,9842581,10271180,9628733,10885764,11693486
+"New England",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"New England : coal","thousand tons","ELEC.RECEIPTS.COW-NEW-99.A",8409,6586,5725,3628,1146,2917,2577,2081,1173,198,276,159
+"New England : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-NEW-99.A",6868,6096,5197,3303,1104,2597,1836,1831,1088,198,156,159
+"New England : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-NEW-99.A",1526,490,527,325,41,320,741,251,85,0,120,0
+"New England : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-NEW-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"New England : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-NEW-99.A","NM","NM","NM",2334,560,3177,4554,2937,590,502,1724,357
+"New England : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-NEW-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"New England : natural gas","thousand mcf","ELEC.RECEIPTS.NG-NEW-99.A",394730,394249,452965,484260,440421,364201,329008,370575,372811,352098,357295,338041
+"Connecticut",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Connecticut : coal","thousand tons","ELEC.RECEIPTS.COW-CT-99.A",2033,1147,1183,349,41,320,487,251,85,0,105,0
+"Connecticut : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-CT-99.A",658,657,656,24,0,0,0,0,0,0,0,0
+"Connecticut : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-CT-99.A",1376,490,527,325,41,320,487,251,85,0,105,0
+"Connecticut : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-CT-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Connecticut : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-CT-99.A",686,658,610,264,161,594,1092,761,37,30,395,10
+"Connecticut : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-CT-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Connecticut : natural gas","thousand mcf","ELEC.RECEIPTS.NG-CT-99.A",65187,77029,91054,116563,112084,104666,96817,116115,118539,103957,132334,140794
+"Maine",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Maine : coal","thousand tons","ELEC.RECEIPTS.COW-ME-99.A",243,65,88,61,51,66,85,104,87,66,62,69
+"Maine : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-ME-99.A",228,65,88,61,51,66,85,104,87,66,62,69
+"Maine : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-ME-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Maine : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-ME-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Maine : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-ME-99.A",1929,1469,1267,1334,151,898,637,873,29,178,298,152
+"Maine : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-ME-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Maine : natural gas","thousand mcf","ELEC.RECEIPTS.NG-ME-99.A",59901,58027,64912,56230,42374,35119,29233,18262,22591,13735,13614,9373
+"Massachusetts",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Massachusetts : coal","thousand tons","ELEC.RECEIPTS.COW-MA-99.A",4674,4122,3390,2147,700,1805,1225,1070,824,87,0,0
+"Massachusetts : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-MA-99.A",4523,4122,3390,2147,700,1805,1225,1070,824,87,0,0
+"Massachusetts : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-MA-99.A",150,0,0,0,"--","--","--","--","--","--","--","--"
+"Massachusetts : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-MA-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Massachusetts : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-MA-99.A",3714,2204,831,476,238,1300,1867,1107,498,189,487,155
+"Massachusetts : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-MA-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Massachusetts : natural gas","thousand mcf","ELEC.RECEIPTS.NG-MA-99.A",165924,162734,198154,198295,175314,148736,126810,145641,150999,157628,132566,110879
+"New Hampshire",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"New Hampshire : coal","thousand tons","ELEC.RECEIPTS.COW-NH-99.A",1459,1252,1063,1070,353,726,526,657,177,45,94,90
+"New Hampshire : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-NH-99.A",1459,1252,1063,1070,353,726,526,657,177,45,94,90
+"New Hampshire : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-NH-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"New Hampshire : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-NH-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"New Hampshire : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-NH-99.A",585,384,157,160,9,354,741,81,11,80,365,13
+"New Hampshire : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-NH-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"New Hampshire : natural gas","thousand mcf","ELEC.RECEIPTS.NG-NH-99.A",49195,38365,39294,47137,50408,29644,31309,42713,33883,26062,21600,25487
+"Rhode Island",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Rhode Island : coal","thousand tons","ELEC.RECEIPTS.COW-RI-99.A","--","--","--","--","--","--",254,0,0,0,15,0
+"Rhode Island : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-RI-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Rhode Island : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-RI-99.A","--","--","--","--","--","--",254,0,0,0,15,0
+"Rhode Island : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-RI-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Rhode Island : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-RI-99.A",88,90,"NM","NM",0,31,217,115,15,27,179,28
+"Rhode Island : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-RI-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Rhode Island : natural gas","thousand mcf","ELEC.RECEIPTS.NG-RI-99.A",54484,58031,59496,65984,60203,46035,44839,47843,46798,50716,57181,51509
+"Vermont",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Vermont : coal","thousand tons","ELEC.RECEIPTS.COW-VT-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Vermont : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-VT-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Vermont : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-VT-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Vermont : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-VT-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Vermont : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-VT-99.A","NM","NM","NM","NM",1,0,0,0,0,0,0,0
+"Vermont : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-VT-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Vermont : natural gas","thousand mcf","ELEC.RECEIPTS.NG-VT-99.A",38,64,56,49,37,0,0,0,0,0,0,0
+"Middle Atlantic",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Middle Atlantic : coal","thousand tons","ELEC.RECEIPTS.COW-MAT-99.A",71032,60170,62518,55880,43998,42558,42038,31548,24329,23135,22115,19758
+"Middle Atlantic : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-MAT-99.A",52635,43514,46917,42775,35282,35064,33254,25758,17702,17027,15657,14879
+"Middle Atlantic : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-MAT-99.A",6639,5075,4474,2495,860,780,1218,420,0,0,0,0
+"Middle Atlantic : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-MAT-99.A",0,"--","--","--","--","--","--","--","--","--","--","--"
+"Middle Atlantic : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-MAT-99.A",8595,8729,4160,3418,1562,2088,5410,4179,1133,1159,3888,1293
+"Middle Atlantic : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-MAT-99.A",192,279,132,79,106,105,111,107,0,0,0,0
+"Middle Atlantic : natural gas","thousand mcf","ELEC.RECEIPTS.NG-MAT-99.A",752014,784342,912445,983951,1024559,943046,987872,1103350,1212167,1122972,1176917,1299674
+"New Jersey",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"New Jersey : coal","thousand tons","ELEC.RECEIPTS.COW-NJ-99.A",4483,2336,2526,2050,1059,1105,1091,854,649,656,603,562
+"New Jersey : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-NJ-99.A",3340,1397,1737,2036,1046,1105,1091,854,649,656,603,562
+"New Jersey : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-NJ-99.A",1142,939,789,14,13,0,0,0,0,0,0,0
+"New Jersey : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-NJ-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"New Jersey : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-NJ-99.A",817,907,629,516,124,52,283,119,18,18,264,77
+"New Jersey : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-NJ-99.A","--","--","--","NM",0,0,0,0,0,0,0,0
+"New Jersey : natural gas","thousand mcf","ELEC.RECEIPTS.NG-NJ-99.A",186281,179531,217809,218548,200570,197576,220363,266209,309871,268581,278523,285788
+"New York",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"New York : coal","thousand tons","ELEC.RECEIPTS.COW-NY-99.A",9505,6573,6065,5367,2218,2467,2903,1006,637,281,356,105
+"New York : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-NY-99.A",5635,3824,3406,3346,1370,1687,1726,586,637,281,356,105
+"New York : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-NY-99.A",3870,2748,2659,2021,847,780,1177,420,0,0,0,0
+"New York : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-NY-99.A",0,"--","--","--","--","--","--","--","--","--","--","--"
+"New York : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-NY-99.A",5976,6457,2665,1988,1022,1548,3545,3054,612,714,2437,823
+"New York : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-NY-99.A",67,179,122,23,0,0,0,0,0,0,0,0
+"New York : natural gas","thousand mcf","ELEC.RECEIPTS.NG-NY-99.A",413327,381601,440370,446583,447049,403332,400776,421822,422842,350206,382447,358271
+"Pennsylvania",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Pennsylvania : coal","thousand tons","ELEC.RECEIPTS.COW-PA-99.A",57044,51261,53928,48463,40721,38986,38044,29689,23042,22198,21156,19091
+"Pennsylvania : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-PA-99.A",43660,38293,41774,37393,32865,32273,30437,24318,16416,16090,14698,14212
+"Pennsylvania : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-PA-99.A",1626,1387,1025,460,0,0,41,0,0,0,0,0
+"Pennsylvania : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-PA-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Pennsylvania : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-PA-99.A",1802,1365,867,914,415,488,1583,1006,502,426,1187,393
+"Pennsylvania : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-PA-99.A",126,100,10,50,106,105,111,107,0,0,0,0
+"Pennsylvania : natural gas","thousand mcf","ELEC.RECEIPTS.NG-PA-99.A",152405,223209,254266,318821,376940,342138,366733,415319,479454,504185,515948,655615
+"East North Central",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"East North Central : coal","thousand tons","ELEC.RECEIPTS.COW-ENC-99.A",244955,225363,225132,213663,182345,185713,196078,174849,137391,138487,135418,121130
+"East North Central : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-ENC-99.A",105211,97693,93180,88818,77731,83996,91228,78115,68238,66089,61839,60981
+"East North Central : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-ENC-99.A",139184,127161,131193,124846,104615,101717,104850,96734,69152,72398,73578,60149
+"East North Central : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-ENC-99.A","--","--",0,"--","--","--","--",0,"--","--","--","--"
+"East North Central : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-ENC-99.A",2320,1997,1508,1557,1149,1177,1524,1081,1050,888,875,901
+"East North Central : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-ENC-99.A",1149,905,748,1416,893,860,1489,1309,1014,559,599,325
+"East North Central : natural gas","thousand mcf","ELEC.RECEIPTS.NG-ENC-99.A",275521,281030,369999,459563,621882,432952,440348,650392,845653,736347,980851,1140342
+"Illinois",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Illinois : coal","thousand tons","ELEC.RECEIPTS.COW-IL-99.A",60517,55086,58595,66839,61119,59536,62810,55587,39036,40231,42205,34332
+"Illinois : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-IL-99.A",5235,3959,4551,4994,8042,9525,8785,10032,9419,10322,9881,9941
+"Illinois : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-IL-99.A",54724,50618,53285,61846,53077,50011,54025,45555,29617,29909,32324,24390
+"Illinois : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-IL-99.A","--","--","--","--","--","--","--",0,"--","--","--","--"
+"Illinois : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-IL-99.A",271,245,215,174,131,129,179,101,119,116,98,90
+"Illinois : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-IL-99.A",0,0,0,"--","--","--",0,0,0,0,0,0
+"Illinois : natural gas","thousand mcf","ELEC.RECEIPTS.NG-IL-99.A",49742,49647,63458,67266,78693,40427,33334,72846,135248,107309,128983,159869
+"Indiana",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Indiana : coal","thousand tons","ELEC.RECEIPTS.COW-IN-99.A",61080,58281,54471,43919,36672,36386,40628,34888,28736,28961,29773,28275
+"Indiana : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-IN-99.A",40992,38839,37037,34065,30634,33254,37015,32490,26831,27535,27100,25962
+"Indiana : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-IN-99.A",20087,19442,17434,9855,6038,3133,3613,2398,1906,1426,2673,2313
+"Indiana : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-IN-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Indiana : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-IN-99.A",372,333,333,350,230,252,359,268,184,203,208,215
+"Indiana : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-IN-99.A",0,13,0,287,204,0,424,393,162,0,0,0
+"Indiana : natural gas","thousand mcf","ELEC.RECEIPTS.NG-IN-99.A",52012,53263,76940,101358,117031,74303,75417,113996,148401,122867,182600,211990
+"Michigan",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Michigan : coal","thousand tons","ELEC.RECEIPTS.COW-MI-99.A",38251,36474,36234,33779,29547,29349,30834,29684,21809,23611,22395,21214
+"Michigan : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-MI-99.A",9690,7645,7513,6624,3910,2925,4507,2944,2136,1752,1767,1829
+"Michigan : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-MI-99.A",28561,28829,28721,27155,25638,26424,26328,26740,19672,21858,20628,19385
+"Michigan : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-MI-99.A","--","--",0,"--","--","--","--","--","--","--","--","--"
+"Michigan : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-MI-99.A",734,714,344,366,215,230,227,177,180,154,159,153
+"Michigan : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-MI-99.A",162,186,203,188,36,151,427,295,295,504,539,280
+"Michigan : natural gas","thousand mcf","ELEC.RECEIPTS.NG-MI-99.A",99021,88738,119549,124100,175163,101525,99894,160213,237431,198703,231528,258751
+"Ohio",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Ohio : coal","thousand tons","ELEC.RECEIPTS.COW-OH-99.A",58556,51834,51301,45038,35005,37839,39646,31671,28881,25965,22772,22722
+"Ohio : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-OH-99.A",46261,45289,41838,39655,33647,36425,38541,31580,28713,25752,22575,22655
+"Ohio : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-OH-99.A",12293,6545,9464,5383,1358,1414,1105,91,168,212,197,68
+"Ohio : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-OH-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Ohio : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-OH-99.A",570,581,527,570,518,466,644,458,517,363,323,393
+"Ohio : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-OH-99.A",519,296,198,662,471,546,467,511,492,0,0,0
+"Ohio : natural gas","thousand mcf","ELEC.RECEIPTS.NG-OH-99.A",25605,40719,60624,111716,163870,158008,173203,204922,209824,206172,316263,365929
+"Wisconsin",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Wisconsin : coal","thousand tons","ELEC.RECEIPTS.COW-WI-99.A",26551,23686,24531,24087,20003,22602,22159,23020,18929,19719,18272,14587
+"Wisconsin : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-WI-99.A",3032,1960,2241,3480,1499,1867,2380,1069,1139,727,516,594
+"Wisconsin : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-WI-99.A",23519,21726,22290,20607,18503,20735,19779,21951,17790,18992,17756,13993
+"Wisconsin : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-WI-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Wisconsin : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-WI-99.A",372,124,89,97,56,99,115,77,51,53,86,51
+"Wisconsin : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-WI-99.A",468,410,346,279,182,163,171,111,66,54,60,45
+"Wisconsin : natural gas","thousand mcf","ELEC.RECEIPTS.NG-WI-99.A",49141,48662,49428,55124,87126,58688,58501,98416,114750,101296,121477,143803
+"West North Central",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"West North Central : coal","thousand tons","ELEC.RECEIPTS.COW-WNC-99.A",156070,148815,150810,151975,139220,133327,137428,139057,117202,116890,115190,106926
+"West North Central : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-WNC-99.A",3610,3328,2689,2471,1553,1087,1348,1572,1001,1153,1164,1060
+"West North Central : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-WNC-99.A",128633,121626,125455,127383,116022,110270,113252,114458,94382,92369,90003,83985
+"West North Central : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-WNC-99.A",23827,23861,22666,22120,21645,21971,22828,23027,21819,23368,24023,21882
+"West North Central : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-WNC-99.A",1000,"NM","NM",726,542,500,612,437,402,453,575,617
+"West North Central : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-WNC-99.A",172,69,95,27,0,0,0,0,0,85,71,73
+"West North Central : natural gas","thousand mcf","ELEC.RECEIPTS.NG-WNC-99.A","NM",119973,133719,125986,157891,121439,96722,133003,179892,171237,225291,267715
+"Iowa",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Iowa : coal","thousand tons","ELEC.RECEIPTS.COW-IA-99.A",27801,26300,26626,26839,24436,20286,19375,22411,18041,15347,15309,15988
+"Iowa : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-IA-99.A",1182,1179,683,818,452,389,432,476,386,411,391,445
+"Iowa : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-IA-99.A",26619,25121,25943,26021,23984,19897,18943,21935,17655,14936,14917,15543
+"Iowa : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-IA-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Iowa : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-IA-99.A",186,129,204,160,187,127,99,78,106,101,117,115
+"Iowa : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-IA-99.A",58,9,49,25,0,0,0,0,0,85,71,73
+"Iowa : natural gas","thousand mcf","ELEC.RECEIPTS.NG-IA-99.A",21458,17625,13899,10751,18348,17012,16383,24510,31395,49009,64610,67408
+"Kansas",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Kansas : coal","thousand tons","ELEC.RECEIPTS.COW-KS-99.A",21533,20348,20503,20216,17919,18424,18068,17888,14425,12272,12592,11291
+"Kansas : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-KS-99.A",216,265,293,253,245,224,348,269,201,180,204,128
+"Kansas : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-KS-99.A",21317,20083,20210,19963,17675,18200,17719,17620,14224,12091,12388,11163
+"Kansas : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-KS-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Kansas : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-KS-99.A",100,76,94,96,73,103,89,89,41,115,105,146
+"Kansas : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-KS-99.A",55,48,44,3,0,0,0,0,"--","--","--","--"
+"Kansas : natural gas","thousand mcf","ELEC.RECEIPTS.NG-KS-99.A",26780,32204,27872,30590,26639,15620,13175,11865,17007,17988,23736,23307
+"Minnesota",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Minnesota : coal","thousand tons","ELEC.RECEIPTS.COW-MN-99.A",19860,17922,17480,18304,13125,13266,16913,17220,12471,12946,12904,11460
+"Minnesota : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-MN-99.A",240,133,94,116,21,3,0,0,0,0,0,0
+"Minnesota : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-MN-99.A",19620,17789,17386,18188,13104,13263,16913,17220,12471,12946,12904,11460
+"Minnesota : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-MN-99.A","--","--","--","--","--",0,0,0,0,0,0,0
+"Minnesota : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-MN-99.A",234,195,108,70,27,45,93,46,42,49,51,76
+"Minnesota : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-MN-99.A",55,0,0,0,0,0,0,"--","--","--","--","--"
+"Minnesota : natural gas","thousand mcf","ELEC.RECEIPTS.NG-MN-99.A",33968,35056,44678,37920,56036,47289,29157,51801,64230,45644,55926,83832
+"Missouri",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Missouri : coal","thousand tons","ELEC.RECEIPTS.COW-MO-99.A",44793,42559,44832,45756,43850,41138,41473,41233,34893,37752,35275,31097
+"Missouri : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-MO-99.A",1960,1738,1619,1285,835,470,568,827,414,562,569,487
+"Missouri : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-MO-99.A",42833,40820,43213,44471,43014,40667,40905,40407,34479,37190,34707,30610
+"Missouri : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-MO-99.A",0,0,0,0,0,0,0,0,0,0,0,0
+"Missouri : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-MO-99.A",155,198,333,209,158,101,232,145,144,108,206,177
+"Missouri : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-MO-99.A",5,12,1,0,0,0,0,"--","--","--","--","--"
+"Missouri : natural gas","thousand mcf","ELEC.RECEIPTS.NG-MO-99.A",42888,29852,39809,38707,47085,34013,31555,35353,45802,40569,54787,59690
+"Nebraska",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Nebraska : coal","thousand tons","ELEC.RECEIPTS.COW-NE-99.A",14663,14349,15192,15620,15368,15761,16153,15326,13652,13654,13527,13430
+"Nebraska : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-NE-99.A",12,12,0,"--","--",0,0,0,0,0,0,0
+"Nebraska : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-NE-99.A",14651,14337,15192,15620,15368,15761,16153,15326,13652,13654,13527,13430
+"Nebraska : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-NE-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Nebraska : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-NE-99.A",88,81,55,63,29,35,36,3,4,5,9,19
+"Nebraska : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-NE-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Nebraska : natural gas","thousand mcf","ELEC.RECEIPTS.NG-NE-99.A",7266,3353,4873,5311,8141,3764,3383,3510,4333,6035,9068,11470
+"North Dakota",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"North Dakota : coal","thousand tons","ELEC.RECEIPTS.COW-ND-99.A",25163,25148,23973,23445,22708,22665,23671,23877,22386,23540,24023,21882
+"North Dakota : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-ND-99.A","--","--",0,"--","--","--","--","--","--","--","--","--"
+"North Dakota : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-ND-99.A",1336,1287,1307,1325,1063,693,843,850,567,172,0,0
+"North Dakota : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-ND-99.A",23827,23861,22666,22120,21645,21971,22828,23027,21819,23368,24023,21882
+"North Dakota : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-ND-99.A",168,134,104,109,63,78,58,46,61,69,77,71
+"North Dakota : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-ND-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"North Dakota : natural gas","thousand mcf","ELEC.RECEIPTS.NG-ND-99.A","NM",959,988,1117,1,1,48,520,11320,7226,9873,14877
+"South Dakota",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"South Dakota : coal","thousand tons","ELEC.RECEIPTS.COW-SD-99.A",2257,2189,2203,1795,1813,1788,1776,1101,1333,1379,1560,1778
+"South Dakota : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-SD-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"South Dakota : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-SD-99.A",2257,2189,2203,1795,1813,1788,1776,1101,1333,1379,1560,1778
+"South Dakota : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-SD-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"South Dakota : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-SD-99.A",69,"NM","NM",19,5,10,6,30,4,5,11,13
+"South Dakota : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-SD-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"South Dakota : natural gas","thousand mcf","ELEC.RECEIPTS.NG-SD-99.A",2568,922,1600,1590,1642,3742,3020,5444,5804,4765,7291,7131
+"South Atlantic",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"South Atlantic : coal","thousand tons","ELEC.RECEIPTS.COW-SAT-99.A",183337,164233,156059,148091,118709,111898,123112,111710,95606,88271,79146,76973
+"South Atlantic : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-SAT-99.A",164524,148125,141526,132519,105134,96665,109654,99249,85304,77744,69218,66998
+"South Atlantic : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-SAT-99.A",17585,15117,13797,14690,12613,12449,12553,11577,9459,9557,8927,9047
+"South Atlantic : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-SAT-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"South Atlantic : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-SAT-99.A","NM",16807,16052,9843,3217,2675,5656,5045,3717,3222,5402,1699
+"South Atlantic : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-SAT-99.A",1986,1741,1889,1448,741,1235,1076,1125,1441,663,784,429
+"South Atlantic : natural gas","thousand mcf","ELEC.RECEIPTS.NG-SAT-99.A",1128275,1343453,1565538,1706965,2020211,1846076,1848980,2253356,2396562,2370929,2622122,2775146
+"Delaware",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Delaware : coal","thousand tons","ELEC.RECEIPTS.COW-DE-99.A",2363,1564,832,562,645,614,534,152,243,200,35,71
+"Delaware : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-DE-99.A",2318,1564,832,562,645,614,534,152,243,200,35,71
+"Delaware : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-DE-99.A",45,0,0,0,0,0,0,0,0,0,0,0
+"Delaware : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-DE-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Delaware : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-DE-99.A",457,634,64,106,34,22,26,199,79,19,331,7
+"Delaware : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-DE-99.A",0,"--",0,0,0,0,0,0,0,0,0,0
+"Delaware : natural gas","thousand mcf","ELEC.RECEIPTS.NG-DE-99.A",12981,12401,24377,49063,65059,55626,53844,54963,63408,42418,33332,25354
+"District Of Columbia",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"District Of Columbia : coal","thousand tons","ELEC.RECEIPTS.COW-DC-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"District Of Columbia : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-DC-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"District Of Columbia : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-DC-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"District Of Columbia : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-DC-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"District Of Columbia : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-DC-99.A",166,53,443,215,7,0,0,0,0,0,0,0
+"District Of Columbia : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-DC-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"District Of Columbia : natural gas","thousand mcf","ELEC.RECEIPTS.NG-DC-99.A","--","--","--",1012,0,0,0,0,0,0,0,0
+"Florida",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Florida : coal","thousand tons","ELEC.RECEIPTS.COW-FL-99.A",29016,23912,26343,22722,18400,19754,22159,19159,15033,15139,11702,9218
+"Florida : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-FL-99.A",28952,23912,26343,22722,18400,19742,22083,19159,15033,15139,11702,9218
+"Florida : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-FL-99.A",64,"--",0,0,0,12,77,0,0,0,0,0
+"Florida : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-FL-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Florida : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-FL-99.A",14234,10474,10609,5266,948,865,567,652,916,1447,495,423
+"Florida : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-FL-99.A",1610,1440,1621,1119,563,1103,944,1003,1324,663,784,429
+"Florida : natural gas","thousand mcf","ELEC.RECEIPTS.NG-FL-99.A",816252,935903,1008943,1069608,1122939,1008097,1015834,1124717,1153072,1153819,1229395,1289171
+"Georgia",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Georgia : coal","thousand tons","ELEC.RECEIPTS.COW-GA-99.A",39683,35365,31710,31251,23258,19015,20524,20219,17397,16943,14953,15353
+"Georgia : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-GA-99.A",25070,21853,19127,17631,11052,6932,8491,8909,7997,7483,6068,6305
+"Georgia : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-GA-99.A",14613,13512,12583,13619,12206,12083,12033,11310,9400,9460,8884,9047
+"Georgia : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-GA-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Georgia : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-GA-99.A",1388,786,672,737,398,222,399,275,264,253,458,234
+"Georgia : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-GA-99.A",374,272,259,329,178,132,132,122,117,0,0,0
+"Georgia : natural gas","thousand mcf","ELEC.RECEIPTS.NG-GA-99.A",107306,156066,187494,208798,328446,289741,297620,363615,390148,378227,380482,434294
+"Maryland",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Maryland : coal","thousand tons","ELEC.RECEIPTS.COW-MD-99.A",11167,10426,10543,9683,7025,6828,8262,6438,5583,3851,4637,2881
+"Maryland : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-MD-99.A",10909,10309,10120,9093,6617,6410,7772,6146,5523,3753,4595,2881
+"Maryland : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-MD-99.A",258,117,423,583,360,353,444,267,59,98,42,"--"
+"Maryland : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-MD-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Maryland : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-MD-99.A",869,397,444,400,218,193,919,457,266,233,628,186
+"Maryland : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-MD-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Maryland : natural gas","thousand mcf","ELEC.RECEIPTS.NG-MD-99.A",23742,20987,33206,28079,47231,22368,17912,37007,47562,46548,92375,96466
+"North Carolina",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"North Carolina : coal","thousand tons","ELEC.RECEIPTS.COW-NC-99.A",31394,28787,26768,26540,19811,16296,17580,16129,12236,13214,11130,12803
+"North Carolina : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-NC-99.A",31394,28787,26768,26540,19811,16296,17580,16129,12236,13214,11130,12803
+"North Carolina : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-NC-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"North Carolina : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-NC-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"North Carolina : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-NC-99.A","NM",899,828,684,432,394,775,628,354,340,1130,243
+"North Carolina : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-NC-99.A","--","--","--","--","--","--","--",0,0,"--","--","--"
+"North Carolina : natural gas","thousand mcf","ELEC.RECEIPTS.NG-NC-99.A",36793,40384,75495,93618,150372,201751,205537,273890,292769,279167,331999,308738
+"South Carolina",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"South Carolina : coal","thousand tons","ELEC.RECEIPTS.COW-SC-99.A",15919,17705,16268,14574,11606,9130,10947,11163,7971,6499,6077,7317
+"South Carolina : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-SC-99.A",15919,17705,16268,14574,11606,9130,10947,11163,7971,6499,6077,7317
+"South Carolina : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-SC-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"South Carolina : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-SC-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"South Carolina : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-SC-99.A",571,772,753,539,469,246,574,458,277,148,623,110
+"South Carolina : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-SC-99.A",0,30,9,0,0,0,0,0,0,0,0,0
+"South Carolina : natural gas","thousand mcf","ELEC.RECEIPTS.NG-SC-99.A",46973,74785,87881,101302,109809,88597,85032,131628,130416,131328,169867,178437
+"Virginia",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Virginia : coal","thousand tons","ELEC.RECEIPTS.COW-VA-99.A",15511,13033,12025,11020,6528,9640,10260,7791,7861,5520,4705,2617
+"Virginia : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-VA-99.A",15511,13033,12025,11020,6528,7889,10260,7791,7861,5520,4705,2617
+"Virginia : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-VA-99.A","--","--","--","--","--","--","--","--","--",0,"--","--"
+"Virginia : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-VA-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Virginia : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-VA-99.A",2133,2481,1981,1566,455,436,2107,2159,1323,601,1439,247
+"Virginia : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-VA-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Virginia : natural gas","thousand mcf","ELEC.RECEIPTS.NG-VA-99.A",81380,100902,145536,151657,193993,177042,166359,254277,304679,320733,367368,419047
+"West Virginia",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"West Virginia : coal","thousand tons","ELEC.RECEIPTS.COW-WV-99.A",38284,33441,31568,31740,31436,30621,32845,30657,29281,26906,25906,26712
+"West Virginia : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-WV-99.A",34451,30963,30042,30378,30474,29651,31986,29799,28439,25936,24904,25784
+"West Virginia : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-WV-99.A",2605,1488,790,488,47,0,0,0,0,0,0,0
+"West Virginia : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-WV-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"West Virginia : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-WV-99.A",264,310,258,330,257,296,290,215,238,182,299,248
+"West Virginia : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-WV-99.A",2,"--",0,0,0,0,0,0,0,0,0,0
+"West Virginia : natural gas","thousand mcf","ELEC.RECEIPTS.NG-WV-99.A",2849,2024,2607,3827,2362,2854,6841,13259,14508,18689,17306,23638
+"East South Central",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"East South Central : coal","thousand tons","ELEC.RECEIPTS.COW-ESC-99.A",116508,100810,101719,97759,89288,85706,87900,76694,67605,59231,57134,55572
+"East South Central : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-ESC-99.A",87027,74324,75729,69708,63264,59213,60791,50041,42237,35170,35182,33046
+"East South Central : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-ESC-99.A",26156,22742,22379,25350,22959,23324,24484,23521,22316,21645,18960,19965
+"East South Central : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-ESC-99.A",3018,3744,3612,2701,3065,3169,2625,3133,3053,2417,2993,2561
+"East South Central : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-ESC-99.A",1668,2071,2062,1311,471,632,658,493,459,368,511,287
+"East South Central : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-ESC-99.A",1070,1059,703,463,532,535,571,623,92,117,0,0
+"East South Central : natural gas","thousand mcf","ELEC.RECEIPTS.NG-ESC-99.A",392067,475250,607804,682990,807339,624917,650914,843264,939721,886080,1007842,1019264
+"Alabama",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Alabama : coal","thousand tons","ELEC.RECEIPTS.COW-AL-99.A",36613,29698,30146,27411,24639,22582,23312,20259,16261,15754,14648,15107
+"Alabama : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-AL-99.A",23212,17390,18619,15096,12886,10670,11695,9503,6251,5564,5180,4270
+"Alabama : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-AL-99.A",13402,12308,11528,12316,11753,11912,11616,10756,10009,10189,9469,10838
+"Alabama : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-AL-99.A","--","--","--",0,"--","--","--","--","--","--","--","--"
+"Alabama : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-AL-99.A",589,1336,1002,499,107,131,133,86,67,51,144,32
+"Alabama : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-AL-99.A","--","--","--",0,"--","--","--","--","--","--","--","--"
+"Alabama : natural gas","thousand mcf","ELEC.RECEIPTS.NG-AL-99.A",178936,250093,307854,368618,395377,319071,327708,376645,394076,364506,398878,399066
+"Kentucky",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Kentucky : coal","thousand tons","ELEC.RECEIPTS.COW-KY-99.A",41399,41003,40771,41473,39483,39161,38741,40770,37275,31490,32038,29987
+"Kentucky : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-KY-99.A",39126,39191,39206,38835,37224,36723,35653,31944,28826,23628,24704,22900
+"Kentucky : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-KY-99.A",1967,1812,1565,2638,2259,2438,3088,8826,8450,7862,7333,7087
+"Kentucky : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-KY-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Kentucky : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-KY-99.A",290,291,326,244,211,195,225,196,188,169,147,142
+"Kentucky : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-KY-99.A",1070,1059,703,463,532,535,571,623,92,117,0,0
+"Kentucky : natural gas","thousand mcf","ELEC.RECEIPTS.NG-KY-99.A",13629,12257,23592,20789,31026,14610,27678,54355,67374,81265,112670,113295
+"Mississippi",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Mississippi : coal","thousand tons","ELEC.RECEIPTS.COW-MS-99.A",9730,8911,8611,6643,6590,5783,6195,5125,4442,3845,4600,4124
+"Mississippi : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-MS-99.A",5700,3886,3834,2955,3431,2572,2601,1281,712,710,366,379
+"Mississippi : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-MS-99.A",1012,1281,1165,987,94,42,968,712,677,718,1241,1184
+"Mississippi : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-MS-99.A",3018,3744,3612,2701,3065,3169,2625,3133,3053,2417,2993,2561
+"Mississippi : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-MS-99.A",253,56,158,111,22,41,24,47,26,15,37,23
+"Mississippi : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-MS-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Mississippi : natural gas","thousand mcf","ELEC.RECEIPTS.NG-MS-99.A",193463,207836,255651,261588,317211,250869,245694,332183,378393,346830,370210,363823
+"Tennessee",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Tennessee : coal","thousand tons","ELEC.RECEIPTS.COW-TN-99.A",28765,21197,22192,22231,18576,18181,19652,10541,9627,8142,5848,6354
+"Tennessee : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-TN-99.A",18990,13857,14070,12822,9723,9249,10841,7314,6448,5267,4932,5498
+"Tennessee : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-TN-99.A",9775,7341,8121,9409,8853,8932,8811,3227,3179,2875,917,856
+"Tennessee : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-TN-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Tennessee : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-TN-99.A",536,388,576,456,132,265,276,165,178,133,183,90
+"Tennessee : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-TN-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Tennessee : natural gas","thousand mcf","ELEC.RECEIPTS.NG-TN-99.A",6038,5064,20708,31994,63726,40366,49834,80081,99878,93479,126084,143079
+"West South Central",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"West South Central : coal","thousand tons","ELEC.RECEIPTS.COW-WSC-99.A",157287,148426,154849,162157,152230,147020,150653,135422,110732,120958,98713,91089
+"West South Central : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-WSC-99.A",867,"NM",558,1010,817,1043,751,988,855,834,940,444
+"West South Central : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-WSC-99.A",114637,110826,109464,110636,104523,100219,104106,95093,70703,86557,72747,68772
+"West South Central : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-WSC-99.A",41783,37053,44828,50511,46890,45758,45796,39340,39174,33567,25026,21873
+"West South Central : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-WSC-99.A",997,939,545,452,293,284,471,342,287,231,188,230
+"West South Central : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-WSC-99.A",1392,1863,1589,1772,1649,1926,1949,1732,1619,1885,1557,1142
+"West South Central : natural gas","thousand mcf","ELEC.RECEIPTS.NG-WSC-99.A",2757580,2730689,2793250,3043534,2896365,2638753,2569357,2915238,2855252,2633752,3009544,3240210
+"Arkansas",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Arkansas : coal","thousand tons","ELEC.RECEIPTS.COW-AR-99.A",15707,14507,17473,17631,16969,17641,18630,14779,12797,14285,16843,14098
+"Arkansas : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-AR-99.A",173,120,153,133,0,0,56,84,62,67,78,61
+"Arkansas : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-AR-99.A",15534,14387,17320,17497,16969,17641,18574,14695,12735,14218,16765,14038
+"Arkansas : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-AR-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Arkansas : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-AR-99.A",147,209,81,91,74,63,33,98,74,81,48,75
+"Arkansas : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-AR-99.A",0,0,0,0,0,0,0,0,0,0,0,0
+"Arkansas : natural gas","thousand mcf","ELEC.RECEIPTS.NG-AR-99.A",73848,93434,106283,111262,128030,90794,72786,109604,133676,126300,150505,158293
+"Louisiana",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Louisiana : coal","thousand tons","ELEC.RECEIPTS.COW-LA-99.A",15399,16933,14310,15775,15586,13990,12017,10896,6912,8029,7252,5843
+"Louisiana : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-LA-99.A",21,"NM",0,465,338,541,206,305,268,285,517,334
+"Louisiana : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-LA-99.A",11520,13273,10378,11453,11381,10733,9354,7139,3957,5844,5620,4308
+"Louisiana : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-LA-99.A",3859,3659,3932,3858,3867,2715,2456,3452,2688,1899,1114,1200
+"Louisiana : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-LA-99.A",634,402,240,116,50,64,211,94,54,6,27,37
+"Louisiana : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-LA-99.A",895,1316,1340,1728,1178,1683,1949,1732,1619,1885,1557,1142
+"Louisiana : natural gas","thousand mcf","ELEC.RECEIPTS.NG-LA-99.A",487810,469799,541709,567240,531471,470733,480607,540484,536078,535301,500434,558627
+"Oklahoma",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Oklahoma : coal","thousand tons","ELEC.RECEIPTS.COW-OK-99.A",23213,21570,20148,19836,19605,17472,19018,18725,11073,10586,8774,4833
+"Oklahoma : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-OK-99.A",673,427,405,413,479,502,489,599,525,482,345,50
+"Oklahoma : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-OK-99.A",22540,21144,19742,19424,19126,16970,18530,18126,10547,10105,8429,4784
+"Oklahoma : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-OK-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Oklahoma : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-OK-99.A",35,48,21,"NM",14,13,27,4,29,18,30,35
+"Oklahoma : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-OK-99.A",11,2,7,5,0,0,0,0,0,0,0,0
+"Oklahoma : natural gas","thousand mcf","ELEC.RECEIPTS.NG-OK-99.A",290446,294383,297538,284687,313960,246794,207476,254326,276545,230111,318549,337151
+"Texas",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Texas : coal","thousand tons","ELEC.RECEIPTS.COW-TX-99.A",102968,95415,102919,108916,100071,97917,100988,91021,79950,88058,65845,66315
+"Texas : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-TX-99.A",0,"--",0,0,0,0,0,"--","--","--",0,0
+"Texas : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-TX-99.A",65043,62022,62023,62262,57048,54874,57648,55133,43464,56391,41933,45642
+"Texas : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-TX-99.A",37925,33393,40896,46653,43023,43043,43340,35888,36486,31668,23912,20673
+"Texas : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-TX-99.A",180,280,203,229,156,144,200,146,129,126,82,83
+"Texas : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-TX-99.A",486,546,242,38,471,243,0,0,0,0,0,0
+"Texas : natural gas","thousand mcf","ELEC.RECEIPTS.NG-TX-99.A",1905476,1873073,1847719,2080345,1922904,1830431,1808489,2010824,1908954,1742040,2040056,2186139
+"Mountain",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Mountain : coal","thousand tons","ELEC.RECEIPTS.COW-MTN-99.A",120272,116525,112772,113801,108207,107007,106386,105381,90812,89478,82404,80585
+"Mountain : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-MTN-99.A",40716,42627,35596,37078,30912,31635,33664,30270,27659,25601,21026,19875
+"Mountain : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-MTN-99.A",78513,"NM",76220,75740,76601,74650,71985,74450,62500,63250,60733,60052
+"Mountain : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-MTN-99.A",316,307,310,343,248,292,285,221,256,215,239,256
+"Mountain : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-MTN-99.A","NM","NM","NM",509,396,368,354,360,355,351,298,362
+"Mountain : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-MTN-99.A",239,260,233,274,251,0,0,0,0,0,0,0
+"Mountain : natural gas","thousand mcf","ELEC.RECEIPTS.NG-MTN-99.A",734036,721179,645586,578209,611904,597406,582191,670939,688171,622145,740594,828014
+"Arizona",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Arizona : coal","thousand tons","ELEC.RECEIPTS.COW-AZ-99.A",23379,22190,22357,23218,23238,21589,22591,21535,15236,16406,16162,13396
+"Arizona : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-AZ-99.A",8395,7638,7761,8390,7798,7903,8231,6779,6105,6518,6625,4025
+"Arizona : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-AZ-99.A",14984,14552,14596,14829,15439,13686,14360,14756,9132,9888,9537,9371
+"Arizona : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-AZ-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Arizona : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-AZ-99.A",109,90,112,120,77,97,84,104,108,89,94,124
+"Arizona : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-AZ-99.A",0,0,0,0,"--","--","--","--","--","--","--","--"
+"Arizona : natural gas","thousand mcf","ELEC.RECEIPTS.NG-AZ-99.A",284700,262866,227195,184970,227210,219444,204092,247291,254500,224021,278303,348973
+"Colorado",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Colorado : coal","thousand tons","ELEC.RECEIPTS.COW-CO-99.A",18913,19274,18583,19754,18687,18056,17184,18272,15889,16284,14505,13935
+"Colorado : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-CO-99.A",5846,9097,4922,4844,3628,3259,3722,3056,2420,1971,1177,1236
+"Colorado : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-CO-99.A",13066,10178,13661,14910,15059,14797,13463,15216,13469,14312,13327,12699
+"Colorado : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-CO-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Colorado : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-CO-99.A",68,39,173,66,10,4,9,6,14,5,14,5
+"Colorado : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-CO-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Colorado : natural gas","thousand mcf","ELEC.RECEIPTS.NG-CO-99.A",108215,114854,94173,85134,80575,81620,91190,87626,90645,90410,118141,122200
+"Idaho",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Idaho : coal","thousand tons","ELEC.RECEIPTS.COW-ID-99.A",198,177,221,134,0,0,0,0,0,0,0,0
+"Idaho : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-ID-99.A",76,123,204,78,0,0,0,0,0,0,0,0
+"Idaho : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-ID-99.A",123,"NM",16,56,0,0,0,0,0,0,0,0
+"Idaho : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-ID-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Idaho : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-ID-99.A","NM","NM","NM","NM",0,0,0,0,0,0,0,0
+"Idaho : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-ID-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Idaho : natural gas","thousand mcf","ELEC.RECEIPTS.NG-ID-99.A",14069,14512,13648,10177,12738,22741,16111,24559,20974,19169,19987,25908
+"Montana",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Montana : coal","thousand tons","ELEC.RECEIPTS.COW-MT-99.A",12321,9901,11876,9984,8808,9262,9905,9997,9032,8759,7971,8917
+"Montana : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-MT-99.A","--","--","--","--","--","--","--","--","--","--",0,0
+"Montana : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-MT-99.A",11756,9348,11287,9422,8560,8970,9621,9777,8776,8544,7731,8661
+"Montana : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-MT-99.A",316,307,310,343,248,292,285,221,256,215,239,256
+"Montana : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-MT-99.A",65,48,35,50,36,15,26,15,24,19,25,18
+"Montana : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-MT-99.A",239,260,233,274,251,0,0,0,0,0,0,0
+"Montana : natural gas","thousand mcf","ELEC.RECEIPTS.NG-MT-99.A",1423,1170,1131,4681,19,49,51,4978,3386,3157,2749,2780
+"Nevada",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Nevada : coal","thousand tons","ELEC.RECEIPTS.COW-NV-99.A",3963,4061,3734,3105,2215,2268,3924,1367,956,743,1167,1697
+"Nevada : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-NV-99.A",2525,2239,2219,1743,926,482,2068,217,425,0,109,646
+"Nevada : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-NV-99.A",1438,1822,1514,1362,1289,1787,1857,1149,531,743,1059,1051
+"Nevada : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-NV-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Nevada : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-NV-99.A",31,32,24,29,40,34,27,30,22,18,20,25
+"Nevada : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-NV-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Nevada : natural gas","thousand mcf","ELEC.RECEIPTS.NG-NV-99.A",184246,196689,178549,165896,177682,163416,149459,188354,191152,178129,180683,173732
+"New Mexico",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"New Mexico : coal","thousand tons","ELEC.RECEIPTS.COW-NM-99.A",15419,16535,14441,16318,14604,14153,11867,12403,10909,10608,7520,8495
+"New Mexico : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-NM-99.A",6086,6588,5667,7138,5740,6116,6193,5780,6191,6267,3029,3128
+"New Mexico : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-NM-99.A",9332,9947,8774,9181,8864,8037,5674,6623,4718,4341,4490,5367
+"New Mexico : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-NM-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"New Mexico : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-NM-99.A",103,82,93,56,95,96,104,103,84,72,34,48
+"New Mexico : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-NM-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"New Mexico : natural gas","thousand mcf","ELEC.RECEIPTS.NG-NM-99.A",72539,70626,72385,75416,64840,64705,66088,65736,73286,68683,82962,89193
+"Utah",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Utah : coal","thousand tons","ELEC.RECEIPTS.COW-UT-99.A",18142,18097,14671,15214,13834,15043,14458,15203,13632,11981,10975,11481
+"Utah : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-UT-99.A",17260,16452,14304,14347,12820,13875,13450,14438,12518,10845,10086,10839
+"Utah : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-UT-99.A",405,1227,0,444,569,738,555,325,716,724,484,240
+"Utah : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-UT-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Utah : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-UT-99.A",82,"NM",74,88,53,51,34,30,30,66,56,69
+"Utah : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-UT-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Utah : natural gas","thousand mcf","ELEC.RECEIPTS.NG-UT-99.A",58101,51057,50459,42436,43553,45088,54460,51263,54033,37307,55974,62078
+"Wyoming",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Wyoming : coal","thousand tons","ELEC.RECEIPTS.COW-WY-99.A",27938,26290,26890,26075,26821,26637,26457,26604,25158,24697,24104,22663
+"Wyoming : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-WY-99.A",528,489,518,539,0,0,0,0,0,0,0,0
+"Wyoming : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-WY-99.A",27410,25800,26371,25536,26821,26637,26457,26604,25158,24697,24104,22663
+"Wyoming : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-WY-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Wyoming : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-WY-99.A",84,105,111,100,85,70,70,71,73,82,55,72
+"Wyoming : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-WY-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Wyoming : natural gas","thousand mcf","ELEC.RECEIPTS.NG-WY-99.A",10744,9403,8046,9501,5287,344,738,1131,194,1268,1796,3149
+"Pacific Contiguous",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Pacific Contiguous : coal","thousand tons","ELEC.RECEIPTS.COW-PCC-99.A",10236,8845,8442,7542,5375,6348,7602,5421,4880,4815,4833,6950
+"Pacific Contiguous : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-PCC-99.A",1804,1631,1396,1573,935,793,771,671,634,625,600,555
+"Pacific Contiguous : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-PCC-99.A",8432,7214,7046,5969,4440,5554,6824,4623,4221,4136,4179,6394
+"Pacific Contiguous : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-PCC-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Pacific Contiguous : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-PCC-99.A","NM",737,"NM",550,96,40,35,23,20,35,20,28
+"Pacific Contiguous : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-PCC-99.A",840,778,575,503,8,0,0,0,0,0,0,0
+"Pacific Contiguous : natural gas","thousand mcf","ELEC.RECEIPTS.NG-PCC-99.A",1264618,1228217,1152627,946362,917681,909950,904961,886660,767973,717877,748670,769534
+"California",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"California : coal","thousand tons","ELEC.RECEIPTS.COW-CA-99.A",1804,1631,1396,1573,935,793,771,671,634,625,600,555
+"California : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-CA-99.A",1804,1631,1396,1573,935,793,771,671,634,625,600,555
+"California : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-CA-99.A","--",0,0,0,0,0,0,"--","--","--","--","--"
+"California : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-CA-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"California : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-CA-99.A",363,320,97,"NM",50,0,0,0,0,0,0,0
+"California : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-CA-99.A",840,778,575,503,8,0,0,0,0,0,0,0
+"California : natural gas","thousand mcf","ELEC.RECEIPTS.NG-CA-99.A",1060611,1017068,958095,838613,793427,739610,746402,720997,593164,556012,559705,528794
+"Oregon",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Oregon : coal","thousand tons","ELEC.RECEIPTS.COW-OR-99.A",2655,1552,2092,2352,1826,1597,2159,1476,994,877,764,1599
+"Oregon : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-OR-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Oregon : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-OR-99.A",2655,1552,2092,2352,1826,1597,2159,1476,994,877,764,1599
+"Oregon : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-OR-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Oregon : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-OR-99.A","NM",79,"NM","NM",14,6,15,8,3,14,0,4
+"Oregon : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-OR-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Oregon : natural gas","thousand mcf","ELEC.RECEIPTS.NG-OR-99.A",126636,115521,111878,64290,81111,100738,89256,85639,106814,94868,123735,143846
+"Washington",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Washington : coal","thousand tons","ELEC.RECEIPTS.COW-WA-99.A",5777,5662,4955,3617,2615,3957,4671,3273,3252,3313,3469,4795
+"Washington : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-WA-99.A",0,0,"--","--","--","--","--","--",0,0,0,0
+"Washington : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-WA-99.A",5777,5662,4955,3617,2615,3957,4664,3146,3227,3259,3415,4795
+"Washington : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-WA-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Washington : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-WA-99.A",307,337,273,446,33,34,20,15,16,22,20,23
+"Washington : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-WA-99.A","--","--","--","--","--","--","--","--",0,0,0,0
+"Washington : natural gas","thousand mcf","ELEC.RECEIPTS.NG-WA-99.A",77371,95628,82654,43459,43143,69603,69303,80024,67994,66997,65229,96895
+"Pacific Noncontiguous",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Pacific Noncontiguous : coal","thousand tons","ELEC.RECEIPTS.COW-PCN-99.A",1603,1705,1890,2040,667,728,786,765,1041,902,987,1011
+"Pacific Noncontiguous : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-PCN-99.A",681,803,832,929,667,728,786,599,423,60,0,18
+"Pacific Noncontiguous : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-PCN-99.A",922,828,870,932,0,0,0,0,423,668,727,665
+"Pacific Noncontiguous : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-PCN-99.A","--","--","--","--","--","--",0,106,124,98,157,209
+"Pacific Noncontiguous : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-PCN-99.A",17038,16799,16288,15456,11176,9474,9238,9423,8793,8917,8810,8937
+"Pacific Noncontiguous : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-PCN-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Pacific Noncontiguous : natural gas","thousand mcf","ELEC.RECEIPTS.NG-PCN-99.A",45278,40168,39137,44344,33135,24685,21071,15803,12979,15297,16636,15546
+"Alaska",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Alaska : coal","thousand tons","ELEC.RECEIPTS.COW-AK-99.A",922,901,1059,1111,0,0,0,166,195,173,260,327
+"Alaska : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-AK-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Alaska : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-AK-99.A",922,828,870,932,0,0,0,0,0,0,0,0
+"Alaska : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-AK-99.A","--","--","--","--","--","--",0,106,124,98,157,209
+"Alaska : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-AK-99.A",1659,2075,1659,1658,965,0,0,17,9,1,14,27
+"Alaska : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-AK-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Alaska : natural gas","thousand mcf","ELEC.RECEIPTS.NG-AK-99.A",45278,40168,39137,44344,33135,24685,21071,15803,12979,15297,16636,15546
+"Hawaii",,"ELEC.RECEIPTS..A",,,,,,,,,,,,
+"Hawaii : coal","thousand tons","ELEC.RECEIPTS.COW-HI-99.A",681,803,832,929,667,728,786,599,846,728,727,683
+"Hawaii : bituminous coal","thousand tons","ELEC.RECEIPTS.BIT-HI-99.A",681,803,832,929,667,728,786,599,423,60,0,18
+"Hawaii : subbituminous coal","thousand tons","ELEC.RECEIPTS.SUB-HI-99.A",0,0,0,0,0,0,0,0,423,668,727,665
+"Hawaii : lignite coal","thousand tons","ELEC.RECEIPTS.LIG-HI-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Hawaii : petroleum liquids","thousand barrels","ELEC.RECEIPTS.PEL-HI-99.A",15378,14724,14629,13798,10211,9474,9238,9406,8784,8916,8796,8910
+"Hawaii : petroleum coke","thousand tons","ELEC.RECEIPTS.PC-HI-99.A","--","--","--","--","--","--","--","--","--","--","--","--"
+"Hawaii : natural gas","thousand mcf","ELEC.RECEIPTS.NG-HI-99.A","--","--","--",0,"--","--","--","--","--","--","--","--"

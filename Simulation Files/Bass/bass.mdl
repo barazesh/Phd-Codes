@@ -1,0 +1,104 @@
+{UTF-8}
+adopting PV=
+	minimum limit*regular customers*(innovation+prosumers*immitation)
+	~	
+	~		|
+
+immitation=
+	0.0001
+	~	Dmnl
+	~		|
+
+innovation=
+	0.0002
+	~	Dmnl
+	~		|
+
+minimum limit=
+	IF THEN ELSE( regular customers>0 , 1 , 0 )
+	~	
+	~		|
+
+prosumers= INTEG (
+	adopting PV,
+		0)
+	~	costumer
+	~		|
+
+regular customers= INTEG (
+	-adopting PV,
+		1000)
+	~	costumer [0,?]
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 100
+	~	Month
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Month
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP 
+	~	Month [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 1
+	~	Month [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,100,0
+10,1,regular customers,282,203,40,20,3,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,2,prosumers,636,202,40,20,3,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,4,6,2,4,0,0,22,0,0,0,-1--1--1,,1|(530,202)|
+1,5,6,1,100,0,0,22,0,0,0,-1--1--1,,1|(387,202)|
+11,6,0,459,202,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,7,adopting PV,459,221,40,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,8,immitation,572,67,33,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,9,innovation,344,59,33,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,10,1,6,1,0,0,0,0,64,0,-1--1--1,,1|(457,380)|
+1,11,9,6,1,0,0,0,0,64,0,-1--1--1,,1|(379,137)|
+1,12,2,6,1,0,0,0,0,64,0,-1--1--1,,1|(562,122)|
+1,13,8,6,1,0,0,0,0,64,0,-1--1--1,,1|(453,118)|
+10,14,minimum limit,388,301,43,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,15,14,7,1,0,0,0,0,64,0,-1--1--1,,1|(440,275)|
+1,16,1,14,1,0,0,0,0,64,0,-1--1--1,,1|(306,274)|
+///---\\\
+:L<%^E!@
+1:bass.vdfx
+9:bass
+23:0
+15:0,0,0,0,0,0
+19:100,0
+27:0,
+34:0,
+42:0
+72:0
+73:0
+4:Time
+5:prosumers
+76:0
+77:0
+78:0
+79:0
+80:0
+81:0
+24:0
+25:100
+26:100
+75:
+43:
