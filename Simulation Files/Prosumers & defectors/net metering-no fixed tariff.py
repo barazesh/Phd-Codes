@@ -670,7 +670,7 @@ def total_battery_cost():
 def electricity_tariff():
     """
     Real Name: b'Electricity Tariff'
-    Original Eqn: b'INTEG ( change in electricity tariff, 0.13)'
+    Original Eqn: b'INTEG ( change in electricity tariff, 0.15)'
     Units: b'Dollar/kWh'
     Limits: (None, None)
     Type: component
@@ -1486,14 +1486,14 @@ def final_yearly_percent():
 def fixed_costs():
     """
     Real Name: b'Fixed Costs'
-    Original Eqn: b'1.41e+08'
+    Original Eqn: b'1.4e+08'
     Units: b'Dollar/Month'
     Limits: (None, None)
     Type: constant
 
     b''
     """
-    return 1.41e+08
+    return 1.4e+08
 
 
 @cache('run')
@@ -1746,7 +1746,7 @@ _integ_prosumers = functions.Integ(
     lambda: installing_pv_by_imitation() + installing_pv_by_innovation() + new_prosumers() -
     installing_battery_by_imitation() - installing_battery_by_innovation(), lambda: 0)
 
-_integ_electricity_tariff = functions.Integ(lambda: change_in_electricity_tariff(), lambda: 0.13)
+_integ_electricity_tariff = functions.Integ(lambda: change_in_electricity_tariff(), lambda: 0.15)
 
 _integ_regular_consumers = functions.Integ(
     lambda: new_regular_consumers() - direct_defection_by_imitation() -
