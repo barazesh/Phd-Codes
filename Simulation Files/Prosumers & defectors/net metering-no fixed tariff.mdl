@@ -224,7 +224,7 @@ Storage to Daily Load Factor=
 Regular Consumers= INTEG (
 	New Regular Consumers-Direct Defection By Imitation-Direct Defection by Innovation-installing PV by imitation\
 		-installing PV by Innovation,
-		1e+06)
+		4e+06)
 	~	Customer
 	~		|
 
@@ -279,7 +279,7 @@ change in indicated regular consumer demand=
 
 Regular Consumer Average Demand= INTEG (
 	change in Regular Consumer Demand,
-		900)
+		500)
 	~	kWh/(Month*Customer)
 	~		|
 
@@ -291,7 +291,7 @@ Indicated Prosumer Demand= INTEG (
 
 Prosumer Average Demand= INTEG (
 	change in Prosumer Demand,
-		300)
+		150)
 	~	kWh/Month/Customer
 	~		|
 
@@ -426,22 +426,22 @@ effect of Minimum Regular Consumer Demand = WITH LOOKUP (
 	~		|
 
 Maximum Average Prosumer Demand=
-	500
+	180
 	~	Dmnl
 	~		|
 
 Maximum Average Regular Consumer Demand=
-	1100
+	600
 	~	kWh/(Month*Customer)
 	~		|
 
 Minimum Average Prosumer Demand=
-	200
+	120
 	~	Dmnl
 	~		|
 
 Minimum Average Regular Consumer Demand=
-	600
+	400
 	~	kWh/(Month*Customer)
 	~		|
 
@@ -483,7 +483,7 @@ Desired Income=
 	~		|
 
 Permited Profit=
-	0.2
+	0.15
 	~	Dmnl
 	~		|
 
@@ -510,12 +510,12 @@ final yearly percent=
 	~		|
 
 Fixed Costs=
-	1.95e+07
+	1.41e+08
 	~	Dollar/Month
 	~		|
 
 Generation Price=
-	0.02
+	0.06
 	~	Dollar/kWh
 	~		|
 
@@ -989,6 +989,7 @@ $192-192-192,0,Times New Roman|16||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,1
 :LINE-WIDTH 3
 
 :GRAPH Price_&_Demand
+:TITLE Price_&_Demand
 :X-AXIS time
 :Y-DIV 10
 :WIDTH 15
@@ -1007,6 +1008,7 @@ $192-192-192,0,Times New Roman|16||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,1
 :LINE-WIDTH 3
 
 :GRAPH Utility_Costs
+:TITLE Utility_Costs
 :X-AXIS Time
 :WIDTH 15
 :HEIGHT 8
@@ -1018,9 +1020,10 @@ $192-192-192,0,Times New Roman|16||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,1
 :VAR Variable Costs
 :LINE-WIDTH 3
 :L<%^E!@
+1:edison data.vdfx
 1:02-reduced fixed cost.vdfx
 1:01.vdfx
-9:02-reduced fixed cost
+9:edison data
 23:0
 15:0,0,0,0,0,0
 19:100,5
@@ -1030,7 +1033,7 @@ $192-192-192,0,Times New Roman|16||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,1
 72:0
 73:0
 4:Time
-5:Utility Energy Sale
+5:Budget Deficit
 35:Date
 36:YYYY-MM-DD
 37:2000

@@ -726,7 +726,7 @@ def storage_to_daily_load_factor():
 def regular_consumers():
     """
     Real Name: b'Regular Consumers'
-    Original Eqn: b'INTEG ( New Regular Consumers-Direct Defection By Imitation-Direct Defection by Innovation-installing PV by imitation\\\\ -installing PV by Innovation, 1e+06)'
+    Original Eqn: b'INTEG ( New Regular Consumers-Direct Defection By Imitation-Direct Defection by Innovation-installing PV by imitation\\\\ -installing PV by Innovation, 4e+06)'
     Units: b'Customer'
     Limits: (None, None)
     Type: component
@@ -870,7 +870,7 @@ def change_in_indicated_regular_consumer_demand():
 def regular_consumer_average_demand():
     """
     Real Name: b'Regular Consumer Average Demand'
-    Original Eqn: b'INTEG ( change in Regular Consumer Demand, 900)'
+    Original Eqn: b'INTEG ( change in Regular Consumer Demand, 500)'
     Units: b'kWh/(Month*Customer)'
     Limits: (None, None)
     Type: component
@@ -898,7 +898,7 @@ def indicated_prosumer_demand():
 def prosumer_average_demand():
     """
     Real Name: b'Prosumer Average Demand'
-    Original Eqn: b'INTEG ( change in Prosumer Demand, 300)'
+    Original Eqn: b'INTEG ( change in Prosumer Demand, 150)'
     Units: b'kWh/Month/Customer'
     Limits: (None, None)
     Type: component
@@ -1259,48 +1259,20 @@ def effect_of_minimum_regular_consumer_demand():
 def maximum_average_prosumer_demand():
     """
     Real Name: b'Maximum Average Prosumer Demand'
-    Original Eqn: b'500'
+    Original Eqn: b'180'
     Units: b'Dmnl'
     Limits: (None, None)
     Type: constant
 
     b''
     """
-    return 500
+    return 180
 
 
 @cache('run')
 def maximum_average_regular_consumer_demand():
     """
     Real Name: b'Maximum Average Regular Consumer Demand'
-    Original Eqn: b'1100'
-    Units: b'kWh/(Month*Customer)'
-    Limits: (None, None)
-    Type: constant
-
-    b''
-    """
-    return 1100
-
-
-@cache('run')
-def minimum_average_prosumer_demand():
-    """
-    Real Name: b'Minimum Average Prosumer Demand'
-    Original Eqn: b'200'
-    Units: b'Dmnl'
-    Limits: (None, None)
-    Type: constant
-
-    b''
-    """
-    return 200
-
-
-@cache('run')
-def minimum_average_regular_consumer_demand():
-    """
-    Real Name: b'Minimum Average Regular Consumer Demand'
     Original Eqn: b'600'
     Units: b'kWh/(Month*Customer)'
     Limits: (None, None)
@@ -1309,6 +1281,34 @@ def minimum_average_regular_consumer_demand():
     b''
     """
     return 600
+
+
+@cache('run')
+def minimum_average_prosumer_demand():
+    """
+    Real Name: b'Minimum Average Prosumer Demand'
+    Original Eqn: b'120'
+    Units: b'Dmnl'
+    Limits: (None, None)
+    Type: constant
+
+    b''
+    """
+    return 120
+
+
+@cache('run')
+def minimum_average_regular_consumer_demand():
+    """
+    Real Name: b'Minimum Average Regular Consumer Demand'
+    Original Eqn: b'400'
+    Units: b'kWh/(Month*Customer)'
+    Limits: (None, None)
+    Type: constant
+
+    b''
+    """
+    return 400
 
 
 @cache('step')
@@ -1414,14 +1414,14 @@ def desired_income():
 def permited_profit():
     """
     Real Name: b'Permited Profit'
-    Original Eqn: b'0.2'
+    Original Eqn: b'0.15'
     Units: b'Dmnl'
     Limits: (None, None)
     Type: constant
 
     b''
     """
-    return 0.2
+    return 0.15
 
 
 @cache('step')
@@ -1486,28 +1486,28 @@ def final_yearly_percent():
 def fixed_costs():
     """
     Real Name: b'Fixed Costs'
-    Original Eqn: b'1.95e+07'
+    Original Eqn: b'1.41e+08'
     Units: b'Dollar/Month'
     Limits: (None, None)
     Type: constant
 
     b''
     """
-    return 1.95e+07
+    return 1.41e+08
 
 
 @cache('run')
 def generation_price():
     """
     Real Name: b'Generation Price'
-    Original Eqn: b'0.02'
+    Original Eqn: b'0.06'
     Units: b'Dollar/kWh'
     Limits: (None, None)
     Type: constant
 
     b''
     """
-    return 0.02
+    return 0.06
 
 
 @cache('step')
@@ -1751,7 +1751,7 @@ _integ_electricity_tariff = functions.Integ(lambda: change_in_electricity_tariff
 _integ_regular_consumers = functions.Integ(
     lambda: new_regular_consumers() - direct_defection_by_imitation() -
     direct_defection_by_innovation() - installing_pv_by_imitation() - installing_pv_by_innovation(
-    ), lambda: 1e+06)
+    ), lambda: 4e+06)
 
 _integ_total_consumers = functions.Integ(lambda: consumer_growth(), lambda: 1e+06)
 
@@ -1760,12 +1760,12 @@ _integ_indicated_regular_customer_demand = functions.Integ(
     lambda: 0)
 
 _integ_regular_consumer_average_demand = functions.Integ(
-    lambda: change_in_regular_consumer_demand(), lambda: 900)
+    lambda: change_in_regular_consumer_demand(), lambda: 500)
 
 _integ_indicated_prosumer_demand = functions.Integ(
     lambda: change_in_indicated_prosumer_demand() - change_in_prosumer_demand(), lambda: 0)
 
-_integ_prosumer_average_demand = functions.Integ(lambda: change_in_prosumer_demand(), lambda: 300)
+_integ_prosumer_average_demand = functions.Integ(lambda: change_in_prosumer_demand(), lambda: 150)
 
 _integ_budget_deficit = functions.Integ(lambda: monthly_income_shortfall(), lambda: 0)
 
