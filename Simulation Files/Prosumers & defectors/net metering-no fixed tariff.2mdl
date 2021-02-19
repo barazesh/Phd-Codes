@@ -202,7 +202,7 @@ Total Battery Cost=
 
 Electricity Tariff= INTEG (
 	change in electricity tariff,
-		0.13)
+		0.15)
 	~	Dollar/kWh
 	~		|
 
@@ -510,7 +510,7 @@ final yearly percent=
 	~		|
 
 Fixed Costs=
-	1.41e+08
+	1.4e+08
 	~	Dollar/Month
 	~		|
 
@@ -1021,8 +1021,6 @@ $192-192-192,0,Times New Roman|16||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,1
 :LINE-WIDTH 3
 :L<%^E!@
 1:edison data.vdfx
-1:02-reduced fixed cost.vdfx
-1:01.vdfx
 9:edison data
 23:0
 15:0,0,0,0,0,0
@@ -1033,7 +1031,7 @@ $192-192-192,0,Times New Roman|16||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,1
 72:0
 73:0
 4:Time
-5:Budget Deficit
+5:Electricity Tariff
 35:Date
 36:YYYY-MM-DD
 37:2000

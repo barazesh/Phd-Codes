@@ -797,7 +797,7 @@ def installing_battery_imitation_percent():
 def total_consumers():
     """
     Real Name: b'Total Consumers'
-    Original Eqn: b'INTEG ( Consumer Growth, 1e+06)'
+    Original Eqn: b'INTEG ( Consumer Growth, 4e+06)'
     Units: b'Customer'
     Limits: (None, None)
     Type: component
@@ -1753,7 +1753,7 @@ _integ_regular_consumers = functions.Integ(
     direct_defection_by_innovation() - installing_pv_by_imitation() - installing_pv_by_innovation(
     ), lambda: 4e+06)
 
-_integ_total_consumers = functions.Integ(lambda: consumer_growth(), lambda: 1e+06)
+_integ_total_consumers = functions.Integ(lambda: consumer_growth(), lambda: 4e+06)
 
 _integ_indicated_regular_customer_demand = functions.Integ(
     lambda: change_in_indicated_regular_consumer_demand() - change_in_regular_consumer_demand(),
