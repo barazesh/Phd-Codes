@@ -15,12 +15,18 @@ _subscript_dict = {}
 _namespace = {
     'TIME': 'time',
     'Time': 'time',
+    'Indicated Tariff Change': 'indicated_tariff_change',
+    'change in electricity tariff': 'change_in_electricity_tariff',
+    'Limited Tariff Change': 'limited_tariff_change',
+    'change in indicated regular consumer demand': 'change_in_indicated_regular_consumer_demand',
+    'change in Regular Consumer Demand': 'change_in_regular_consumer_demand',
+    'change in Prosumer Demand': 'change_in_prosumer_demand',
+    'change in indicated prosumer demand': 'change_in_indicated_prosumer_demand',
     'Average Daily Battery Eenergy': 'average_daily_battery_eenergy',
     'Battery Cost': 'battery_cost',
     'Battery Cost Reduction': 'battery_cost_reduction',
     'Battery Life': 'battery_life',
     'effect of Minimum Battery Cost': 'effect_of_minimum_battery_cost',
-    'change in electricity tariff': 'change_in_electricity_tariff',
     'Direct Defection Total Cost': 'direct_defection_total_cost',
     'Direct Defector Monthly Savings': 'direct_defector_monthly_savings',
     'Direct Defector Net Present Savings': 'direct_defector_net_present_savings',
@@ -64,14 +70,10 @@ _namespace = {
     'installing battery imitation percent': 'installing_battery_imitation_percent',
     'Total Consumers': 'total_consumers',
     'New Defectors': 'new_defectors',
-    'change in Regular Consumer Demand': 'change_in_regular_consumer_demand',
-    'Indicated Regular Customer Demand': 'indicated_regular_customer_demand',
-    'change in indicated regular consumer demand': 'change_in_indicated_regular_consumer_demand',
+    'Actual Regular Customer Demand change': 'actual_regular_customer_demand_change',
     'Regular Consumer Average Demand': 'regular_consumer_average_demand',
-    'Indicated Prosumer Demand': 'indicated_prosumer_demand',
+    'Actual Prosumer Demand Change': 'actual_prosumer_demand_change',
     'Prosumer Average Demand': 'prosumer_average_demand',
-    'change in indicated prosumer demand': 'change_in_indicated_prosumer_demand',
-    'change in Prosumer Demand': 'change_in_prosumer_demand',
     'New Prosumer Ratio': 'new_prosumer_ratio',
     'installing PV imitation factor': 'installing_pv_imitation_factor',
     'NPV PV Ratio': 'npv_pv_ratio',
@@ -90,19 +92,14 @@ _namespace = {
     'Minimum Battery Cost': 'minimum_battery_cost',
     'time to adjust Regular Consumer demand': 'time_to_adjust_regular_consumer_demand',
     'time to adjust Prosumer Demand': 'time_to_adjust_prosumer_demand',
-    'effect of Prosumer Minimum Demand': 'effect_of_prosumer_minimum_demand',
-    'effect of Maximum Regular Consumer Demand': 'effect_of_maximum_regular_consumer_demand',
     'Prosumers Demand': 'prosumers_demand',
-    'effect of Minimum Regular Consumer Demand': 'effect_of_minimum_regular_consumer_demand',
     'Maximum Average Prosumer Demand': 'maximum_average_prosumer_demand',
     'Maximum Average Regular Consumer Demand': 'maximum_average_regular_consumer_demand',
     'Minimum Average Prosumer Demand': 'minimum_average_prosumer_demand',
     'Minimum Average Regular Consumer Demand': 'minimum_average_regular_consumer_demand',
-    'Indicated Tariff Change': 'indicated_tariff_change',
     'Tariff Correction Period': 'tariff_correction_period',
-    'effect of Prosumer Maximum Demand': 'effect_of_prosumer_maximum_demand',
-    'price eleasticity of prosumers': 'price_eleasticity_of_prosumers',
-    'price eleasticity of regular consumers': 'price_eleasticity_of_regular_consumers',
+    'price elasticity of prosumers': 'price_elasticity_of_prosumers',
+    'price elasticity of regular consumers': 'price_elasticity_of_regular_consumers',
     'Budget Deficit': 'budget_deficit',
     'Desired Income': 'desired_income',
     'Permited Profit': 'permited_profit',
@@ -142,6 +139,122 @@ def _init_outer_references(data):
 
 def time():
     return __data['time']()
+
+
+@cache('step')
+def indicated_tariff_change():
+    """
+    Real Name: b'Indicated Tariff Change'
+    Original Eqn: b'Budget Deficit/Utility Energy Sale/Tariff Correction Period'
+    Units: b'Dollar/(Month*kWh)'
+    Limits: (None, None)
+    Type: component
+
+    b''
+    """
+    return budget_deficit() / utility_energy_sale() / tariff_correction_period()
+
+
+@cache('step')
+def change_in_electricity_tariff():
+    """
+    Real Name: b'change in electricity tariff'
+    Original Eqn: b'IF THEN ELSE( MODULO(Time, Tariff Correction Period )=0 , Limited Tariff Change , 0 \\\\ )'
+    Units: b'Dollar/(kWh*Month)'
+    Limits: (None, None)
+    Type: component
+
+    b''
+    """
+    return functions.if_then_else(
+        np.mod(time(), tariff_correction_period()) == 0, limited_tariff_change(), 0)
+
+
+@cache('step')
+def limited_tariff_change():
+    """
+    Real Name: b'Limited Tariff Change'
+    Original Eqn: b'IF THEN ELSE( Electricity Tariff+Indicated Tariff Change>0, Indicated Tariff Change,\\\\ -Electricity Tariff )'
+    Units: b''
+    Limits: (None, None)
+    Type: component
+
+    b''
+    """
+    return functions.if_then_else(electricity_tariff() + indicated_tariff_change() > 0,
+                                  indicated_tariff_change(), -electricity_tariff())
+
+
+@cache('step')
+def change_in_indicated_regular_consumer_demand():
+    """
+    Real Name: b'change in indicated regular consumer demand'
+    Original Eqn: b'IF THEN ELSE( indicated change in regular Consumer Demand+Regular Consumer Average Demand\\\\ >Maximum Average Regular Consumer Demand, Maximum Average Regular Consumer Demand-Regular Consumer Average Demand\\\\ , IF THEN ELSE( indicated change in regular Consumer Demand+Regular Consumer Average Demand\\\\ <Minimum Average Regular Consumer Demand , Minimum Average Regular Consumer Demand-\\\\ Regular Consumer Average Demand , indicated change in regular Consumer Demand ) )'
+    Units: b'kWh/(Month*Month*Customer)'
+    Limits: (None, None)
+    Type: component
+
+    b''
+    """
+    return functions.if_then_else(
+        indicated_change_in_regular_consumer_demand() + regular_consumer_average_demand() >
+        maximum_average_regular_consumer_demand(),
+        maximum_average_regular_consumer_demand() - regular_consumer_average_demand(),
+        functions.if_then_else(
+            indicated_change_in_regular_consumer_demand() + regular_consumer_average_demand() <
+            minimum_average_regular_consumer_demand(),
+            minimum_average_regular_consumer_demand() - regular_consumer_average_demand(),
+            indicated_change_in_regular_consumer_demand()))
+
+
+@cache('step')
+def change_in_regular_consumer_demand():
+    """
+    Real Name: b'change in Regular Consumer Demand'
+    Original Eqn: b'Actual Regular Customer Demand change/time to adjust Regular Consumer demand'
+    Units: b'kWh/(Month*Month*Customer)'
+    Limits: (None, None)
+    Type: component
+
+    b''
+    """
+    return actual_regular_customer_demand_change() / time_to_adjust_regular_consumer_demand()
+
+
+@cache('step')
+def change_in_prosumer_demand():
+    """
+    Real Name: b'change in Prosumer Demand'
+    Original Eqn: b'Actual Prosumer Demand Change/time to adjust Prosumer Demand'
+    Units: b'kWh/(Month*Month*Customer)'
+    Limits: (None, None)
+    Type: component
+
+    b''
+    """
+    return actual_prosumer_demand_change() / time_to_adjust_prosumer_demand()
+
+
+@cache('step')
+def change_in_indicated_prosumer_demand():
+    """
+    Real Name: b'change in indicated prosumer demand'
+    Original Eqn: b'IF THEN ELSE(Prosumer Average Demand+indicated change in Prosumer Demand>Maximum Average Prosumer Demand\\\\ , Maximum Average Prosumer Demand-Prosumer Average Demand , IF THEN ELSE( Prosumer Average Demand\\\\ +indicated change in Prosumer Demand<Minimum Average Prosumer Demand , Minimum Average Prosumer Demand\\\\ -Prosumer Average Demand , indicated change in Prosumer Demand ) )'
+    Units: b'kWh/(Month*Month*Customer)'
+    Limits: (None, None)
+    Type: component
+
+    b''
+    """
+    return functions.if_then_else(
+        prosumer_average_demand() + indicated_change_in_prosumer_demand() >
+        maximum_average_prosumer_demand(),
+        maximum_average_prosumer_demand() - prosumer_average_demand(),
+        functions.if_then_else(
+            prosumer_average_demand() + indicated_change_in_prosumer_demand() <
+            minimum_average_prosumer_demand(),
+            minimum_average_prosumer_demand() - prosumer_average_demand(),
+            indicated_change_in_prosumer_demand()))
 
 
 @cache('step')
@@ -214,21 +327,6 @@ def effect_of_minimum_battery_cost():
     """
     return functions.lookup(minimum_battery_cost() / battery_cost(),
                             [0, 0.25, 0.4, 0.5, 0.6, 0.75, 1], [1, 0.95, 0.8, 0.5, 0.2, 0.05, 0])
-
-
-@cache('step')
-def change_in_electricity_tariff():
-    """
-    Real Name: b'change in electricity tariff'
-    Original Eqn: b'IF THEN ELSE( MODULO(Time, Tariff Correction Period )=0 , Indicated Tariff Change , \\\\ 0 )'
-    Units: b'Dollar/(kWh*Month)'
-    Limits: (None, None)
-    Type: component
-
-    b''
-    """
-    return functions.if_then_else(
-        np.mod(time(), tariff_correction_period()) == 0, indicated_tariff_change(), 0)
 
 
 @cache('step')
@@ -569,30 +667,36 @@ def effect_of_installing_battery_npv_on_innovation():
 def indicated_change_in_prosumer_demand():
     """
     Real Name: b'indicated change in Prosumer Demand'
-    Original Eqn: b'change in electricity tariff*price eleasticity of prosumers*Prosumer Average Demand/\\\\ Electricity Tariff'
+    Original Eqn: b'IF THEN ELSE(Electricity Tariff=0, -price elasticity of prosumers*Prosumer Average Demand\\\\ *30 ,change in electricity tariff*price elasticity of prosumers*Prosumer Average Demand\\\\ /Electricity Tariff)'
     Units: b'kWh/(Month*Month*Customer)'
     Limits: (None, None)
     Type: component
 
     b''
     """
-    return change_in_electricity_tariff() * price_eleasticity_of_prosumers(
-    ) * prosumer_average_demand() / electricity_tariff()
+    return functions.if_then_else(
+        electricity_tariff() == 0,
+        -price_elasticity_of_prosumers() * prosumer_average_demand() * 30,
+        change_in_electricity_tariff() * price_elasticity_of_prosumers() *
+        prosumer_average_demand() / electricity_tariff())
 
 
 @cache('step')
 def indicated_change_in_regular_consumer_demand():
     """
     Real Name: b'indicated change in regular Consumer Demand'
-    Original Eqn: b'change in electricity tariff*Regular Consumer Average Demand*price eleasticity of regular consumers\\\\ /Electricity Tariff'
+    Original Eqn: b'IF THEN ELSE(Electricity Tariff=0, -price elasticity of regular consumers*Regular Consumer Average Demand\\\\ *30, change in electricity tariff*Regular Consumer Average Demand*price elasticity of regular consumers\\\\ /Electricity Tariff)'
     Units: b'kWh/(Month*Month*Customer)'
     Limits: (None, None)
     Type: component
 
     b''
     """
-    return change_in_electricity_tariff() * regular_consumer_average_demand(
-    ) * price_eleasticity_of_regular_consumers() / electricity_tariff()
+    return functions.if_then_else(
+        electricity_tariff() == 0,
+        -price_elasticity_of_regular_consumers() * regular_consumer_average_demand() * 30,
+        change_in_electricity_tariff() * regular_consumer_average_demand() *
+        price_elasticity_of_regular_consumers() / electricity_tariff())
 
 
 @cache('step')
@@ -824,24 +928,9 @@ def new_defectors():
 
 
 @cache('step')
-def change_in_regular_consumer_demand():
+def actual_regular_customer_demand_change():
     """
-    Real Name: b'change in Regular Consumer Demand'
-    Original Eqn: b'effect of Maximum Regular Consumer Demand*effect of Minimum Regular Consumer Demand*\\\\ Indicated Regular Customer Demand/time to adjust Regular Consumer demand'
-    Units: b'kWh/(Month*Month*Customer)'
-    Limits: (None, None)
-    Type: component
-
-    b''
-    """
-    return effect_of_maximum_regular_consumer_demand() * effect_of_minimum_regular_consumer_demand(
-    ) * indicated_regular_customer_demand() / time_to_adjust_regular_consumer_demand()
-
-
-@cache('step')
-def indicated_regular_customer_demand():
-    """
-    Real Name: b'Indicated Regular Customer Demand'
+    Real Name: b'Actual Regular Customer Demand change'
     Original Eqn: b'INTEG ( change in indicated regular consumer demand-change in Regular Consumer Demand, 0)'
     Units: b'kWh/(Month*Customer)'
     Limits: (None, None)
@@ -849,21 +938,7 @@ def indicated_regular_customer_demand():
 
     b''
     """
-    return _integ_indicated_regular_customer_demand()
-
-
-@cache('step')
-def change_in_indicated_regular_consumer_demand():
-    """
-    Real Name: b'change in indicated regular consumer demand'
-    Original Eqn: b'indicated change in regular Consumer Demand'
-    Units: b'kWh/(Month*Month*Customer)'
-    Limits: (None, None)
-    Type: component
-
-    b''
-    """
-    return indicated_change_in_regular_consumer_demand()
+    return _integ_actual_regular_customer_demand_change()
 
 
 @cache('step')
@@ -881,9 +956,9 @@ def regular_consumer_average_demand():
 
 
 @cache('step')
-def indicated_prosumer_demand():
+def actual_prosumer_demand_change():
     """
-    Real Name: b'Indicated Prosumer Demand'
+    Real Name: b'Actual Prosumer Demand Change'
     Original Eqn: b'INTEG ( change in indicated prosumer demand-change in Prosumer Demand, 0)'
     Units: b''
     Limits: (None, None)
@@ -891,7 +966,7 @@ def indicated_prosumer_demand():
 
     b''
     """
-    return _integ_indicated_prosumer_demand()
+    return _integ_actual_prosumer_demand_change()
 
 
 @cache('step')
@@ -906,35 +981,6 @@ def prosumer_average_demand():
     b''
     """
     return _integ_prosumer_average_demand()
-
-
-@cache('step')
-def change_in_indicated_prosumer_demand():
-    """
-    Real Name: b'change in indicated prosumer demand'
-    Original Eqn: b'indicated change in Prosumer Demand'
-    Units: b'kWh/(Month*Month*Customer)'
-    Limits: (None, None)
-    Type: component
-
-    b''
-    """
-    return indicated_change_in_prosumer_demand()
-
-
-@cache('step')
-def change_in_prosumer_demand():
-    """
-    Real Name: b'change in Prosumer Demand'
-    Original Eqn: b'effect of Prosumer Maximum Demand*effect of Prosumer Minimum Demand*Indicated Prosumer Demand\\\\ /time to adjust Prosumer Demand'
-    Units: b'kWh/(Month*Month*Customer)'
-    Limits: (None, None)
-    Type: component
-
-    b''
-    """
-    return effect_of_prosumer_maximum_demand() * effect_of_prosumer_minimum_demand(
-    ) * indicated_prosumer_demand() / time_to_adjust_prosumer_demand()
 
 
 @cache('step')
@@ -1195,37 +1241,6 @@ def time_to_adjust_prosumer_demand():
 
 
 @cache('step')
-def effect_of_prosumer_minimum_demand():
-    """
-    Real Name: b'effect of Prosumer Minimum Demand'
-    Original Eqn: b'WITH LOOKUP ( Minimum Average Prosumer Demand/Prosumer Average Demand, ([(0,0)-(1,1)],(0,1),(0.8,1),(1,0) ))'
-    Units: b'Dmnl'
-    Limits: (None, None)
-    Type: component
-
-    b''
-    """
-    return functions.lookup(minimum_average_prosumer_demand() / prosumer_average_demand(),
-                            [0, 0.8, 1], [1, 1, 0])
-
-
-@cache('step')
-def effect_of_maximum_regular_consumer_demand():
-    """
-    Real Name: b'effect of Maximum Regular Consumer Demand'
-    Original Eqn: b'WITH LOOKUP ( Regular Consumer Average Demand/Maximum Average Regular Consumer Demand, ([(0,0)-(1,1)],(0,1),(0.8,1),(1,0) ))'
-    Units: b'Dmnl'
-    Limits: (None, None)
-    Type: component
-
-    b''
-    """
-    return functions.lookup(
-        regular_consumer_average_demand() / maximum_average_regular_consumer_demand(), [0, 0.8, 1],
-        [1, 1, 0])
-
-
-@cache('step')
 def prosumers_demand():
     """
     Real Name: b'Prosumers Demand'
@@ -1237,22 +1252,6 @@ def prosumers_demand():
     b''
     """
     return prosumer_average_demand() * prosumers()
-
-
-@cache('step')
-def effect_of_minimum_regular_consumer_demand():
-    """
-    Real Name: b'effect of Minimum Regular Consumer Demand'
-    Original Eqn: b'WITH LOOKUP ( Minimum Average Regular Consumer Demand/Regular Consumer Average Demand, ([(0,0)-(1,1)],(0,1),(0.8,1),(1,0) ))'
-    Units: b'Dmnl'
-    Limits: (None, None)
-    Type: component
-
-    b''
-    """
-    return functions.lookup(
-        minimum_average_regular_consumer_demand() / regular_consumer_average_demand(), [0, 0.8, 1],
-        [1, 1, 0])
 
 
 @cache('run')
@@ -1311,53 +1310,24 @@ def minimum_average_regular_consumer_demand():
     return 400
 
 
-@cache('step')
-def indicated_tariff_change():
-    """
-    Real Name: b'Indicated Tariff Change'
-    Original Eqn: b'Budget Deficit/Utility Energy Sale/Tariff Correction Period'
-    Units: b'Dollar/(Month*kWh)'
-    Limits: (None, None)
-    Type: component
-
-    b''
-    """
-    return budget_deficit() / utility_energy_sale() / tariff_correction_period()
-
-
 @cache('run')
 def tariff_correction_period():
     """
     Real Name: b'Tariff Correction Period'
-    Original Eqn: b'24'
+    Original Eqn: b'1'
     Units: b'Month'
     Limits: (None, None)
     Type: constant
 
     b''
     """
-    return 24
-
-
-@cache('step')
-def effect_of_prosumer_maximum_demand():
-    """
-    Real Name: b'effect of Prosumer Maximum Demand'
-    Original Eqn: b'WITH LOOKUP ( Prosumer Average Demand/Maximum Average Prosumer Demand, ([(0,0)-(1,1)],(0,1),(0.8,1),(1,0) ))'
-    Units: b'Dmnl'
-    Limits: (None, None)
-    Type: component
-
-    b''
-    """
-    return functions.lookup(prosumer_average_demand() / maximum_average_prosumer_demand(),
-                            [0, 0.8, 1], [1, 1, 0])
+    return 1
 
 
 @cache('run')
-def price_eleasticity_of_prosumers():
+def price_elasticity_of_prosumers():
     """
-    Real Name: b'price eleasticity of prosumers'
+    Real Name: b'price elasticity of prosumers'
     Original Eqn: b'-0.2'
     Units: b'Dmnl'
     Limits: (None, None)
@@ -1369,9 +1339,9 @@ def price_eleasticity_of_prosumers():
 
 
 @cache('run')
-def price_eleasticity_of_regular_consumers():
+def price_elasticity_of_regular_consumers():
     """
-    Real Name: b'price eleasticity of regular consumers'
+    Real Name: b'price elasticity of regular consumers'
     Original Eqn: b'-0.1'
     Units: b'Dmnl'
     Limits: (None, None)
@@ -1755,14 +1725,14 @@ _integ_regular_consumers = functions.Integ(
 
 _integ_total_consumers = functions.Integ(lambda: consumer_growth(), lambda: 4e+06)
 
-_integ_indicated_regular_customer_demand = functions.Integ(
+_integ_actual_regular_customer_demand_change = functions.Integ(
     lambda: change_in_indicated_regular_consumer_demand() - change_in_regular_consumer_demand(),
     lambda: 0)
 
 _integ_regular_consumer_average_demand = functions.Integ(
     lambda: change_in_regular_consumer_demand(), lambda: 500)
 
-_integ_indicated_prosumer_demand = functions.Integ(
+_integ_actual_prosumer_demand_change = functions.Integ(
     lambda: change_in_indicated_prosumer_demand() - change_in_prosumer_demand(), lambda: 0)
 
 _integ_prosumer_average_demand = functions.Integ(lambda: change_in_prosumer_demand(), lambda: 150)
