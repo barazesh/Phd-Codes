@@ -1695,14 +1695,14 @@ def saveper():
 def time_step():
     """
     Real Name: b'TIME STEP'
-    Original Eqn: b'1'
+    Original Eqn: b'0.125'
     Units: b'Month'
     Limits: (0.0, None)
     Type: constant
 
     b'The time step for the simulation.'
     """
-    return 1
+    return 0.125
 
 
 _integ_battery_cost = functions.Integ(lambda: -battery_cost_reduction(), lambda: 600)
