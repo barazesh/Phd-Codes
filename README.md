@@ -8,3 +8,5 @@ The Data for Utility Bussiness Model is obtained from [**Edison International 20
 The Model is implemented in *Vensim PLE* and **PYSD** is used for running it.
 
 For now, I'm just experimenting with **PYSD** and its interface with *Vensim*
+
+it seams that changing the changing the **Time Step** of the model in *Vensim* changes the behaviour dramatically.
