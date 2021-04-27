@@ -1,0 +1,2 @@
+# ignore outputs directory because it contains large raw data files
+/Outputs/
