@@ -587,12 +587,12 @@ INITIAL TIME  = 0
 	|
 
 SAVEPER  = 
-        TIME STEP 
+        TIME STEP
 	~	Month [0,?]
 	~	The frequency with which output is stored.
 	|
 
-TIME STEP  = 0.125
+TIME STEP  = 0.0625
 	~	Month [0,?]
 	~	The time step for the simulation.
 	|
@@ -1001,19 +1001,28 @@ $192-192-192,0,Times New Roman|16||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,1
 :LINE-WIDTH 3
 :VAR Variable Costs
 :LINE-WIDTH 3
+
+:GRAPH price
+:TITLE price
+:X-AXIS time
+:SCALE
+:VAR Electricity Tariff
+:Y-MIN 0.14
+:Y-MAX 0.16
+:LINE-WIDTH 3
 :L<%^E!@
-1:edison data_step3.vdfx
-9:edison data_step3
+1:edison data_rk4.vdfx
+9:edison data_rk4
 23:0
-15:0,0,0,0,0,0
-19:5,0
+15:0,0,0,1,0,0
+19:100,3
 27:0,
 34:0,
 42:1
 72:0
 73:0
 4:Time
-5:Prosumers
+5:Electricity Tariff
 35:Date
 36:YYYY-MM-DD
 37:2000
