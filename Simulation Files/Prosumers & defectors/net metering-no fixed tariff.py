@@ -15,8 +15,14 @@ _subscript_dict = {}
 _namespace = {
     'TIME': 'time',
     'Time': 'time',
-    'Indicated Tariff Change': 'indicated_tariff_change',
+    'percent std effect of remaining time': 'percent_std_effect_of_remaining_time',
+    'std of effect of remaining time': 'std_of_effect_of_remaining_time',
+    'effect of remaining time on change in electricity tariff':
+    'effect_of_remaining_time_on_change_in_electricity_tariff',
+    'tariff correction remaining time': 'tariff_correction_remaining_time',
+    'pi': 'pi',
     'change in electricity tariff': 'change_in_electricity_tariff',
+    'Indicated Tariff Change': 'indicated_tariff_change',
     'Limited Tariff Change': 'limited_tariff_change',
     'change in indicated regular consumer demand': 'change_in_indicated_regular_consumer_demand',
     'change in Regular Consumer Demand': 'change_in_regular_consumer_demand',
@@ -141,6 +147,92 @@ def time():
     return __data['time']()
 
 
+@cache('run')
+def percent_std_effect_of_remaining_time():
+    """
+    Real Name: b'percent std effect of remaining time'
+    Original Eqn: b'0.05'
+    Units: b''
+    Limits: (None, None)
+    Type: constant
+
+    b''
+    """
+    return 0.05
+
+
+@cache('step')
+def std_of_effect_of_remaining_time():
+    """
+    Real Name: b'std of effect of remaining time'
+    Original Eqn: b'percent std effect of remaining time*Tariff Correction Period'
+    Units: b'Dmnl'
+    Limits: (None, None)
+    Type: component
+
+    b''
+    """
+    return percent_std_effect_of_remaining_time() * tariff_correction_period()
+
+
+@cache('step')
+def effect_of_remaining_time_on_change_in_electricity_tariff():
+    """
+    Real Name: b'effect of remaining time on change in electricity tariff'
+    Original Eqn: b'1/(std of effect of remaining time*2*pi)*EXP( -0.5*(tariff correction remaining time\\\\ /std of effect of remaining time)^2 )'
+    Units: b'Dmnl'
+    Limits: (None, None)
+    Type: component
+
+    b''
+    """
+    return 1 / (std_of_effect_of_remaining_time() * 2 * pi()) * np.exp(
+        -0.5 * (tariff_correction_remaining_time() / std_of_effect_of_remaining_time())**2)
+
+
+@cache('step')
+def tariff_correction_remaining_time():
+    """
+    Real Name: b'tariff correction remaining time'
+    Original Eqn: b'MIN( MODULO( Time , Tariff Correction Period ), ABS(MODULO(Time, Tariff Correction Period\\\\ )-Tariff Correction Period) )'
+    Units: b'Dmnl'
+    Limits: (None, None)
+    Type: component
+
+    b''
+    """
+    return np.minimum(np.mod(time(), tariff_correction_period()),
+                      abs(np.mod(time(), tariff_correction_period()) - tariff_correction_period()))
+
+
+@cache('run')
+def pi():
+    """
+    Real Name: b'pi'
+    Original Eqn: b'3.14159'
+    Units: b'Dmnl'
+    Limits: (None, None)
+    Type: constant
+
+    b''
+    """
+    return 3.14159
+
+
+@cache('step')
+def change_in_electricity_tariff():
+    """
+    Real Name: b'change in electricity tariff'
+    Original Eqn: b'Indicated Tariff Change*effect of remaining time on change in electricity tariff'
+    Units: b'Dollar/(kWh*Month)'
+    Limits: (None, None)
+    Type: component
+
+    b'IF THEN ELSE( MODULO(Time, Tariff Correction Period )=0 , Limited Tariff \\n    \\t\\tChange , 0 )'
+    """
+    return indicated_tariff_change() * effect_of_remaining_time_on_change_in_electricity_tariff()
+
+
 @cache('step')
 def indicated_tariff_change():
     """
@@ -156,26 +248,11 @@ def indicated_tariff_change():
 
 
 @cache('step')
-def change_in_electricity_tariff():
-    """
-    Real Name: b'change in electricity tariff'
-    Original Eqn: b'IF THEN ELSE( MODULO(Time, Tariff Correction Period )=0 , Limited Tariff Change , 0 \\\\ )'
-    Units: b'Dollar/(kWh*Month)'
-    Limits: (None, None)
-    Type: component
-
-    b''
-    """
-    return functions.if_then_else(
-        np.mod(time(), tariff_correction_period()) == 0, limited_tariff_change(), 0)
-
-
-@cache('step')
 def limited_tariff_change():
     """
     Real Name: b'Limited Tariff Change'
     Original Eqn: b'IF THEN ELSE( Electricity Tariff+Indicated Tariff Change>0, Indicated Tariff Change,\\\\ -Electricity Tariff )'
-    Units: b''
+    Units: b'Dollar/(kWh*Month)'
     Limits: (None, None)
     Type: component
 
@@ -1074,14 +1151,14 @@ def npv_pv():
 def population_growth_rate():
     """
     Real Name: b'population growth rate'
-    Original Eqn: b'0.03/12'
+    Original Eqn: b'0/12'
     Units: b'1/Month'
     Limits: (None, None)
     Type: constant
 
     b''
     """
-    return 0.03 / 12
+    return 0 / 12
 
 
 @cache('step')
@@ -1314,14 +1391,14 @@ def minimum_average_regular_consumer_demand():
 def tariff_correction_period():
     """
     Real Name: b'Tariff Correction Period'
-    Original Eqn: b'1'
+    Original Eqn: b'6'
     Units: b'Month'
     Limits: (None, None)
     Type: constant
 
     b''
     """
-    return 1
+    return 6
 
 
 @cache('run')
@@ -1695,14 +1772,14 @@ def saveper():
 def time_step():
     """
     Real Name: b'TIME STEP'
-    Original Eqn: b'0.0001'
+    Original Eqn: b'0.0078125'
     Units: b'Month'
     Limits: (0.0, None)
     Type: constant
 
     b'The time step for the simulation.'
     """
-    return 0.0001
+    return 0.0078125
 
 
 _integ_battery_cost = functions.Integ(lambda: -battery_cost_reduction(), lambda: 600)
