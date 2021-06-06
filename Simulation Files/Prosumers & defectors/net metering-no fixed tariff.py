@@ -15,6 +15,19 @@ _subscript_dict = {}
 _namespace = {
     'TIME': 'time',
     'Time': 'time',
+    'Defectors Ratio': 'defectors_ratio',
+    'Total Consumers': 'total_consumers',
+    'Regular Consumers': 'regular_consumers',
+    'PV customers ratio': 'pv_customers_ratio',
+    'Direct Defection by Innovation': 'direct_defection_by_innovation',
+    'Initial Number of Consumers': 'initial_number_of_consumers',
+    'effect of Customers on Battery Cost': 'effect_of_customers_on_battery_cost',
+    'Installing Battery by Innovation': 'installing_battery_by_innovation',
+    'effect of Customers on PV Cost': 'effect_of_customers_on_pv_cost',
+    'Electricity Loss': 'electricity_loss',
+    'Deficit recovery period': 'deficit_recovery_period',
+    'Indicated Tariff Change': 'indicated_tariff_change',
+    'Energy Procurement': 'energy_procurement',
     'percent std effect of remaining time': 'percent_std_effect_of_remaining_time',
     'std of effect of remaining time': 'std_of_effect_of_remaining_time',
     'effect of remaining time on change in electricity tariff':
@@ -22,7 +35,6 @@ _namespace = {
     'tariff correction remaining time': 'tariff_correction_remaining_time',
     'pi': 'pi',
     'change in electricity tariff': 'change_in_electricity_tariff',
-    'Indicated Tariff Change': 'indicated_tariff_change',
     'Limited Tariff Change': 'limited_tariff_change',
     'change in indicated regular consumer demand': 'change_in_indicated_regular_consumer_demand',
     'change in Regular Consumer Demand': 'change_in_regular_consumer_demand',
@@ -41,16 +53,12 @@ _namespace = {
     'Defectors': 'defectors',
     'effect of direct defection NPV on imitation': 'effect_of_direct_defection_npv_on_imitation',
     'Direct Defection By Imitation': 'direct_defection_by_imitation',
-    'Direct Defection by Innovation': 'direct_defection_by_innovation',
     'direct defection imitation factor': 'direct_defection_imitation_factor',
     'direct defection imitation percent': 'direct_defection_imitation_percent',
-    'direct defection innovation factor': 'direct_defection_innovation_factor',
     'Direct Defection NPV': 'direct_defection_npv',
     '"No. Batteries"': 'no_batteries',
     '"No. Bettery Replacement"': 'no_bettery_replacement',
     'Installing Battery By Imitation': 'installing_battery_by_imitation',
-    'Installing Battery by Innovation': 'installing_battery_by_innovation',
-    'effect of Customers on Battery Cost': 'effect_of_customers_on_battery_cost',
     'NPV PV Income': 'npv_pv_income',
     'Total PV Cost': 'total_pv_cost',
     'effect of direct defection NPV on innovation': 'effect_of_direct_defection_npv_on_innovation',
@@ -69,12 +77,10 @@ _namespace = {
     'PV monthly Income': 'pv_monthly_income',
     'New Regular Consumers': 'new_regular_consumers',
     'Storage to Daily Load Factor': 'storage_to_daily_load_factor',
-    'Regular Consumers': 'regular_consumers',
     'Income': 'income',
     'New Prosumers': 'new_prosumers',
     'Reliablity Margin': 'reliablity_margin',
     'installing battery imitation percent': 'installing_battery_imitation_percent',
-    'Total Consumers': 'total_consumers',
     'New Defectors': 'new_defectors',
     'Actual Regular Customer Demand change': 'actual_regular_customer_demand_change',
     'Regular Consumer Average Demand': 'regular_consumer_average_demand',
@@ -93,7 +99,6 @@ _namespace = {
     'PV monthly Generation': 'pv_monthly_generation',
     'PV size': 'pv_size',
     'installing PV imitation percent': 'installing_pv_imitation_percent',
-    'effect of Customers on PV Cost': 'effect_of_customers_on_pv_cost',
     'Normal Battery Cost Reduction rate': 'normal_battery_cost_reduction_rate',
     'Minimum Battery Cost': 'minimum_battery_cost',
     'time to adjust Regular Consumer demand': 'time_to_adjust_regular_consumer_demand',
@@ -110,7 +115,6 @@ _namespace = {
     'Desired Income': 'desired_income',
     'Permited Profit': 'permited_profit',
     'effect of Minimum PV Cost': 'effect_of_minimum_pv_cost',
-    'Energy Procurement': 'energy_procurement',
     'PV Cost Reduction': 'pv_cost_reduction',
     'final yearly percent': 'final_yearly_percent',
     'Fixed Costs': 'fixed_costs',
@@ -125,8 +129,7 @@ _namespace = {
     'Regular Consumers Demand': 'regular_consumers_demand',
     'Utility Energy Sale': 'utility_energy_sale',
     'installing PV by imitation': 'installing_pv_by_imitation',
-    'installing battery innovation factor': 'installing_battery_innovation_factor',
-    'installing PV innovation factor': 'installing_pv_innovation_factor',
+    'Innovation factor': 'innovation_factor',
     'FINAL TIME': 'final_time',
     'INITIAL TIME': 'initial_time',
     'SAVEPER': 'saveper',
@@ -145,6 +148,191 @@ def _init_outer_references(data):
 
 def time():
     return __data['time']()
+
+
+@cache('step')
+def defectors_ratio():
+    """
+    Real Name: b'Defectors Ratio'
+    Original Eqn: b'Defectors/Initial Number of Consumers'
+    Units: b'Dmnl'
+    Limits: (None, None)
+    Type: component
+
+    b''
+    """
+    return defectors() / initial_number_of_consumers()
+
+
+@cache('step')
+def total_consumers():
+    """
+    Real Name: b'Total Consumers'
+    Original Eqn: b'INTEG ( Consumer Growth, Initial Number of Consumers)'
+    Units: b'Customer'
+    Limits: (None, None)
+    Type: component
+
+    b''
+    """
+    return _integ_total_consumers()
+
+
+@cache('step')
+def regular_consumers():
+    """
+    Real Name: b'Regular Consumers'
+    Original Eqn: b'INTEG ( New Regular Consumers-Direct Defection By Imitation-Direct Defection by Innovation-installing PV by imitation\\\\ -installing PV by Innovation, Initial Number of Consumers)'
+    Units: b'Customer'
+    Limits: (None, None)
+    Type: component
+
+    b''
+    """
+    return _integ_regular_consumers()
+
+
+@cache('step')
+def pv_customers_ratio():
+    """
+    Real Name: b'PV customers ratio'
+    Original Eqn: b'Total Customers with PV/Initial Number of Consumers'
+    Units: b'Dmnl'
+    Limits: (None, None)
+    Type: component
+
+    b''
+    """
+    return total_customers_with_pv() / initial_number_of_consumers()
+
+
+@cache('step')
+def direct_defection_by_innovation():
+    """
+    Real Name: b'Direct Defection by Innovation'
+    Original Eqn: b'IF THEN ELSE(Regular Consumers>0, Innovation factor*Regular Consumers*effect of direct defection NPV on innovation ,0)'
+    Units: b'Customer/Month'
+    Limits: (None, None)
+    Type: component
+
+    b''
+    """
+    return functions.if_then_else(
+        regular_consumers() > 0,
+        innovation_factor() * regular_consumers() * effect_of_direct_defection_npv_on_innovation(),
+        0)
+
+
+@cache('run')
+def initial_number_of_consumers():
+    """
+    Real Name: b'Initial Number of Consumers'
+    Original Eqn: b'4e+06'
+    Units: b'Customer'
+    Limits: (None, None)
+    Type: constant
+
+    b''
+    """
+    return 4e+06
+
+
+@cache('step')
+def effect_of_customers_on_battery_cost():
+    """
+    Real Name: b'effect of Customers on Battery Cost'
+    Original Eqn: b'1+1/(1+EXP(5-Defectors Ratio*15))'
+    Units: b'Dmnl'
+    Limits: (None, None)
+    Type: component
+
+    b''
+    """
+    return 1 + 1 / (1 + np.exp(5 - defectors_ratio() * 15))
+
+
+@cache('step')
+def installing_battery_by_innovation():
+    """
+    Real Name: b'Installing Battery by Innovation'
+    Original Eqn: b'Innovation factor*Prosumers*effect of installing battery NPV on innovation'
+    Units: b'Customer/Month'
+    Limits: (None, None)
+    Type: component
+
+    b''
+    """
+    return innovation_factor() * prosumers() * effect_of_installing_battery_npv_on_innovation()
+
+
+@cache('step')
+def effect_of_customers_on_pv_cost():
+    """
+    Real Name: b'effect of Customers on PV Cost'
+    Original Eqn: b'1+1/(1+EXP(5-PV customers ratio*15))'
+    Units: b'Dmnl'
+    Limits: (None, None)
+    Type: component
+
+    b''
+    """
+    return 1 + 1 / (1 + np.exp(5 - pv_customers_ratio() * 15))
+
+
+@cache('run')
+def electricity_loss():
+    """
+    Real Name: b'Electricity Loss'
+    Original Eqn: b'10'
+    Units: b''
+    Limits: (None, None)
+    Type: constant
+
+    b''
+    """
+    return 10
+
+
+@cache('run')
+def deficit_recovery_period():
+    """
+    Real Name: b'Deficit recovery period'
+    Original Eqn: b'6'
+    Units: b'Month'
+    Limits: (None, None)
+    Type: constant
+
+    b''
+    """
+    return 6
+
+
+@cache('step')
+def indicated_tariff_change():
+    """
+    Real Name: b'Indicated Tariff Change'
+    Original Eqn: b'Budget Deficit/Utility Energy Sale/Deficit recovery period'
+    Units: b'Dollar/(Month*kWh)'
+    Limits: (None, None)
+    Type: component
+
+    b''
+    """
+    return budget_deficit() / utility_energy_sale() / deficit_recovery_period()
+
+
+@cache('step')
+def energy_procurement():
+    """
+    Real Name: b'Energy Procurement'
+    Original Eqn: b'Utility Energy Sale*(1+Electricity Loss/100)'
+    Units: b'kWh/Month'
+    Limits: (None, None)
+    Type: component
+
+    b''
+    """
+    return utility_energy_sale() * (1 + electricity_loss() / 100)
 
 
 @cache('run')
@@ -184,7 +372,7 @@ def effect_of_remaining_time_on_change_in_electricity_tariff():
     Limits: (None, None)
     Type: component
 
-    b''
+    b'1/(std of effect of remaining time*2*pi)*EXP( -0.5*(tariff correction \\n    \\t\\tremaining time/std of effect of remaining time)^2 )'
     """
     return 1 / (std_of_effect_of_remaining_time() * 2 * pi()) * np.exp(
         -0.5 * (tariff_correction_remaining_time() / std_of_effect_of_remaining_time())**2)
@@ -231,20 +419,6 @@ def change_in_electricity_tariff():
     b'IF THEN ELSE( MODULO(Time, Tariff Correction Period )=0 , Limited Tariff \\n    \\t\\tChange , 0 )'
     """
     return indicated_tariff_change() * effect_of_remaining_time_on_change_in_electricity_tariff()
-
-
-@cache('step')
-def indicated_tariff_change():
-    """
-    Real Name: b'Indicated Tariff Change'
-    Original Eqn: b'Budget Deficit/Utility Energy Sale/Tariff Correction Period'
-    Units: b'Dollar/(Month*kWh)'
-    Limits: (None, None)
-    Type: component
-
-    b''
-    """
-    return budget_deficit() / utility_energy_sale() / tariff_correction_period()
 
 
 @cache('step')
@@ -395,15 +569,14 @@ def battery_life():
 def effect_of_minimum_battery_cost():
     """
     Real Name: b'effect of Minimum Battery Cost'
-    Original Eqn: b'WITH LOOKUP ( Minimum Battery Cost/Battery Cost, ([(0,0)-(1,1)],(0,1),(0.25,0.95),(0.4,0.8),(0.5,0.5),(0.6,0.2),(0.75,0.05),(1,0) ))'
+    Original Eqn: b'1-1/(1+EXP(6-12*Minimum Battery Cost/Battery Cost))'
     Units: b'Dmnl'
     Limits: (None, None)
     Type: component
 
     b''
     """
-    return functions.lookup(minimum_battery_cost() / battery_cost(),
-                            [0, 0.25, 0.4, 0.5, 0.6, 0.75, 1], [1, 0.95, 0.8, 0.5, 0.2, 0.05, 0])
+    return 1 - 1 / (1 + np.exp(6 - 12 * minimum_battery_cost() / battery_cost()))
 
 
 @cache('step')
@@ -438,15 +611,15 @@ def direct_defector_monthly_savings():
 def direct_defector_net_present_savings():
     """
     Real Name: b'Direct Defector Net Present Savings'
-    Original Eqn: b'-Direct Defector Monthly Savings*((1-(1+Discount Rate)^(PV Life+1))/Discount Rate)'
+    Original Eqn: b'Direct Defector Monthly Savings*(((1+Discount Rate)^(PV Life+1)-1)/Discount Rate)'
     Units: b'Dollar/kWh'
     Limits: (None, None)
     Type: component
 
     b''
     """
-    return -direct_defector_monthly_savings() * (
-        (1 - (1 + discount_rate())**(pv_life() + 1)) / discount_rate())
+    return direct_defector_monthly_savings() * ((
+        (1 + discount_rate())**(pv_life() + 1) - 1) / discount_rate())
 
 
 @cache('run')
@@ -495,14 +668,14 @@ def defectors():
 def effect_of_direct_defection_npv_on_imitation():
     """
     Real Name: b'effect of direct defection NPV on imitation'
-    Original Eqn: b'WITH LOOKUP ( Direct Defection NPV, ([(0,0)-(40000,20)],(0,1),(5000,1.5),(20000,2),(40000,2.5) ))'
+    Original Eqn: b'0.5+2/(1+EXP(2-Direct Defection NPV/5000))'
     Units: b''
     Limits: (None, None)
     Type: component
 
-    b''
+    b'0.5+2/(1+exp(2-x/5000))'
     """
-    return functions.lookup(direct_defection_npv(), [0, 5000, 20000, 40000], [1, 1.5, 2, 2.5])
+    return 0.5 + 2 / (1 + np.exp(2 - direct_defection_npv() / 5000))
 
 
 @cache('step')
@@ -518,23 +691,6 @@ def direct_defection_by_imitation():
     """
     return functions.if_then_else(regular_consumers() > 0,
                                   direct_defection_imitation_percent() * regular_consumers(), 0)
-
-
-@cache('step')
-def direct_defection_by_innovation():
-    """
-    Real Name: b'Direct Defection by Innovation'
-    Original Eqn: b'IF THEN ELSE(Regular Consumers>0,direct defection innovation factor*Regular Consumers\\\\ *effect of direct defection NPV on innovation,0)'
-    Units: b'Customer/Month'
-    Limits: (None, None)
-    Type: component
-
-    b''
-    """
-    return functions.if_then_else(
-        regular_consumers() > 0,
-        direct_defection_innovation_factor() * regular_consumers() *
-        effect_of_direct_defection_npv_on_innovation(), 0)
 
 
 @cache('step')
@@ -564,20 +720,6 @@ def direct_defection_imitation_percent():
     """
     return defectors() * direct_defection_imitation_factor(
     ) * effect_of_direct_defection_npv_on_imitation()
-
-
-@cache('run')
-def direct_defection_innovation_factor():
-    """
-    Real Name: b'direct defection innovation factor'
-    Original Eqn: b'0.001/12'
-    Units: b'1/Month'
-    Limits: (None, None)
-    Type: constant
-
-    b''
-    """
-    return 0.001 / 12
 
 
 @cache('step')
@@ -641,47 +783,17 @@ def installing_battery_by_imitation():
 
 
 @cache('step')
-def installing_battery_by_innovation():
-    """
-    Real Name: b'Installing Battery by Innovation'
-    Original Eqn: b'installing battery innovation factor*Prosumers*effect of installing battery NPV on innovation'
-    Units: b'Customer/Month'
-    Limits: (None, None)
-    Type: component
-
-    b''
-    """
-    return installing_battery_innovation_factor() * prosumers(
-    ) * effect_of_installing_battery_npv_on_innovation()
-
-
-@cache('step')
-def effect_of_customers_on_battery_cost():
-    """
-    Real Name: b'effect of Customers on Battery Cost'
-    Original Eqn: b'WITH LOOKUP ( Defectors, ([(0,1)-(1e+06,2)],(100000,1),(278287,1.07895),(400612,1.16667),(486239,1.39035),(596330\\\\ ,1.66667),(776758,1.77632),(1e+06 ,1.8) ))'
-    Units: b'Dmnl'
-    Limits: (None, None)
-    Type: component
-
-    b''
-    """
-    return functions.lookup(defectors(), [100000, 278287, 400612, 486239, 596330, 776758, 1e+06],
-                            [1, 1.07895, 1.16667, 1.39035, 1.66667, 1.77632, 1.8])
-
-
-@cache('step')
 def npv_pv_income():
     """
     Real Name: b'NPV PV Income'
-    Original Eqn: b'-PV monthly Income*((1-(1+Discount Rate)^(PV Life+1))/Discount Rate)'
+    Original Eqn: b'PV monthly Income*(((1+Discount Rate)^(PV Life+1)-1)/Discount Rate)'
     Units: b''
     Limits: (None, None)
     Type: component
 
     b''
     """
-    return -pv_monthly_income() * ((1 - (1 + discount_rate())**(pv_life() + 1)) / discount_rate())
+    return pv_monthly_income() * (((1 + discount_rate())**(pv_life() + 1) - 1) / discount_rate())
 
 
 @cache('step')
@@ -702,42 +814,42 @@ def total_pv_cost():
 def effect_of_direct_defection_npv_on_innovation():
     """
     Real Name: b'effect of direct defection NPV on innovation'
-    Original Eqn: b'WITH LOOKUP ( Direct Defection NPV, ([(-5000,0)-(20000,20)],(-5000,1),(0,1.5),(5000,2),(20000,2.5) ))'
+    Original Eqn: b'1+1.5/(1+EXP(2-Direct Defection NPV/2000))'
     Units: b'Dmnl'
     Limits: (None, None)
     Type: component
 
     b''
     """
-    return functions.lookup(direct_defection_npv(), [-5000, 0, 5000, 20000], [1, 1.5, 2, 2.5])
+    return 1 + 1.5 / (1 + np.exp(2 - direct_defection_npv() / 2000))
 
 
 @cache('step')
 def effect_of_installing_battery_npv_on_imitation():
     """
     Real Name: b'effect of installing battery NPV on imitation'
-    Original Eqn: b'WITH LOOKUP ( Installing Battery NPV, ([(0,0)-(40000,20)],(0,1),(5000,1.5),(20000,2),(40000,2.5) ))'
+    Original Eqn: b'0.5+2/(1+EXP(2-Installing Battery NPV/5000))'
     Units: b''
     Limits: (None, None)
     Type: component
 
     b''
     """
-    return functions.lookup(installing_battery_npv(), [0, 5000, 20000, 40000], [1, 1.5, 2, 2.5])
+    return 0.5 + 2 / (1 + np.exp(2 - installing_battery_npv() / 5000))
 
 
 @cache('step')
 def effect_of_installing_battery_npv_on_innovation():
     """
     Real Name: b'effect of installing battery NPV on innovation'
-    Original Eqn: b'WITH LOOKUP ( Installing Battery NPV, ([(-5000,0)-(20000,20)],(-5000,1),(0,1.5),(5000,2),(20000,2.5) ))'
+    Original Eqn: b'1+1.5/(1+EXP(2-Installing Battery NPV/2000))'
     Units: b'Dmnl'
     Limits: (None, None)
     Type: component
 
     b''
     """
-    return functions.lookup(installing_battery_npv(), [-5000, 0, 5000, 20000], [1, 1.5, 2, 2.5])
+    return 1 + 1.5 / (1 + np.exp(2 - installing_battery_npv() / 2000))
 
 
 @cache('step')
@@ -904,20 +1016,6 @@ def storage_to_daily_load_factor():
 
 
 @cache('step')
-def regular_consumers():
-    """
-    Real Name: b'Regular Consumers'
-    Original Eqn: b'INTEG ( New Regular Consumers-Direct Defection By Imitation-Direct Defection by Innovation-installing PV by imitation\\\\ -installing PV by Innovation, 4e+06)'
-    Units: b'Customer'
-    Limits: (None, None)
-    Type: component
-
-    b''
-    """
-    return _integ_regular_consumers()
-
-
-@cache('step')
 def income():
     """
     Real Name: b'Income'
@@ -972,20 +1070,6 @@ def installing_battery_imitation_percent():
     """
     return defectors() * installing_battery_imitation_factor(
     ) * effect_of_installing_battery_npv_on_imitation()
-
-
-@cache('step')
-def total_consumers():
-    """
-    Real Name: b'Total Consumers'
-    Original Eqn: b'INTEG ( Consumer Growth, 4e+06)'
-    Units: b'Customer'
-    Limits: (None, None)
-    Type: component
-
-    b''
-    """
-    return _integ_total_consumers()
 
 
 @cache('step')
@@ -1106,31 +1190,30 @@ def npv_pv_ratio():
 def installing_pv_by_innovation():
     """
     Real Name: b'installing PV by Innovation'
-    Original Eqn: b'IF THEN ELSE( Regular Consumers > 0, effect of PV NPV*installing PV innovation factor\\\\ *Regular Consumers , 0 )'
+    Original Eqn: b'IF THEN ELSE( Regular Consumers > 0, effect of PV NPV*Innovation factor*Regular Consumers\\\\ , 0 )'
     Units: b'Customer/Month'
     Limits: (None, None)
     Type: component
 
     b''
     """
-    return functions.if_then_else(
-        regular_consumers() > 0,
-        effect_of_pv_npv() * installing_pv_innovation_factor() * regular_consumers(), 0)
+    return functions.if_then_else(regular_consumers() > 0,
+                                  effect_of_pv_npv() * innovation_factor() * regular_consumers(),
+                                  0)
 
 
 @cache('step')
 def effect_of_pv_npv():
     """
     Real Name: b'effect of PV NPV'
-    Original Eqn: b'WITH LOOKUP ( NPV PV Ratio, ([(0,0)-(4,3)],(0,1),(0.905199,1.06579),(1.61468,1.44737),(2,2),(2.36086,2.64474),(\\\\ 2.92355,2.90789),(4,3) ))'
-    Units: b''
+    Original Eqn: b'1+2/(1+EXP( -4*(NPV PV Ratio-2) ))'
+    Units: b'Dmnl'
     Limits: (None, None)
     Type: component
 
     b''
     """
-    return functions.lookup(npv_pv_ratio(), [0, 0.905199, 1.61468, 2, 2.36086, 2.92355, 4],
-                            [1, 1.06579, 1.44737, 2, 2.64474, 2.90789, 3])
+    return 1 + 2 / (1 + np.exp(-4 * (npv_pv_ratio() - 2)))
 
 
 @cache('step')
@@ -1243,22 +1326,6 @@ def installing_pv_imitation_percent():
     b''
     """
     return installing_pv_imitation_factor() * total_customers_with_pv()
-
-
-@cache('step')
-def effect_of_customers_on_pv_cost():
-    """
-    Real Name: b'effect of Customers on PV Cost'
-    Original Eqn: b'WITH LOOKUP ( Total Customers with PV, ([(0,1)-(1e+06,2)],(100000,1),(278287,1.07895),(400612,1.16667),(486239,1.39035),(596330\\\\ ,1.66667),(776758,1.77632),(1e+06 ,1.8) ))'
-    Units: b''
-    Limits: (None, None)
-    Type: component
-
-    b''
-    """
-    return functions.lookup(total_customers_with_pv(),
-                            [100000, 278287, 400612, 486239, 596330, 776758, 1e+06],
-                            [1, 1.07895, 1.16667, 1.39035, 1.66667, 1.77632, 1.8])
 
 
 @cache('run')
@@ -1475,29 +1542,14 @@ def permited_profit():
 def effect_of_minimum_pv_cost():
     """
     Real Name: b'effect of Minimum PV Cost'
-    Original Eqn: b'WITH LOOKUP ( Minimum PV Cost/PV Cost, ([(0,0)-(1,1)],(0,1),(0.25,0.95),(0.4,0.8),(0.5,0.5),(0.6,0.2),(0.75,0.05),(1,0) ))'
+    Original Eqn: b'1-1/(1+EXP(6-12*Minimum PV Cost/PV Cost))'
     Units: b'Dmnl'
     Limits: (None, None)
     Type: component
 
     b''
     """
-    return functions.lookup(minimum_pv_cost() / pv_cost(), [0, 0.25, 0.4, 0.5, 0.6, 0.75, 1],
-                            [1, 0.95, 0.8, 0.5, 0.2, 0.05, 0])
-
-
-@cache('step')
-def energy_procurement():
-    """
-    Real Name: b'Energy Procurement'
-    Original Eqn: b'Utility Energy Sale'
-    Units: b'kWh/Month'
-    Limits: (None, None)
-    Type: component
-
-    b''
-    """
-    return utility_energy_sale()
+    return 1 - 1 / (1 + np.exp(6 - 12 * minimum_pv_cost() / pv_cost()))
 
 
 @cache('step')
@@ -1699,23 +1751,9 @@ def installing_pv_by_imitation():
 
 
 @cache('run')
-def installing_battery_innovation_factor():
+def innovation_factor():
     """
-    Real Name: b'installing battery innovation factor'
-    Original Eqn: b'0.01/12'
-    Units: b'1/Month'
-    Limits: (None, None)
-    Type: constant
-
-    b''
-    """
-    return 0.01 / 12
-
-
-@cache('run')
-def installing_pv_innovation_factor():
-    """
-    Real Name: b'installing PV innovation factor'
+    Real Name: b'Innovation factor'
     Original Eqn: b'0.01/12'
     Units: b'1/Month'
     Limits: (None, None)
@@ -1782,6 +1820,14 @@ def time_step():
     return 0.0078125
 
 
+_integ_total_consumers = functions.Integ(lambda: consumer_growth(),
+                                         lambda: initial_number_of_consumers())
+
+_integ_regular_consumers = functions.Integ(
+    lambda: new_regular_consumers() - direct_defection_by_imitation() -
+    direct_defection_by_innovation() - installing_pv_by_imitation() - installing_pv_by_innovation(
+    ), lambda: initial_number_of_consumers())
+
 _integ_battery_cost = functions.Integ(lambda: -battery_cost_reduction(), lambda: 600)
 
 _integ_defectors = functions.Integ(
@@ -1794,13 +1840,6 @@ _integ_prosumers = functions.Integ(
     installing_battery_by_imitation() - installing_battery_by_innovation(), lambda: 0)
 
 _integ_electricity_tariff = functions.Integ(lambda: change_in_electricity_tariff(), lambda: 0.15)
-
-_integ_regular_consumers = functions.Integ(
-    lambda: new_regular_consumers() - direct_defection_by_imitation() -
-    direct_defection_by_innovation() - installing_pv_by_imitation() - installing_pv_by_innovation(
-    ), lambda: 4e+06)
-
-_integ_total_consumers = functions.Integ(lambda: consumer_growth(), lambda: 4e+06)
 
 _integ_actual_regular_customer_demand_change = functions.Integ(
     lambda: change_in_indicated_regular_consumer_demand() - change_in_regular_consumer_demand(),
