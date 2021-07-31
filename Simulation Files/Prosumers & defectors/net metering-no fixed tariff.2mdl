@@ -1,4 +1,232 @@
 {UTF-8}
+Prosumer Demand Change Limit=
+	0.2
+	~	Dmnl
+	~		|
+
+Minimum Average Prosumer Demand=
+	Initial Prosumer Demand*(1-Prosumer Demand Change Limit)
+	~	kWh/(Customer*Month)
+	~		|
+
+Maximum Average Prosumer Demand=
+	Initial Prosumer Demand*(1+Prosumer Demand Change Limit)
+	~	kWh/(Customer*Month)
+	~		|
+
+Maximum Average Regular Consumer Demand=
+	Initial Average Consumer Demand*(1+Regular Consumer Demand Change Limit)
+	~	kWh/(Month*Customer)
+	~		|
+
+Minimum Average Regular Consumer Demand=
+	Initial Average Consumer Demand*(1-Regular Consumer Demand Change Limit)
+	~	kWh/(Month*Customer)
+	~		|
+
+Regular Consumer Demand Change Limit=
+	0.2
+	~	Dmnl
+	~		|
+
+change in indicated regular consumer demand=
+	IF THEN ELSE( indicated change in regular Consumer Demand+Regular Consumer Average Demand\
+		>Maximum Average Regular Consumer Demand
+, Maximum Average Regular Consumer Demand-Regular Consumer Average Demand , IF THEN ELSE\
+		( indicated change in regular Consumer Demand
++Regular Consumer Average Demand<Minimum Average Regular Consumer Demand , Minimum Average Regular Consumer Demand\
+		-Regular Consumer Average Demand
+ , indicated change in regular Consumer Demand ) )
+	~	kWh/(Month*Month*Customer)
+	~	IF THEN ELSE( indicated change in regular Consumer Demand+Regular Consumer \
+		Average Demand>Maximum Average Regular Consumer Demand, Maximum Average \
+		Regular Consumer Demand-Regular Consumer Average Demand , IF THEN ELSE( \
+		indicated change in regular Consumer Demand+Regular Consumer Average \
+		Demand<Minimum Average Regular Consumer Demand , Minimum Average Regular \
+		Consumer Demand-Regular Consumer Average Demand , indicated change in \
+		regular Consumer Demand ) )
+	|
+
+installing PV by Innovation=
+	effect of PV NPV*Innovation factor*Regular Consumers*effect of PV ratio Limit
+	~	Customer/Month
+	~		|
+
+installing PV imitation factor=
+	effect of PV NPV*Immitation Factor*PV Customers Ratio*PV visibility effect on immitation
+	~	1/Month
+	~		|
+
+effect of PV ratio Limit=
+	1-1/(1+EXP(95-100*PV Customers Ratio))
+	~	Dmnl
+	~		|
+
+Direct Defection By Imitation=
+	direct defection imitation factor*Regular Consumers*effect of PV ratio Limit
+	~	Customer/Month
+	~		|
+
+Direct Defection by Innovation=
+	Innovation factor*Regular Consumers*effect of direct defection NPV on innovation*effect of PV ratio Limit
+	~	Customer/Month
+	~		|
+
+New Regular Consumer Ratio=
+	1-New Defector Ratio-New Prosumer Ratio
+	~	Dmnl
+	~		|
+
+PV Customers Ratio=
+	Total Customers with PV/Total Potential PV Customers
+	~	Dmnl
+	~		|
+
+Defectors Ratio=
+	Defectors/Total Potential PV Customers
+	~	Dmnl
+	~		|
+
+effect of Customers on Battery Cost=
+	1+1/(1+EXP(5-Defectors Ratio*15))
+	~	Dmnl
+	~		|
+
+PV visibility effect on immitation=
+	3
+	~	Dmnl
+	~		|
+
+PV Potential=
+	0.3
+	~	Dmnl
+	~		|
+
+Total Potential PV Customers=
+	PV Potential*Total Consumers
+	~	Customer
+	~		|
+
+installing PV by imitation=
+	installing PV imitation factor*Regular Consumers*effect of PV ratio Limit
+	~	Customer/Month
+	~		|
+
+New Prosumers=
+	Consumer Growth*New Prosumer Ratio*effect of PV ratio Limit
+	~	
+	~		|
+
+Total Consumers= INTEG (
+	Consumer Growth,
+		Initial Number of Consumers)
+	~	Customer
+	~		|
+
+Installing Battery By Imitation=
+	IF THEN ELSE(Prosumers>0,Prosumers*installing battery imitation factor,0)
+	~	Customer/Month
+	~		|
+
+direct defection imitation factor=
+	Immitation Factor*effect of direct defection NPV on imitation*Defectors Ratio
+	~	1/(Customer*Month)
+	~		|
+
+installing battery imitation factor=
+	Defectors Ratio*effect of installing battery NPV on imitation*Immitation Factor
+	~	1/(Customer*Month)
+	~		|
+
+Regular Consumers= INTEG (
+	New Regular Consumers-Direct Defection By Imitation-Direct Defection by Innovation-installing PV by imitation\
+		-installing PV by Innovation
+,
+		Initial Number of Consumers)
+	~	Customer
+	~		|
+
+effect of Customers on PV Cost=
+	1+1/(1+EXP(5-PV Customers Ratio*15))
+	~	Dmnl
+	~		|
+
+PV Cost= INTEG (
+	-PV Cost Reduction,
+		Initial PV Cost)
+	~	Dollar/kw
+	~		|
+
+Electricity Tariff= INTEG (
+	change in electricity tariff,
+		Initial Electricity Tariff)
+	~	Dollar/kWh
+	~		|
+
+Initial PV Cost=
+	4000
+	~	Dollar/kw
+	~		|
+
+Battery Cost= INTEG (
+	-Battery Cost Reduction,
+		Initial Battery Cost)
+	~	Dollar/kWh
+	~		|
+
+Initial Battery Cost=
+	600
+	~	Dollar/kWh
+	~		|
+
+Initial Budget Deficit=
+	0
+	~	Dollar
+	~		|
+
+Budget Deficit= INTEG (
+	Monthly Income Shortfall,
+		Initial Budget Deficit)
+	~	Dollar
+	~		|
+
+Initial Average Consumer Demand=
+	500
+	~	kWh/(Customer*Month)
+	~		|
+
+Initial Prosumer Demand=
+	200
+	~	kWh/(Customer*Month)
+	~		|
+
+Regular Consumer Average Demand= INTEG (
+	change in Regular Consumer Demand,
+		Initial Average Consumer Demand)
+	~	kWh/(Month*Customer)
+	~		|
+
+Prosumer Average Demand= INTEG (
+	change in Prosumer Demand,
+		Initial Prosumer Demand)
+	~	kWh/Month/Customer
+	~		|
+
+Initial Electricity Tariff=
+	0.15
+	~	Dollar/kWh
+	~		|
+
+Initial Number of Consumers=
+	4e+06
+	~	Customer
+	~		|
+
+Installing Battery by Innovation=
+	Innovation factor*Prosumers*effect of installing battery NPV on innovation
+	~	Customer/Month
+	~		|
+
 Electricity Loss=
 	10
 	~	
@@ -55,21 +283,6 @@ change in electricity tariff=
 		Change , 0 )
 	|
 
-Limited Tariff Change=
-	IF THEN ELSE( Electricity Tariff+Indicated Tariff Change>0, Indicated Tariff Change,\
-		 -Electricity Tariff )
-	~	Dollar/(kWh*Month)
-	~		|
-
-change in indicated regular consumer demand=
-	IF THEN ELSE( indicated change in regular Consumer Demand+Regular Consumer Average Demand\
-		>Maximum Average Regular Consumer Demand, Maximum Average Regular Consumer Demand-Regular Consumer Average Demand\
-		 , IF THEN ELSE( indicated change in regular Consumer Demand+Regular Consumer Average Demand\
-		<Minimum Average Regular Consumer Demand , Minimum Average Regular Consumer Demand-\
-		Regular Consumer Average Demand , indicated change in regular Consumer Demand ) )
-	~	kWh/(Month*Month*Customer)
-	~		|
-
 change in Regular Consumer Demand=
 	Actual Regular Customer Demand change/time to adjust Regular Consumer demand
 	~	kWh/(Month*Month*Customer)
@@ -93,12 +306,6 @@ Average Daily Battery Eenergy=
 	~	
 	~		|
 
-Battery Cost= INTEG (
-	-Battery Cost Reduction,
-		600)
-	~	Dollar/kWh
-	~		|
-
 Battery Cost Reduction=
 	effect of Customers on Battery Cost*effect of Minimum Battery Cost*Normal Battery Cost Reduction rate\
 		*Battery Cost
@@ -110,9 +317,8 @@ Battery Life=
 	~	Month
 	~		|
 
-effect of Minimum Battery Cost = WITH LOOKUP (
-	Minimum Battery Cost/Battery Cost,
-		([(0,0)-(1,1)],(0,1),(0.25,0.95),(0.4,0.8),(0.5,0.5),(0.6,0.2),(0.75,0.05),(1,0) ))
+effect of Minimum Battery Cost=
+	1-1/(1+EXP(6-12*Minimum Battery Cost/Battery Cost))
 	~	Dmnl
 	~		|
 
@@ -148,39 +354,11 @@ Defectors= INTEG (
 	~	Customer
 	~		|
 
-effect of direct defection NPV on imitation = WITH LOOKUP (
-	Direct Defection NPV,
-		([(0,0)-(40000,20)],(0,1),(5000,1.5),(20000,2),(40000,2.5) ))
-	~	
+effect of direct defection NPV on imitation=
+	0.5+2/(1+EXP(2-Direct Defection NPV/5000))
+	~	Dmnl
 	~	0.5+2/(1+exp(2-x/5000))
 	|
-
-Direct Defection By Imitation=
-	IF THEN ELSE(Regular Consumers>0,direct defection imitation percent*Regular Consumers\
-		,0)
-	~	Customer/Month
-	~		|
-
-Direct Defection by Innovation=
-	IF THEN ELSE(Regular Consumers>0,direct defection innovation factor*Regular Consumers\
-		*effect of direct defection NPV on innovation,0)
-	~	Customer/Month
-	~		|
-
-direct defection imitation factor=
-	final yearly percent/12/1e+06
-	~	1/(Customer*Month)
-	~		|
-
-direct defection imitation percent=
-	Defectors*direct defection imitation factor*effect of direct defection NPV on imitation
-	~	1/Month
-	~		|
-
-direct defection innovation factor=
-	0.001/12
-	~	1/Month
-	~		|
 
 Direct Defection NPV=
 	Direct Defector Net Present Savings-Direct Defection Total Cost
@@ -195,24 +373,6 @@ Direct Defection NPV=
 "No. Bettery Replacement"=
 	IF THEN ELSE(MODULO(PV Life, Battery Life )=0, PV Life/Battery Life , INTEGER( PV Life\
 		/Battery Life )+1 )
-	~	Dmnl
-	~		|
-
-Installing Battery By Imitation=
-	IF THEN ELSE(Prosumers>0,Prosumers*installing battery imitation percent,0)
-	~	Customer/Month
-	~		|
-
-Installing Battery by Innovation=
-	installing battery innovation factor*Prosumers*effect of installing battery NPV on innovation
-	~	Customer/Month
-	~		|
-
-effect of Customers on Battery Cost = WITH LOOKUP (
-	Defectors,
-		([(0,1)-(1e+06,2)],(100000,1),(278287,1.07895),(400612,1.16667),(486239,1.39035),(596330\
-		,1.66667),(776758,1.77632),(1e+06
-		,1.8) ))
 	~	Dmnl
 	~		|
 
@@ -231,10 +391,9 @@ effect of direct defection NPV on innovation=
 	~	Dmnl
 	~		|
 
-effect of installing battery NPV on imitation = WITH LOOKUP (
-	Installing Battery NPV,
-		([(0,0)-(40000,20)],(0,1),(5000,1.5),(20000,2),(40000,2.5) ))
-	~	
+effect of installing battery NPV on imitation=
+	0.5+2/(1+EXP(2-Installing Battery NPV/5000))
+	~	Dmnl
 	~		|
 
 effect of installing battery NPV on innovation=
@@ -284,12 +443,6 @@ Total Battery Cost=
 	~	
 	~		|
 
-Electricity Tariff= INTEG (
-	change in electricity tariff,
-		0.15)
-	~	Dollar/kWh
-	~		|
-
 PV monthly Income=
 	Electricity Tariff*PV monthly Generation
 	~	
@@ -305,37 +458,14 @@ Storage to Daily Load Factor=
 	~	Dmnl
 	~		|
 
-Regular Consumers= INTEG (
-	New Regular Consumers-Direct Defection By Imitation-Direct Defection by Innovation-installing PV by imitation\
-		-installing PV by Innovation,
-		4e+06)
-	~	Customer
-	~		|
-
 Income=
 	Electricity Tariff*Utility Energy Sale
 	~	Dollar/Month
 	~		|
 
-New Prosumers=
-	Consumer Growth*New Prosumer Ratio
-	~	
-	~		|
-
 Reliablity Margin=
 	0.5
 	~	Dmnl
-	~		|
-
-installing battery imitation percent=
-	Defectors*installing battery imitation factor*effect of installing battery NPV on imitation
-	~	1/Month
-	~		|
-
-Total Consumers= INTEG (
-	Consumer Growth,
-		4e+06)
-	~	Customer
 	~		|
 
 New Defectors=
@@ -350,22 +480,10 @@ Actual Regular Customer Demand change= INTEG (
 	~	kWh/(Month*Customer)
 	~		|
 
-Regular Consumer Average Demand= INTEG (
-	change in Regular Consumer Demand,
-		500)
-	~	kWh/(Month*Customer)
-	~		|
-
 Actual Prosumer Demand Change= INTEG (
 	change in indicated prosumer demand-change in Prosumer Demand,
 		0)
 	~	
-	~		|
-
-Prosumer Average Demand= INTEG (
-	change in Prosumer Demand,
-		150)
-	~	kWh/Month/Customer
 	~		|
 
 New Prosumer Ratio=
@@ -373,20 +491,9 @@ New Prosumer Ratio=
 	~	Dmnl
 	~		|
 
-installing PV imitation factor=
-	effect of PV NPV*final yearly percent/12/1e+06
-	~	1/(Month*Customer)
-	~		|
-
 NPV PV Ratio=
 	NPV PV/PV Cost
 	~	Dmnl
-	~		|
-
-installing PV by Innovation=
-	IF THEN ELSE( Regular Consumers > 0, effect of PV NPV*installing PV innovation factor\
-		*Regular Consumers , 0 )
-	~	Customer/Month
 	~		|
 
 effect of PV NPV=
@@ -400,13 +507,8 @@ NPV PV=
 	~		|
 
 population growth rate=
-	0/12
+	0.01/12
 	~	1/Month
-	~		|
-
-New Regular Consumer Ratio=
-	1-New Defector Ratio-New Prosumer Ratio
-	~	Dmnl
 	~		|
 
 New Defector Ratio=
@@ -427,19 +529,6 @@ PV monthly Generation=
 PV size=
 	5
 	~	kw
-	~		|
-
-installing PV imitation percent=
-	installing PV imitation factor*Total Customers with PV
-	~	1/Month
-	~		|
-
-effect of Customers on PV Cost = WITH LOOKUP (
-	Total Customers with PV,
-		([(0,1)-(1e+06,2)],(100000,1),(278287,1.07895),(400612,1.16667),(486239,1.39035),(596330\
-		,1.66667),(776758,1.77632),(1e+06
-		,1.8) ))
-	~	
 	~		|
 
 Normal Battery Cost Reduction rate=
@@ -467,28 +556,8 @@ Prosumers Demand=
 	~	kWh/Month
 	~		|
 
-Maximum Average Prosumer Demand=
-	180
-	~	Dmnl
-	~		|
-
-Maximum Average Regular Consumer Demand=
-	600
-	~	kWh/(Month*Customer)
-	~		|
-
-Minimum Average Prosumer Demand=
-	120
-	~	Dmnl
-	~		|
-
-Minimum Average Regular Consumer Demand=
-	400
-	~	kWh/(Month*Customer)
-	~		|
-
 Tariff Correction Period=
-	6
+	12
 	~	Month
 	~		|
 
@@ -502,12 +571,6 @@ price elasticity of regular consumers=
 	~	Dmnl
 	~		|
 
-Budget Deficit= INTEG (
-	Monthly Income Shortfall,
-		0)
-	~	Dollar
-	~		|
-
 Desired Income=
 	Total Costs*(1+Permited Profit)
 	~	Dollar/Month
@@ -518,9 +581,8 @@ Permited Profit=
 	~	Dmnl
 	~		|
 
-effect of Minimum PV Cost = WITH LOOKUP (
-	Minimum PV Cost/PV Cost,
-		([(0,0)-(1,1)],(0,1),(0.25,0.95),(0.4,0.8),(0.5,0.5),(0.6,0.2),(0.75,0.05),(1,0) ))
+effect of Minimum PV Cost=
+	1-1/(1+EXP(6-12*Minimum PV Cost/PV Cost))
 	~	Dmnl
 	~		|
 
@@ -530,9 +592,9 @@ PV Cost Reduction=
 	~	
 	~		|
 
-final yearly percent=
-	0.005
-	~	
+Immitation Factor=
+	0.02/12
+	~	1/Month
 	~		|
 
 Fixed Costs=
@@ -550,20 +612,9 @@ Total Costs=
 	~	Dollar/Month
 	~		|
 
-installing battery imitation factor=
-	final yearly percent/(12*1e+06*5)
-	~	1/(Customer*Month)
-	~		|
-
 Variable Costs=
 	Energy Procurement*Generation Price
 	~	Dollar/Month
-	~		|
-
-PV Cost= INTEG (
-	-PV Cost Reduction,
-		4000)
-	~	Dollar/kw
 	~		|
 
 Normal PV Cost Reduction rate=
@@ -591,18 +642,7 @@ Utility Energy Sale=
 	~	kWh/Month
 	~		|
 
-installing PV by imitation=
-	IF THEN ELSE(Regular Consumers>0,installing PV imitation percent*Regular Consumers,0\
-		)
-	~	Customer/Month
-	~		|
-
-installing battery innovation factor=
-	0.01/12
-	~	1/Month
-	~		|
-
-installing PV innovation factor=
+Innovation factor=
 	0.01/12
 	~	1/Month
 	~		|
@@ -638,134 +678,150 @@ TIME STEP  = 0.0078125
 V300  Do not put anything below this section - it will be ignored
 *Costumer Concepts
 $192-192-192,0,Times New Roman|16||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,5,0
-10,1,Regular Consumers,292,147,64,44,3,131,0,12,0,0,0,0,-1--1--1,160-160-160,|18||0-0-0,0,0,0,0,0,0
-10,2,Prosumers,700,356,57,31,3,131,0,12,0,0,0,0,-1--1--1,255-160-0,|18||0-0-0,0,0,0,0,0,0
-1,3,5,2,4,0,0,22,0,0,0,-1--1--1,,1|(700,188)|
-1,4,5,1,100,0,0,22,0,0,0,-1--1--1,,1|(481,188)|
-11,5,1916,615,188,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,6,installing PV by Innovation,615,224,49,32,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
-1,7,9,2,4,0,0,22,0,0,0,-1--1--1,,1|(585,375)|
-1,8,9,1,100,0,0,22,0,0,0,-1--1--1,,1|(292,375)|
-11,9,2202,520,375,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,10,installing PV by imitation,520,412,52,29,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
-10,11,direct defection innovation factor,949,211,44,40,8,131,0,8,0,0,0,0,0-0-0,0-0-0,|14||0-0-0,0,0,0,0,0,0
-10,12,direct defection imitation factor,359,660,59,20,8,3,0,8,0,0,0,0,0-0-0,0-0-0,|14||0-0-0,0,0,0,0,0,0
-10,13,installing PV innovation factor,780,173,52,28,8,131,0,8,0,0,0,0,0-0-0,0-0-0,|14||0-0-0,0,0,0,0,0,0
-10,14,installing PV imitation factor,388,483,36,33,8,131,0,8,0,0,0,0,0-0-0,0-0-0,|14||0-0-0,0,0,0,0,0,0
-1,15,13,6,1,0,0,0,0,64,0,-1--1--1,,1|(691,168)|
-10,16,installing battery innovation factor,1089,300,45,36,8,131,0,8,0,0,0,0,0-0-0,0-0-0,|14||0-0-0,0,0,0,0,0,0
-10,17,installing battery imitation factor,600,648,47,36,8,131,0,8,0,0,0,0,0-0-0,0-0-0,|14||0-0-0,0,0,0,0,0,0
-1,18,1,6,1,0,0,0,0,64,0,-1--1--1,,1|(448,216)|
-1,19,1,10,1,0,0,0,0,64,0,-1--1--1,,1|(407,324)|
-10,20,direct defection imitation percent,555,784,37,35,8,131,0,24,0,0,0,0,0-0-0,0-0-0,|14|B|0-0-0,0,0,0,0,0,0
-10,21,installing PV imitation percent,609,511,39,33,8,131,0,24,0,0,0,0,0-0-0,0-0-0,|14|B|0-0-0,0,0,0,0,0,0
-10,22,installing battery imitation percent,895,645,44,35,8,131,0,24,0,0,0,0,0-0-0,0-0-0,|14|B|0-0-0,0,0,0,0,0,0
-1,23,21,10,1,0,0,0,0,64,0,-1--1--1,,1|(624,434)|
-1,24,17,22,1,0,0,0,0,64,0,-1--1--1,,1|(811,671)|
-1,25,12,20,1,0,0,0,0,64,0,-1--1--1,,1|(439,761)|
-1,26,14,21,1,0,0,0,0,64,0,-1--1--1,,1|(515,516)|
-10,27,final yearly percent,464,579,36,36,2,131,0,8,0,0,0,0,-1--1--1,0-0-0,|10||0-0-0,0,0,0,0,0,0
-1,28,27,14,1,0,0,0,0,64,0,-1--1--1,,1|(399,527)|
-1,29,27,12,1,0,0,0,0,64,0,-1--1--1,,1|(391,583)|
-1,30,27,17,1,0,0,0,0,64,0,-1--1--1,,1|(531,587)|
-10,31,Total Customers with PV,912,476,51,51,6,131,0,28,0,0,0,0,-1--1--1,255-255-0,|12|B|0-0-0,0,0,0,0,0,0
-1,32,2,31,1,0,0,0,0,64,0,-1--1--1,,1|(849,388)|
-1,33,31,21,1,0,0,0,0,64,0,-1--1--1,,1|(777,463)|
-12,34,48,55,71,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,35,37,1,4,0,0,22,0,0,0,-1--1--1,,1|(292,69)|
-1,36,37,34,100,0,0,22,0,0,0,-1--1--1,,1|(90,69)|
-11,37,48,121,69,6,8,34,3,0,0,3,0,0,0,0,0,0,0,0,0
-10,38,New Regular Consumers,121,33,49,28,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
-12,39,48,971,284,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,40,42,2,4,0,0,22,0,0,0,-1--1--1,,1|(700,283)|
-1,41,42,39,100,0,0,22,0,0,0,-1--1--1,,1|(922,283)|
-11,42,48,876,283,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,43,New Prosumers,876,316,48,23,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
-10,44,Total Consumers,1380,245,64,36,3,131,0,12,0,0,0,0,-1--1--1,0-128-255,|18||0-0-0,0,0,0,0,0,0
-12,45,48,1601,300,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,46,48,44,4,0,0,22,0,0,0,-1--1--1,,1|(1470,248)|
-1,47,48,45,100,0,0,22,0,0,0,-1--1--1,,1|(1601,248)|
-11,48,48,1504,248,8,8,33,3,0,0,4,0,0,0,0,0,0,0,0,0
-10,49,Consumer Growth,1556,248,48,23,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
-10,50,population growth rate,1504,60,48,48,2,131,0,12,0,0,0,0,-1--1--1,192-128-192,|12||0-0-0,0,0,0,0,0,0
-1,51,49,38,1,0,0,0,0,64,0,-1--1--1,,1|(985,48)|
-1,52,49,43,1,0,0,0,0,64,0,-1--1--1,,1|(1176,344)|
-10,53,New Defector Ratio,1396,789,36,28,8,131,0,8,0,0,0,0,-1--1--1,0-0-0,|14||0-0-0,0,0,0,0,0,0
-10,54,New Prosumer Ratio,572,312,39,29,8,131,0,8,0,0,0,0,-1--1--1,0-0-0,|14||0-0-0,0,0,0,0,0,0
-10,55,New Regular Consumer Ratio,115,207,41,40,8,131,0,8,0,0,0,0,-1--1--1,0-0-0,|14||0-0-0,0,0,0,0,0,0
-1,56,55,38,1,0,0,0,0,64,0,-1--1--1,,1|(133,155)|
-1,57,54,43,1,0,0,0,0,64,0,-1--1--1,,1|(793,272)|
-1,58,53,55,1,0,0,0,0,64,0,-1--1--1,,1|(464,639)|
-1,59,54,55,1,0,0,0,0,64,0,-1--1--1,,1|(351,261)|
-10,60,effect of PV NPV,105,343,36,21,8,131,0,8,0,0,0,0,-1--1--1,0-0-0,|14||0-0-0,0,0,0,0,0,0
-1,61,60,14,1,0,0,0,0,64,0,-1--1--1,,1|(313,387)|
-1,62,60,6,1,0,0,0,0,64,0,-1--1--1,,1|(452,243)|
-10,63,NPV PV Ratio,101,480,48,23,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|16||128-128-128,0,0,0,0,0,0
-1,64,63,60,1,0,0,0,0,64,0,-1--1--1,,1|(72,388)|
-1,65,60,54,1,0,0,0,0,64,0,-1--1--1,,1|(343,305)|
-1,66,50,49,1,0,0,0,0,64,0,-1--1--1,,1|(1540,153)|
-10,67,Defectors,1269,691,88,56,3,131,0,12,0,0,0,0,-1--1--1,128-192-0,|18||64-160-98,0,0,0,0,0,0
-1,68,70,67,4,0,0,22,0,0,0,-1--1--1,,1|(1269,360)|
-1,69,70,2,100,0,0,22,0,0,0,-1--1--1,,1|(898,360)|
-11,70,1520,1047,360,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,71,Installing Battery by Innovation,1047,395,52,29,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
-1,72,74,67,4,0,0,22,0,0,0,-1--1--1,,1|(716,691)|
-1,73,74,2,100,0,0,22,0,0,0,-1--1--1,,1|(716,467)|
-11,74,1608,716,555,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,75,Installing Battery By Imitation,716,592,52,29,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
-1,76,78,67,4,0,0,22,0,0,0,-1--1--1,,1|(1269,112)|
-1,77,78,1,100,0,0,22,0,0,0,-1--1--1,,1|(688,112)|
-11,78,1586,1028,112,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,79,Direct Defection by Innovation,1028,151,56,31,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
-1,80,82,67,4,0,0,22,0,0,0,-1--1--1,,1|(720,715)|
-1,81,82,1,100,0,0,22,0,0,0,-1--1--1,,1|(251,449)|
-11,82,1564,251,715,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,83,Direct Defection By Imitation,251,748,73,23,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,84,44,49,1,0,0,0,0,64,0,-1--1--1,,1|(1469,192)|
-12,85,48,1540,691,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,86,88,67,4,0,0,22,0,0,0,-1--1--1,,1|(1395,691)|
-1,87,88,85,100,0,0,22,0,0,0,-1--1--1,,1|(1489,691)|
-11,88,48,1441,691,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,89,New Defectors,1441,724,43,23,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,90,49,89,1,0,0,0,0,64,0,-1--1--1,,1|(1607,481)|
-1,91,53,89,1,0,0,0,0,64,0,-1--1--1,,1|(1469,775)|
-1,92,67,31,1,0,0,0,0,64,0,-1--1--1,,1|(1021,567)|
-1,93,1,79,1,0,0,0,0,64,0,-1--1--1,,1|(712,45)|
-1,94,11,79,1,0,0,0,0,64,0,-1--1--1,,1|(1023,212)|
-1,95,67,22,1,0,0,0,0,64,0,-1--1--1,,1|(1096,637)|
-1,96,22,75,1,0,0,0,0,64,0,-1--1--1,,1|(833,583)|
-1,97,2,75,1,0,0,0,0,64,0,-1--1--1,,1|(796,468)|
-1,98,2,71,1,0,0,0,0,64,0,-1--1--1,,1|(885,352)|
-1,99,16,71,1,0,0,0,0,64,0,-1--1--1,,1|(1027,304)|
-1,100,67,20,1,0,0,0,0,64,0,-1--1--1,,1|(937,793)|
-1,101,20,83,1,0,0,0,0,64,0,-1--1--1,,1|(429,831)|
-1,102,1,83,1,0,0,0,0,64,0,-1--1--1,,1|(181,547)|
-10,103,Direct Defection NPV,1503,488,45,36,8,130,0,3,-1,0,0,0,128-128-128,0-0-0,|16||128-128-128,0,0,0,0,0,0
-10,104,effect of direct defection NPV on innovation,1496,592,52,31,8,131,0,24,0,0,0,0,-1--1--1,0-0-0,|12|B|0-0-0,0,0,0,0,0,0
-1,105,103,104,1,0,0,0,0,64,0,-1--1--1,,1|(1572,539)|
-1,106,104,79,1,0,0,0,0,64,0,-1--1--1,,1|(1283,339)|
-10,107,effect of direct defection NPV on imitation,1357,593,52,32,8,131,0,24,0,0,0,0,-1--1--1,0-0-0,|12|B|0-0-0,0,0,0,0,0,0
-1,108,103,107,1,0,0,0,0,64,0,-1--1--1,,1|(1400,500)|
-1,109,107,20,1,0,0,0,0,64,0,-1--1--1,,1|(957,580)|
-1,110,107,89,1,0,0,0,0,64,0,-1--1--1,,1|(1428,637)|
-1,111,104,89,1,0,0,0,0,64,0,-1--1--1,,1|(1489,656)|
-10,112,Installing Battery NPV,1428,373,36,32,8,131,0,8,0,0,0,0,-1--1--1,0-0-0,|14||0-0-0,0,0,0,0,0,0
-1,113,103,112,1,0,0,0,0,64,0,-1--1--1,,1|(1503,420)|
-10,114,NPV PV,1532,392,31,25,8,130,0,3,-1,0,0,0,128-128-128,0-0-0,|16||128-128-128,0,0,0,0,0,0
-1,115,114,112,1,0,0,0,0,64,0,-1--1--1,,1|(1511,337)|
-10,116,effect of installing battery NPV on innovation,1184,441,60,33,8,131,0,24,0,0,0,0,-1--1--1,0-0-0,|12|B|0-0-0,0,0,0,0,0,0
-10,117,effect of installing battery NPV on imitation,1071,507,45,33,8,131,0,24,0,0,0,0,-1--1--1,0-0-0,|12|B|0-0-0,0,0,0,0,0,0
-1,118,112,116,1,0,0,0,0,64,0,-1--1--1,,1|(1329,347)|
-1,119,112,117,1,0,0,0,0,64,0,-1--1--1,,1|(1295,472)|
-1,120,116,71,1,0,0,0,0,64,0,-1--1--1,,1|(1088,444)|
-1,121,117,22,1,0,0,0,0,64,0,-1--1--1,,1|(971,532)|
+10,1,Regular Consumers,359,213,64,44,3,131,0,12,0,0,0,0,-1--1--1,160-160-160,|18||0-0-0,0,0,0,0,0,0
+10,2,Prosumers,888,448,55,40,3,131,0,12,0,0,0,0,-1--1--1,255-160-0,|18||0-0-0,0,0,0,0,0,0
+1,3,5,2,4,0,0,22,0,0,0,-1--1--1,,1|(892,312)|
+1,4,5,1,100,0,0,22,0,0,0,-1--1--1,,1|(654,209)|
+11,5,1212,892,209,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,6,installing PV by Innovation,892,249,49,32,40,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,7,9,2,4,0,0,22,0,0,0,-1--1--1,,1|(621,428)|
+1,8,9,1,100,0,0,22,0,0,0,-1--1--1,,1|(401,338)|
+11,9,552,401,428,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,10,installing PV by imitation,401,465,52,29,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
+10,11,direct defection imitation factor,443,823,59,20,8,3,0,8,0,0,0,0,0-0-0,0-0-0,|14||0-0-0,0,0,0,0,0,0
+10,12,Innovation factor,1036,273,46,46,2,131,0,12,0,0,0,0,-1--1--1,255-255-0,|12||0-0-0,0,1,0,0,0,0
+10,13,installing PV imitation factor,551,584,36,33,8,131,0,8,0,0,0,0,0-0-0,0-0-0,|14||0-0-0,0,0,0,0,0,0
+1,14,12,6,1,0,0,0,0,64,0,-1--1--1,,1|(984,252)|
+10,15,installing battery imitation factor,694,706,47,36,8,131,0,8,0,0,0,0,0-0-0,0-0-0,|14||0-0-0,0,0,0,0,0,0
+1,16,1,6,1,0,0,0,0,64,0,-1--1--1,,1|(630,254)|
+1,17,1,10,1,0,0,0,0,64,0,-1--1--1,,1|(369,471)|
+10,18,Immitation Factor,463,679,45,45,2,131,0,12,0,0,0,0,-1--1--1,192-255-192,|12||0-0-0,0,0,0,0,0,0
+1,19,18,13,1,0,0,0,0,64,0,-1--1--1,,1|(509,603)|
+1,20,18,11,1,0,0,0,0,64,0,-1--1--1,,1|(417,739)|
+1,21,18,15,1,0,0,0,0,64,0,-1--1--1,,1|(539,697)|
+10,22,Total Customers with PV,1111,620,51,51,6,131,0,28,0,0,0,0,-1--1--1,255-255-0,|12|B|0-0-0,0,0,0,0,0,0
+1,23,2,22,1,0,0,0,0,64,0,-1--1--1,,1|(995,622)|
+12,24,48,130,125,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,25,27,1,4,0,0,22,0,0,0,-1--1--1,,1|(359,121)|
+1,26,27,24,100,0,0,22,0,0,0,-1--1--1,,1|(164,121)|
+11,27,48,194,121,6,8,34,3,0,0,3,0,0,0,0,0,0,0,0,0
+10,28,New Regular Consumers,194,85,49,28,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
+12,29,48,638,471,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,30,32,2,4,0,0,22,0,0,0,-1--1--1,,1|(798,471)|
+1,31,32,29,100,0,0,22,0,0,0,-1--1--1,,1|(700,471)|
+11,32,48,758,471,6,8,34,3,0,0,3,0,0,0,0,0,0,0,0,0
+10,33,New Prosumers,758,440,48,23,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
+10,34,Total Consumers,1823,263,64,36,3,131,0,12,0,0,0,0,-1--1--1,0-128-255,|18||0-0-0,0,0,0,0,0,0
+12,35,48,1586,291,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,36,38,34,4,0,0,22,0,0,0,-1--1--1,,1|(1715,293)|
+1,37,38,35,100,0,0,22,0,0,0,-1--1--1,,1|(1628,293)|
+11,38,48,1666,293,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,39,Consumer Growth,1666,324,48,23,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,40,population growth rate,1757,105,48,48,2,131,0,12,0,0,0,0,-1--1--1,192-128-192,|12||0-0-0,0,0,0,0,0,0
+1,41,39,33,1,0,0,0,0,64,0,-1--1--1,,1|(1318,299)|
+10,42,New Defector Ratio,1824,752,39,39,2,131,0,12,0,0,0,0,-1--1--1,255-128-0,|12||0-0-0,0,0,0,0,0,0
+10,43,New Prosumer Ratio,720,319,39,29,8,131,0,8,0,0,0,0,-1--1--1,0-0-0,|14||0-0-0,0,0,0,0,0,0
+10,44,New Regular Consumer Ratio,210,256,41,40,8,131,0,8,0,0,0,0,-1--1--1,0-0-0,|14||0-0-0,0,0,0,0,0,0
+1,45,44,28,1,0,0,0,0,64,0,-1--1--1,,1|(221,204)|
+1,46,43,33,1,0,0,0,0,64,0,-1--1--1,,1|(769,373)|
+1,47,43,44,1,0,0,0,0,64,0,-1--1--1,,1|(326,328)|
+10,48,effect of PV NPV,590,398,36,21,8,131,0,8,0,0,0,0,-1--1--1,0-0-0,|14||0-0-0,0,0,0,0,0,0
+1,49,48,13,1,0,0,0,0,64,0,-1--1--1,,1|(583,523)|
+1,50,48,6,1,0,0,0,0,64,0,-1--1--1,,1|(810,322)|
+10,51,NPV PV Ratio,493,310,48,23,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|16||128-128-128,0,0,0,0,0,0
+1,52,51,48,1,0,0,0,0,64,0,-1--1--1,,1|(580,330)|
+1,53,48,43,1,0,0,0,0,64,0,-1--1--1,,1|(666,364)|
+1,54,40,39,1,0,0,0,0,64,0,-1--1--1,,1|(1752,215)|
+10,55,Defectors,1517,869,88,56,3,131,0,12,0,0,0,0,-1--1--1,128-192-0,|18||64-160-98,0,0,0,0,0,0
+1,56,58,55,4,0,0,22,0,0,0,-1--1--1,,1|(1517,463)|
+1,57,58,2,100,0,0,22,0,0,0,-1--1--1,,1|(1077,463)|
+11,58,1014,1217,463,6,8,34,3,0,0,3,0,0,0,0,0,0,0,0,0
+10,59,Installing Battery by Innovation,1217,426,52,29,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
+1,60,62,55,4,0,0,22,0,0,0,-1--1--1,,1|(877,869)|
+1,61,62,2,100,0,0,22,0,0,0,-1--1--1,,1|(877,588)|
+11,62,1718,877,694,8,6,33,3,0,0,2,0,0,0,0,0,0,0,0,0
+10,63,Installing Battery By Imitation,817,694,52,29,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
+1,64,66,55,4,0,0,22,0,0,0,-1--1--1,,1|(1544,495)|
+1,65,66,1,100,0,0,22,0,0,0,-1--1--1,,1|(979,170)|
+11,66,1190,1544,170,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,67,Direct Defection by Innovation,1544,209,56,31,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
+1,68,70,55,4,0,0,22,0,0,0,-1--1--1,,1|(881,888)|
+1,69,70,1,100,0,0,22,0,0,0,-1--1--1,,1|(325,568)|
+11,70,838,325,888,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,71,Direct Defection By Imitation,325,919,73,23,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,72,34,39,1,0,0,0,0,64,0,-1--1--1,,1|(1778,355)|
+12,73,48,1828,848,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,74,76,55,4,0,0,22,0,0,0,-1--1--1,,1|(1630,839)|
+1,75,76,73,100,0,0,22,0,0,0,-1--1--1,,1|(1742,839)|
+11,76,48,1661,839,6,8,34,3,0,0,3,0,0,0,0,0,0,0,0,0
+10,77,New Defectors,1661,808,43,23,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,78,39,77,1,0,0,0,0,64,0,-1--1--1,,1|(1777,563)|
+1,79,42,77,1,0,0,0,0,64,0,-1--1--1,,1|(1751,806)|
+1,80,55,22,1,0,0,0,0,64,0,-1--1--1,,1|(1246,719)|
+1,81,1,67,1,0,0,0,0,64,0,-1--1--1,,1|(835,78)|
+1,82,2,63,1,0,0,0,0,64,0,-1--1--1,,1|(824,603)|
+1,83,2,59,1,0,0,0,0,64,0,-1--1--1,,1|(1065,412)|
+1,84,1,71,1,0,0,0,0,64,0,-1--1--1,,1|(236,532)|
+10,85,Direct Defection NPV,1687,589,45,36,8,130,0,3,-1,0,0,0,128-128-128,0-0-0,|16||128-128-128,0,0,0,0,0,0
+10,86,effect of direct defection NPV on innovation,1660,693,53,31,8,131,0,24,0,0,0,0,-1--1--1,0-0-0,|12|B|0-0-0,0,0,0,0,0,0
+1,87,85,86,1,0,0,0,0,64,0,-1--1--1,,1|(1749,655)|
+1,88,86,67,1,0,0,0,0,64,0,-1--1--1,,1|(1470,396)|
+10,89,effect of direct defection NPV on imitation,1168,800,52,32,8,131,0,24,0,0,0,0,-1--1--1,0-0-0,|12|B|0-0-0,0,0,0,0,0,0
+1,90,85,89,1,0,0,0,0,64,0,-1--1--1,,1|(1403,636)|
+1,91,89,77,1,0,0,0,0,64,0,-1--1--1,,1|(1395,726)|
+1,92,86,77,1,0,0,0,0,64,0,-1--1--1,,1|(1652,757)|
+10,93,Installing Battery NPV,1603,507,36,32,8,131,0,8,0,0,0,0,-1--1--1,0-0-0,|14||0-0-0,0,0,0,0,0,0
+1,94,85,93,1,0,0,0,0,64,0,-1--1--1,,1|(1671,536)|
+10,95,NPV PV,1725,508,31,25,8,130,0,3,-1,0,0,0,128-128-128,0-0-0,|16||128-128-128,0,0,0,0,0,0
+1,96,95,93,1,0,0,0,0,64,0,-1--1--1,,1|(1670,453)|
+10,97,effect of installing battery NPV on innovation,1356,407,60,33,8,131,0,24,0,0,0,0,-1--1--1,0-0-0,|12|B|0-0-0,0,0,0,0,0,0
+10,98,effect of installing battery NPV on imitation,1401,571,45,33,8,131,0,24,0,0,0,0,-1--1--1,0-0-0,|12|B|0-0-0,0,0,0,0,0,0
+1,99,93,97,1,0,0,0,0,64,0,-1--1--1,,1|(1539,419)|
+1,100,93,98,1,0,0,0,0,64,0,-1--1--1,,1|(1522,548)|
+1,101,97,59,1,0,0,0,0,64,0,-1--1--1,,1|(1303,378)|
+10,102,Initial Number of Consumers,1419,99,50,50,2,131,0,12,0,0,0,0,-1--1--1,0-192-192,|12||0-0-0,0,0,0,0,0,0
+1,103,102,34,1,0,0,0,0,64,1,-1--1--1,,1|(1651,127)|
+1,104,102,1,1,0,0,0,0,64,1,-1--1--1,,1|(814,31)|
+1,105,12,67,1,0,0,0,0,64,0,-1--1--1,,1|(1126,276)|
+1,106,12,59,1,0,0,0,0,64,0,-1--1--1,,1|(1121,344)|
+10,107,New Defector Ratio,87,342,50,37,8,130,0,3,-1,0,0,0,128-128-128,0-0-0,|16||128-128-128,0,0,0,0,0,0
+1,108,107,44,1,0,0,0,0,64,0,-1--1--1,,1|(121,270)|
+10,109,PV Potential,1835,443,38,38,2,131,0,12,0,0,0,0,-1--1--1,255-192-128,|12||0-0-0,0,0,0,0,0,0
+10,110,Consumer Growth,71,53,52,23,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|16||128-128-128,0,0,0,0,0,0
+1,111,110,28,1,0,0,0,0,64,0,-1--1--1,,1|(103,91)|
+10,112,Total Potential PV Customers,1257,555,46,24,8,131,0,24,0,0,0,0,-1--1--1,0-0-0,|12|B|0-0-0,0,0,0,0,0,0
+1,113,34,112,1,0,0,0,0,64,0,-1--1--1,,1|(1448,509)|
+1,114,109,112,1,0,0,0,0,64,0,-1--1--1,,1|(1427,467)|
+10,115,PV Customers Ratio,995,545,46,26,8,131,0,24,0,0,0,0,-1--1--1,0-0-0,|12|B|0-0-0,0,0,0,0,0,0
+1,116,112,115,1,0,0,0,0,64,0,-1--1--1,,1|(1129,514)|
+1,117,22,115,1,0,0,0,0,64,0,-1--1--1,,1|(1099,545)|
+1,118,115,13,1,0,0,0,0,64,0,-1--1--1,,1|(750,549)|
+1,119,13,10,1,0,0,0,0,64,0,-1--1--1,,1|(418,559)|
+10,120,Defectors Ratio,719,807,56,11,8,3,0,24,0,0,0,0,-1--1--1,0-0-0,|12|B|0-0-0,0,0,0,0,0,0
+1,121,112,120,1,0,0,0,0,64,0,-1--1--1,,1|(1109,756)|
+1,122,55,120,1,0,0,0,0,64,0,-1--1--1,,1|(1069,924)|
+1,123,11,71,1,0,0,0,0,64,0,-1--1--1,,1|(367,851)|
+1,124,120,11,1,0,0,0,0,64,0,-1--1--1,,1|(574,826)|
+1,125,89,11,1,0,0,0,0,64,0,-1--1--1,,1|(888,907)|
+1,126,98,15,1,0,0,0,0,64,0,-1--1--1,,1|(1066,719)|
+1,127,120,15,1,0,0,0,0,64,0,-1--1--1,,1|(720,764)|
+1,128,15,63,1,0,0,0,0,64,0,-1--1--1,,1|(736,628)|
+10,129,PV visibility effect on immitation,156,591,48,48,2,131,0,12,0,0,0,0,-1--1--1,128-128-192,|12||0-0-0,0,0,0,0,0,0
+1,130,129,13,1,0,0,0,0,64,0,-1--1--1,,1|(307,640)|
+10,131,effect of PV ratio Limit,950,667,42,19,8,3,0,24,0,0,0,0,-1--1--1,0-0-0,|12|B|0-0-0,0,0,0,0,0,0
+1,132,115,131,1,0,0,0,0,64,0,-1--1--1,,1|(949,610)|
+1,133,131,33,1,0,0,0,0,64,0,-1--1--1,,1|(771,516)|
+1,134,131,6,1,0,0,0,0,64,0,-1--1--1,,1|(989,383)|
+1,135,131,71,1,0,0,0,0,64,0,-1--1--1,,1|(678,934)|
+1,136,131,10,1,0,0,0,0,64,0,-1--1--1,,1|(622,516)|
+1,137,131,67,1,0,0,0,0,64,0,-1--1--1,,1|(1223,294)|
 \\\---/// Sketch information - do not modify anything except names
 V300  Do not put anything below this section - it will be ignored
 *PV
 $192-192-192,0,Times New Roman|20||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,100,0
 10,1,PV Cost,809,232,57,39,3,131,0,4,0,0,0,0,-1--1--1,255-255-0,|20||0-0-0,0,0,0,0,0,0
-12,2,48,1141,228,12,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,3,5,2,4,0,0,22,0,0,0,-1--1--1,,1|(1067,229)|
+12,2,48,1141,228,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,3,5,2,4,0,0,22,0,0,0,-1--1--1,,1|(1069,229)|
 1,4,5,1,100,0,0,22,0,0,0,-1--1--1,,1|(929,229)|
 11,5,48,1000,229,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
 10,6,PV Cost Reduction,1000,268,56,29,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
@@ -780,26 +836,30 @@ $192-192-192,0,Times New Roman|20||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,1
 1,15,14,6,1,0,0,0,0,64,0,-1--1--1,,1|(1248,183)|
 1,16,1,6,1,0,0,0,0,64,0,-1--1--1,,1|(928,177)|
 10,17,Total Customers with PV,1433,67,100,29,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|20||128-128-128,0,0,0,0,0,0
-1,18,17,14,1,0,0,0,0,64,0,-1--1--1,,1|(1487,193)|
-10,19,PV Life,128,353,36,36,2,131,0,12,0,0,0,0,-1--1--1,128-192-0,|16||0-0-0,0,0,0,0,0,0
-10,20,PV size,304,624,35,35,2,131,0,12,0,0,0,0,-1--1--1,255-128-192,|16||0-0-0,0,0,0,0,0,0
-10,21,PV monthly Generation,116,203,68,68,2,131,0,12,0,0,0,0,-1--1--1,255-255-128,|16||0-0-0,0,0,0,0,0,0
-10,22,PV monthly Income,321,284,67,29,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,23,21,22,1,0,0,0,0,64,0,-1--1--1,,1|(240,176)|
-10,24,NPV PV Income,337,473,52,29,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,25,19,24,1,0,0,0,0,64,0,-1--1--1,,1|(240,377)|
-1,26,22,24,1,0,0,0,0,64,0,-1--1--1,,1|(316,367)|
-10,27,NPV PV Ratio,503,353,52,29,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,28,1,27,1,0,0,0,0,64,0,-1--1--1,,1|(572,256)|
-10,29,NPV PV,555,576,49,49,6,131,0,28,0,0,0,0,-1--1--1,0-128-255,|18|B|0-0-0,0,0,0,0,0,0
-1,30,24,29,1,0,0,0,0,64,0,-1--1--1,,1|(420,571)|
-1,31,20,29,1,0,0,0,0,64,0,-1--1--1,,1|(401,641)|
-1,32,1,29,1,0,0,0,0,64,0,-1--1--1,,1|(591,387)|
-1,33,29,27,1,0,0,0,0,64,0,-1--1--1,,1|(471,444)|
-10,34,Discount Rate,123,523,55,55,2,131,0,12,0,0,0,0,-1--1--1,160-160-160,|16||0-0-0,0,0,0,0,0,0
-1,35,34,24,1,0,0,0,0,64,0,-1--1--1,,1|(208,428)|
-10,36,Electricity Tariff,256,68,64,29,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|20||128-128-128,0,0,0,0,0,0
-1,37,36,22,1,0,0,0,0,64,0,-1--1--1,,1|(332,163)|
+10,18,PV Life,128,353,36,36,2,131,0,12,0,0,0,0,-1--1--1,128-192-0,|16||0-0-0,0,0,0,0,0,0
+10,19,PV size,304,624,35,35,2,131,0,12,0,0,0,0,-1--1--1,255-128-192,|16||0-0-0,0,0,0,0,0,0
+10,20,PV monthly Generation,116,203,68,68,2,131,0,12,0,0,0,0,-1--1--1,255-255-128,|16||0-0-0,0,0,0,0,0,0
+10,21,PV monthly Income,321,284,67,29,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,22,20,21,1,0,0,0,0,64,0,-1--1--1,,1|(240,176)|
+10,23,NPV PV Income,337,473,52,29,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,24,18,23,1,0,0,0,0,64,0,-1--1--1,,1|(240,377)|
+1,25,21,23,1,0,0,0,0,64,0,-1--1--1,,1|(316,367)|
+10,26,NPV PV Ratio,503,353,52,29,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,27,1,26,1,0,0,0,0,64,0,-1--1--1,,1|(572,256)|
+10,28,NPV PV,555,576,49,49,6,131,0,28,0,0,0,0,-1--1--1,0-128-255,|18|B|0-0-0,0,0,0,0,0,0
+1,29,23,28,1,0,0,0,0,64,0,-1--1--1,,1|(420,571)|
+1,30,19,28,1,0,0,0,0,64,0,-1--1--1,,1|(401,641)|
+1,31,1,28,1,0,0,0,0,64,0,-1--1--1,,1|(591,387)|
+1,32,28,26,1,0,0,0,0,64,0,-1--1--1,,1|(471,444)|
+10,33,Discount Rate,123,523,55,55,2,131,0,12,0,0,0,0,-1--1--1,160-160-160,|16||0-0-0,0,0,0,0,0,0
+1,34,33,23,1,0,0,0,0,64,0,-1--1--1,,1|(208,428)|
+10,35,Electricity Tariff,256,68,64,29,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|20||128-128-128,0,0,0,0,0,0
+1,36,35,21,1,0,0,0,0,64,0,-1--1--1,,1|(332,163)|
+10,37,Initial Number of Consumers,1117,49,102,29,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|20||128-128-128,0,0,0,0,0,0
+10,38,Initial PV Cost,701,80,53,29,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,39,38,1,1,0,0,0,0,64,1,-1--1--1,,1|(806,116)|
+10,40,PV Customers Ratio,1437,172,88,29,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|20||128-128-128,0,0,0,0,0,0
+1,41,40,14,1,0,0,0,0,64,0,-1--1--1,,1|(1434,239)|
 \\\---/// Sketch information - do not modify anything except names
 V300  Do not put anything below this section - it will be ignored
 *Battery
@@ -810,9 +870,9 @@ $192-192-192,0,Times New Roman|20||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,1
 1,4,1,3,1,0,0,0,0,64,0,-1--1--1,,1|(488,571)|
 10,5,effect of Customers on Battery Cost,1201,364,77,53,8,131,0,0,0,0,0,0,0,0,0,0,0,0
 10,6,Battery Cost,588,219,76,44,3,131,0,4,0,0,0,0,-1--1--1,128-128-192,|20||0-0-0,0,0,0,0,0,0
-12,7,48,968,220,12,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,8,10,7,4,0,0,22,0,0,0,-1--1--1,,1|(888,220)|
-1,9,10,6,100,0,0,22,0,0,0,-1--1--1,,1|(731,220)|
+12,7,48,968,220,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,8,10,7,4,0,0,22,0,0,0,-1--1--1,,1|(887,220)|
+1,9,10,6,100,0,0,22,0,0,0,-1--1--1,,1|(732,220)|
 11,10,48,809,220,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
 10,11,Battery Cost Reduction,809,264,60,40,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
 1,12,3,11,1,0,0,0,0,64,0,-1--1--1,,1|(660,444)|
@@ -821,7 +881,11 @@ $192-192-192,0,Times New Roman|20||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,1
 1,15,2,11,1,0,0,0,0,64,0,-1--1--1,,1|(856,396)|
 1,16,6,3,1,0,0,0,0,64,0,-1--1--1,,1|(460,269)|
 10,17,Defectors,1280,100,68,25,8,130,0,3,-1,0,0,0,128-128-128,0-0-0,|20||128-128-128,0,0,0,0,0,0
-1,18,17,5,1,0,0,0,0,64,0,-1--1--1,,1|(1357,232)|
+10,18,Initial Number of Consumers,1502,91,102,29,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|20||128-128-128,0,0,0,0,0,0
+10,19,Initial Battery Cost,418,84,75,29,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,20,19,6,1,0,0,0,0,64,1,-1--1--1,,1|(563,120)|
+10,21,Defectors Ratio,1349,238,62,29,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|20||128-128-128,0,0,0,0,0,0
+1,22,21,5,1,0,0,0,0,64,0,-1--1--1,,1|(1347,328)|
 \\\---/// Sketch information - do not modify anything except names
 V300  Do not put anything below this section - it will be ignored
 *Direct Defection Economics
@@ -873,134 +937,149 @@ $192-192-192,0,Times New Roman|16||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,1
 V300  Do not put anything below this section - it will be ignored
 *Consumer Demand-Elasticty
 $192-192-192,0,Times New Roman|16||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,100,0
-10,1,Regular Consumer Average Demand,903,413,92,45,3,131,0,12,0,0,0,0,-1--1--1,160-160-160,|18||0-0-0,0,0,0,0,0,0
-10,2,Minimum Average Regular Consumer Demand,1591,257,49,49,2,131,0,28,0,0,0,0,-1--1--1,64-160-98,|12|B|0-0-0,0,0,0,0,0,0
-10,3,Prosumer Average Demand,547,189,92,45,3,131,0,12,0,0,0,0,-1--1--1,255-192-0,|18||0-0-0,0,0,0,0,0,0
-10,4,Minimum Average Prosumer Demand,223,601,48,48,2,131,0,28,0,0,0,0,-1--1--1,64-160-98,|12|B|0-0-0,0,0,0,0,0,0
-10,5,indicated change in Prosumer Demand,427,650,52,48,8,131,0,0,0,0,0,0,0,0,0,0,0,0
-10,6,Maximum Average Prosumer Demand,143,417,48,48,2,131,0,28,0,0,0,0,-1--1--1,255-0-0,|12|B|0-0-0,0,0,0,0,0,0
-1,7,3,5,1,0,0,0,0,64,0,-1--1--1,,1|(659,493)|
-10,8,indicated change in regular Consumer Demand,1275,718,53,52,8,131,0,0,0,0,0,0,0,0,0,0,0,0
-1,9,1,8,1,0,0,0,0,64,0,-1--1--1,,1|(1084,561)|
-10,10,Maximum Average Regular Consumer Demand,1584,90,52,52,2,131,0,28,0,0,0,0,-1--1--1,255-0-0,|12|B|0-0-0,0,0,0,0,0,0
-10,11,price elasticity of prosumers,179,741,64,64,2,131,0,12,0,0,0,0,-1--1--1,0-192-255,|14||0-0-0,0,0,0,0,0,0
-1,12,11,5,1,0,0,0,0,64,0,-1--1--1,,1|(383,770)|
-10,13,price elasticity of regular consumers,1560,701,64,64,2,131,0,12,0,0,0,0,-1--1--1,0-192-255,|14||0-0-0,0,0,0,0,0,0
-1,14,13,8,1,0,0,0,0,64,0,-1--1--1,,1|(1428,769)|
-10,15,time to adjust Prosumer Demand,147,165,64,64,2,131,0,12,0,0,0,0,-1--1--1,0-192-255,|14||0-0-0,0,0,0,0,0,0
-10,16,time to adjust Regular Consumer demand,1319,558,64,64,2,131,0,12,0,0,0,0,-1--1--1,0-192-255,|14||0-0-0,0,0,0,0,0,0
-10,17,Actual Prosumer Demand Change,551,402,75,41,3,131,0,4,0,0,0,0,-1--1--1,255-192-128,|16||0-0-0,0,0,0,0,0,0
-1,18,20,3,4,0,0,22,0,0,0,-1--1--1,,1|(543,270)|
-1,19,20,17,100,0,0,22,0,0,0,-1--1--1,,1|(543,341)|
-11,20,948,543,313,8,8,33,3,0,0,2,0,0,0,0,0,0,0,0,0
-10,21,change in Prosumer Demand,487,313,48,32,40,131,0,0,0,0,0,0,0,0,0,0,0,0
-12,22,48,544,589,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,23,25,17,4,0,0,22,0,0,0,-1--1--1,,1|(544,472)|
-1,24,25,22,100,0,0,22,0,0,0,-1--1--1,,1|(544,549)|
-11,25,48,544,510,8,8,33,3,0,0,2,0,0,0,0,0,0,0,0,0
-10,26,change in indicated prosumer demand,492,510,44,48,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
-1,27,5,26,1,0,0,0,0,64,0,-1--1--1,,1|(512,589)|
-1,28,15,21,1,0,0,0,0,64,0,-1--1--1,,1|(376,193)|
-1,29,17,21,1,0,0,0,0,64,0,-1--1--1,,1|(439,390)|
-10,30,Actual Regular Customer Demand change,1268,406,83,45,3,131,0,4,0,0,0,0,-1--1--1,192-192-192,|16||0-0-0,0,0,0,0,0,0
-1,31,33,1,4,0,0,22,0,0,0,-1--1--1,,1|(1037,409)|
-1,32,33,30,100,0,0,22,0,0,0,-1--1--1,,1|(1140,409)|
-11,33,882,1088,409,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,34,change in Regular Consumer Demand,1088,457,49,44,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
-1,35,16,34,1,0,0,0,0,64,0,-1--1--1,,1|(1104,493)|
-1,36,30,34,1,0,0,0,0,64,0,-1--1--1,,1|(1227,474)|
-12,37,48,1547,393,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,38,40,30,4,0,0,22,0,0,0,-1--1--1,,1|(1393,393)|
-1,39,40,37,100,0,0,22,0,0,0,-1--1--1,,1|(1494,393)|
-11,40,48,1444,393,8,8,34,3,0,0,3,0,0,0,0,0,0,0,0,0
-10,41,change in indicated regular consumer demand,1444,342,76,45,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
-1,42,8,41,1,0,0,0,0,64,0,-1--1--1,,1|(1448,621)|
-10,43,Electricity Tariff,815,725,52,23,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|16||128-128-128,0,0,0,0,0,0
-1,44,43,5,1,0,0,0,0,64,0,-1--1--1,,1|(620,774)|
-1,45,43,8,1,0,0,0,0,64,0,-1--1--1,,1|(1015,798)|
-10,46,change in electricity tariff,803,589,76,23,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|16||128-128-128,0,0,0,0,0,0
-1,47,46,5,1,0,0,0,0,64,0,-1--1--1,,1|(627,677)|
-1,48,46,8,1,0,0,0,0,64,0,-1--1--1,,1|(1011,702)|
-1,49,6,26,1,0,0,0,0,64,0,-1--1--1,,1|(312,517)|
-1,50,4,26,1,0,0,0,0,64,0,-1--1--1,,1|(343,589)|
-1,51,3,26,1,0,0,0,0,64,0,-1--1--1,,1|(368,317)|
-1,52,2,41,1,0,0,0,0,64,0,-1--1--1,,1|(1543,362)|
-1,53,10,41,1,0,0,0,0,64,0,-1--1--1,,1|(1464,149)|
-1,54,1,41,1,0,0,0,0,64,0,-1--1--1,,1|(1123,238)|
+10,1,Regular Consumer Average Demand,869,413,92,45,3,131,0,12,0,0,0,0,-1--1--1,160-160-160,|18||0-0-0,0,0,0,0,0,0
+10,2,Minimum Average Regular Consumer Demand,1417,205,53,32,8,131,0,8,0,0,0,0,-1--1--1,64-160-98,|12|B|0-0-0,0,0,0,0,0,0
+10,3,Prosumer Average Demand,513,189,92,45,3,131,0,12,0,0,0,0,-1--1--1,255-192-0,|18||0-0-0,0,0,0,0,0,0
+10,4,Minimum Average Prosumer Demand,282,584,32,32,8,131,0,8,0,0,0,0,-1--1--1,64-160-98,|12|B|0-0-0,0,0,0,0,0,0
+10,5,indicated change in Prosumer Demand,393,650,52,48,8,131,0,0,0,0,0,0,0,0,0,0,0,0
+10,6,Maximum Average Prosumer Demand,283,482,34,35,8,131,0,8,0,0,0,0,-1--1--1,255-0-0,|12|B|0-0-0,0,0,0,0,0,0
+1,7,3,5,1,0,0,0,0,64,0,-1--1--1,,1|(625,493)|
+10,8,indicated change in regular Consumer Demand,1241,718,53,52,8,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,9,1,8,1,0,0,0,0,64,0,-1--1--1,,1|(1050,561)|
+10,10,Maximum Average Regular Consumer Demand,1291,123,53,40,8,131,0,8,0,0,0,0,-1--1--1,255-0-0,|12||0-0-0,0,0,0,0,0,0
+10,11,price elasticity of prosumers,244,720,59,59,2,131,0,12,0,0,0,0,-1--1--1,0-192-255,|14||0-0-0,0,0,0,0,0,0
+1,12,11,5,1,0,0,0,0,64,0,-1--1--1,,1|(345,733)|
+10,13,price elasticity of regular consumers,1454,714,56,56,2,131,0,12,0,0,0,0,-1--1--1,0-192-255,|14||0-0-0,0,0,0,0,0,0
+1,14,13,8,1,0,0,0,0,64,0,-1--1--1,,1|(1352,754)|
+10,15,time to adjust Prosumer Demand,275,118,50,50,2,131,0,12,0,0,0,0,-1--1--1,0-192-255,|14||0-0-0,0,0,0,0,0,0
+10,16,time to adjust Regular Consumer demand,1285,547,53,53,2,131,0,12,0,0,0,0,-1--1--1,0-192-255,|14||0-0-0,0,0,0,0,0,0
+10,17,Actual Prosumer Demand Change,517,402,75,41,3,131,0,4,0,0,0,0,-1--1--1,255-192-128,|16||0-0-0,0,0,0,0,0,0
+1,18,20,3,4,0,0,22,0,0,0,-1--1--1,,1|(509,269)|
+1,19,20,17,100,0,0,22,0,0,0,-1--1--1,,1|(509,341)|
+11,20,2114,509,313,8,8,33,3,0,0,2,0,0,0,0,0,0,0,0,0
+10,21,change in Prosumer Demand,453,313,48,32,40,131,0,0,0,0,0,0,0,0,0,0,0,0
+12,22,48,510,589,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,23,25,17,4,0,0,22,0,0,0,-1--1--1,,1|(510,472)|
+1,24,25,22,100,0,0,22,0,0,0,-1--1--1,,1|(510,549)|
+11,25,48,510,510,8,8,33,3,0,0,2,0,0,0,0,0,0,0,0,0
+10,26,change in indicated prosumer demand,458,510,44,48,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
+1,27,5,26,1,0,0,0,0,64,0,-1--1--1,,1|(478,589)|
+1,28,15,21,1,0,0,0,0,64,0,-1--1--1,,1|(383,290)|
+1,29,17,21,1,0,0,0,0,64,0,-1--1--1,,1|(405,390)|
+10,30,Actual Regular Customer Demand change,1234,406,83,45,3,131,0,4,0,0,0,0,-1--1--1,192-192-192,|16||0-0-0,0,0,0,0,0,0
+1,31,33,1,4,0,0,22,0,0,0,-1--1--1,,1|(1003,409)|
+1,32,33,30,100,0,0,22,0,0,0,-1--1--1,,1|(1106,409)|
+11,33,2070,1054,409,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,34,change in Regular Consumer Demand,1054,457,49,44,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
+1,35,16,34,1,0,0,0,0,64,0,-1--1--1,,1|(1070,493)|
+1,36,30,34,1,0,0,0,0,64,0,-1--1--1,,1|(1193,474)|
+12,37,48,1513,393,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,38,40,30,4,0,0,22,0,0,0,-1--1--1,,1|(1359,393)|
+1,39,40,37,100,0,0,22,0,0,0,-1--1--1,,1|(1460,393)|
+11,40,48,1410,393,8,8,34,3,0,0,3,0,0,0,0,0,0,0,0,0
+10,41,change in indicated regular consumer demand,1410,342,76,45,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
+1,42,8,41,1,0,0,0,0,64,0,-1--1--1,,1|(1414,621)|
+10,43,Electricity Tariff,781,725,52,23,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|16||128-128-128,0,0,0,0,0,0
+1,44,43,5,1,0,0,0,0,64,0,-1--1--1,,1|(586,774)|
+1,45,43,8,1,0,0,0,0,64,0,-1--1--1,,1|(981,798)|
+10,46,change in electricity tariff,769,589,76,23,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|16||128-128-128,0,0,0,0,0,0
+1,47,46,5,1,0,0,0,0,64,0,-1--1--1,,1|(593,677)|
+1,48,46,8,1,0,0,0,0,64,0,-1--1--1,,1|(977,702)|
+1,49,6,26,1,0,0,0,0,64,0,-1--1--1,,1|(380,504)|
+1,50,4,26,1,0,0,0,0,64,0,-1--1--1,,1|(370,557)|
+1,51,3,26,1,0,0,0,0,64,0,-1--1--1,,1|(334,317)|
+1,52,2,41,1,0,0,0,0,64,0,-1--1--1,,1|(1461,281)|
+1,53,10,41,1,0,0,0,0,64,0,-1--1--1,,1|(1273,240)|
+1,54,1,41,1,0,0,0,0,64,0,-1--1--1,,1|(1089,238)|
+10,55,Initial Prosumer Demand,188,295,71,23,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,56,Initial Average Consumer Demand,914,192,84,23,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,57,55,3,1,0,0,0,0,64,1,-1--1--1,,1|(371,167)|
+1,58,56,1,1,0,0,0,0,64,1,-1--1--1,,1|(815,260)|
+10,59,Prosumer Demand Change Limit,107,533,58,58,2,131,0,4,0,0,0,0,-1--1--1,255-0-255,|16||0-0-0,0,0,0,0,0,0
+10,60,Regular Consumer Demand Change Limit,1494,80,62,62,2,131,0,4,0,0,0,0,-1--1--1,255-128-192,|16||0-0-0,0,0,0,0,0,0
+1,61,56,10,1,0,0,0,0,64,0,-1--1--1,,1|(1054,125)|
+1,62,60,10,1,0,0,0,0,64,0,-1--1--1,,1|(1368,54)|
+1,63,60,2,1,0,0,0,0,64,0,-1--1--1,,1|(1499,191)|
+1,64,56,2,1,0,0,0,0,64,0,-1--1--1,,1|(1195,174)|
+1,65,55,6,1,0,0,0,0,64,0,-1--1--1,,1|(275,370)|
+1,66,55,4,1,0,0,0,0,64,0,-1--1--1,,1|(180,438)|
+1,67,59,6,1,0,0,0,0,64,0,-1--1--1,,1|(159,473)|
+1,68,59,4,1,0,0,0,0,64,0,-1--1--1,,1|(169,591)|
 \\\---/// Sketch information - do not modify anything except names
 V300  Do not put anything below this section - it will be ignored
 *Utility Cost and tariff Model
 $192-192-192,0,Times New Roman|16||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,100,0
-10,1,Utility Energy Sale,408,351,64,23,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,2,Energy Procurement,480,214,57,23,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,3,Generation Price,504,84,48,48,2,131,0,12,0,0,0,0,-1--1--1,192-192-192,|12||0-0-0,0,1,0,0,0,0
-10,4,Variable Costs,660,206,40,23,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,5,Fixed Costs,701,30,40,40,2,131,0,12,0,0,0,0,-1--1--1,128-128-128,|12||0-0-0,0,0,0,0,0,0
-10,6,Total Costs,823,207,52,13,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,7,5,6,1,0,0,0,0,64,0,-1--1--1,,1|(788,67)|
-1,8,4,6,1,0,0,0,0,64,0,-1--1--1,,1|(760,167)|
-1,9,3,4,1,0,0,0,0,64,0,-1--1--1,,1|(616,119)|
-1,10,2,4,1,0,0,0,0,64,0,-1--1--1,,1|(564,164)|
-1,11,1,2,1,0,0,0,0,64,0,-1--1--1,,1|(425,274)|
-10,12,Income,1091,250,33,13,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,13,1,12,1,0,0,0,0,64,0,-1--1--1,,1|(896,327)|
-10,14,Permited Profit,905,31,41,41,2,131,0,12,0,0,0,0,-1--1--1,128-192-0,|12||0-0-0,0,0,0,0,0,0
-10,15,Desired Income,987,175,36,23,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,16,14,15,1,0,0,0,0,64,0,-1--1--1,,1|(976,86)|
-1,17,6,15,1,0,0,0,0,64,0,-1--1--1,,1|(897,159)|
-10,18,Budget Deficit,1428,47,72,39,3,131,0,12,0,0,0,0,-1--1--1,255-0-0,|20||0-0-0,0,0,0,0,0,0
-12,19,48,1085,44,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,20,22,18,4,0,0,22,0,0,0,-1--1--1,,1|(1294,44)|
-1,21,22,19,100,0,0,22,0,0,0,-1--1--1,,1|(1155,44)|
-11,22,48,1224,44,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,23,Monthly Income Shortfall,1224,83,91,29,40,3,0,8,-1,0,0,0,-1--1--1,0-0-0,|20||0-0-0,0,0,0,0,0,0
-1,24,15,23,1,0,0,0,0,64,0,-1--1--1,,1|(1052,92)|
-1,25,12,23,1,0,0,0,0,64,0,-1--1--1,,1|(1177,199)|
-10,26,Regular Consumer Average Demand,312,-33,104,27,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|16||128-128-128,0,0,0,0,0,0
-10,27,Regular Consumers,27,-48,64,27,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|16||128-128-128,0,0,0,0,0,0
-10,28,Regular Consumers Demand,139,115,87,23,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,29,26,28,1,0,0,0,0,64,0,-1--1--1,,1|(263,91)|
-1,30,27,28,1,0,0,0,0,64,0,-1--1--1,,1|(52,51)|
-1,31,28,1,1,0,0,0,0,64,0,-1--1--1,,1|(339,187)|
-10,32,Prosumers,29,664,59,13,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|16||128-128-128,0,0,0,0,0,0
-10,33,Prosumers Demand,156,471,47,23,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,34,33,1,1,0,0,0,0,64,0,-1--1--1,,1|(344,464)|
-10,35,Prosumer Average Demand,288,656,81,23,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|16||128-128-128,0,0,0,0,0,0
-1,36,35,33,1,0,0,0,0,64,0,-1--1--1,,1|(260,567)|
-1,37,32,33,1,0,0,0,0,64,0,-1--1--1,,1|(31,562)|
-10,38,Tariff Correction Period,1496,658,56,56,2,131,0,12,0,0,0,0,-1--1--1,192-255-192,|14||0-0-0,0,0,0,0,0,0
-10,39,Time,1403,413,36,13,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|16||128-128-128,0,0,0,0,0,0
-10,40,Indicated Tariff Change,1364,275,68,23,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,41,1,40,1,0,0,0,0,64,0,-1--1--1,,1|(825,400)|
-1,42,18,40,1,0,0,0,0,64,0,-1--1--1,,1|(1431,152)|
-10,43,Electricity Tariff,848,548,75,41,3,131,0,12,0,0,0,0,-1--1--1,192-128-192,|20||0-0-0,0,0,0,0,0,0
-12,44,48,1264,552,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,45,47,43,4,0,0,22,0,0,0,-1--1--1,,1|(1003,555)|
-1,46,47,44,100,0,0,22,0,0,0,-1--1--1,,1|(1176,555)|
-11,47,48,1091,555,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
-10,48,change in electricity tariff,1091,586,68,23,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,49,43,12,1,0,0,0,0,64,0,-1--1--1,,1|(940,360)|
-10,50,Limited Tariff Change,1140,311,64,23,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,51,40,50,1,0,0,0,0,64,0,-1--1--1,,1|(1253,255)|
-1,52,43,50,1,0,0,0,0,64,0,-1--1--1,,1|(1020,351)|
-10,53,tariff correction remaining time,1412,512,70,23,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,54,38,53,1,0,0,0,0,64,0,-1--1--1,,1|(1448,600)|
-1,55,39,53,1,0,0,0,0,64,0,-1--1--1,,1|(1412,454)|
-10,56,effect of remaining time on change in electricity tariff,1092,735,105,34,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,57,53,56,1,0,0,0,0,64,0,-1--1--1,,1|(1220,602)|
-1,58,56,48,1,0,0,0,0,64,0,-1--1--1,,1|(1058,667)|
-10,59,std of effect of remaining time,1330,645,66,23,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,60,59,56,1,0,0,0,0,64,0,-1--1--1,,1|(1232,663)|
-10,61,pi,912,640,10,13,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,62,61,56,1,0,0,0,0,64,0,-1--1--1,,1|(980,667)|
-1,63,40,48,1,0,0,0,0,64,0,-1--1--1,,1|(1250,485)|
-10,64,percent std effect of remaining time,1436,763,86,23,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,65,38,59,1,0,0,0,0,64,0,-1--1--1,,1|(1411,614)|
-1,66,64,59,1,0,0,0,0,64,0,-1--1--1,,1|(1347,711)|
-10,67,Deficit recovery period,1552,283,71,23,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,68,67,40,1,0,0,0,0,64,0,-1--1--1,,1|(1466,235)|
-10,69,Electricity Loss,362,110,46,23,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,70,69,2,1,0,0,0,0,64,0,-1--1--1,,1|(435,154)|
+10,1,Utility Energy Sale,408,300,64,23,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,2,Energy Procurement,480,163,57,23,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,3,Generation Price,705,-7,48,48,2,131,0,12,0,0,0,0,-1--1--1,192-192-192,|12||0-0-0,0,1,0,0,0,0
+10,4,Variable Costs,660,155,40,23,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,5,Fixed Costs,842,-16,40,40,2,131,0,12,0,0,0,0,-1--1--1,128-128-128,|12||0-0-0,0,0,0,0,0,0
+10,6,Total Costs,823,156,52,13,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,7,5,6,1,0,0,0,0,64,0,-1--1--1,,1|(803,30)|
+1,8,4,6,1,0,0,0,0,64,0,-1--1--1,,1|(760,116)|
+1,9,3,4,1,0,0,0,0,64,0,-1--1--1,,1|(636,83)|
+1,10,2,4,1,0,0,0,0,64,0,-1--1--1,,1|(564,113)|
+1,11,1,2,1,0,0,0,0,64,0,-1--1--1,,1|(425,223)|
+10,12,Income,1091,199,33,13,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,13,1,12,1,0,0,0,0,64,0,-1--1--1,,1|(896,276)|
+10,14,Permited Profit,970,-39,41,41,2,131,0,12,0,0,0,0,-1--1--1,128-192-0,|12||0-0-0,0,0,0,0,0,0
+10,15,Desired Income,987,124,36,23,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,16,14,15,1,0,0,0,0,64,0,-1--1--1,,1|(921,49)|
+1,17,6,15,1,0,0,0,0,64,0,-1--1--1,,1|(897,108)|
+10,18,Budget Deficit,1428,-4,72,39,3,131,0,12,0,0,0,0,-1--1--1,255-0-0,|20||0-0-0,0,0,0,0,0,0
+12,19,48,1085,-7,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,20,22,18,4,0,0,22,0,0,0,-1--1--1,,1|(1294,-7)|
+1,21,22,19,100,0,0,22,0,0,0,-1--1--1,,1|(1155,-7)|
+11,22,48,1224,-7,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,23,Monthly Income Shortfall,1224,32,91,29,40,3,0,8,-1,0,0,0,-1--1--1,0-0-0,|20||0-0-0,0,0,0,0,0,0
+1,24,15,23,1,0,0,0,0,64,0,-1--1--1,,1|(1052,41)|
+1,25,12,23,1,0,0,0,0,64,0,-1--1--1,,1|(1177,148)|
+10,26,Regular Consumer Average Demand,341,-2,78,41,8,130,0,3,-1,0,0,0,128-128-128,0-0-0,|16||128-128-128,0,0,0,0,0,0
+10,27,Regular Consumers,156,-5,64,27,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|16||128-128-128,0,0,0,0,0,0
+10,28,Regular Consumers Demand,253,160,87,23,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,29,26,28,1,0,0,0,0,64,0,-1--1--1,,1|(352,104)|
+1,30,27,28,1,0,0,0,0,64,0,-1--1--1,,1|(174,91)|
+1,31,28,1,1,0,0,0,0,64,0,-1--1--1,,1|(357,218)|
+10,32,Prosumers,167,575,59,13,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|16||128-128-128,0,0,0,0,0,0
+10,33,Prosumers Demand,260,419,47,23,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,34,33,1,1,0,0,0,0,64,0,-1--1--1,,1|(373,372)|
+10,35,Prosumer Average Demand,352,579,81,23,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|16||128-128-128,0,0,0,0,0,0
+1,36,35,33,1,0,0,0,0,64,0,-1--1--1,,1|(366,497)|
+1,37,32,33,1,0,0,0,0,64,0,-1--1--1,,1|(173,499)|
+10,38,Tariff Correction Period,1511,599,56,56,2,131,0,12,0,0,0,0,-1--1--1,192-255-192,|14||0-0-0,0,0,0,0,0,0
+10,39,Time,1341,396,36,13,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|16||128-128-128,0,0,0,0,0,0
+10,40,Indicated Tariff Change,1364,224,68,23,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,41,1,40,1,0,0,0,0,64,0,-1--1--1,,1|(853,397)|
+1,42,18,40,1,0,0,0,0,64,0,-1--1--1,,1|(1431,101)|
+10,43,Electricity Tariff,848,497,75,41,3,131,0,12,0,0,0,0,-1--1--1,192-128-192,|20||0-0-0,0,0,0,0,0,0
+12,44,48,1264,501,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,45,47,43,4,0,0,22,0,0,0,-1--1--1,,1|(1003,504)|
+1,46,47,44,100,0,0,22,0,0,0,-1--1--1,,1|(1176,504)|
+11,47,48,1091,504,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,48,change in electricity tariff,1091,535,68,23,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,49,43,12,1,0,0,0,0,64,0,-1--1--1,,1|(940,309)|
+10,50,tariff correction remaining time,1412,461,70,23,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,51,38,50,1,0,0,0,0,64,0,-1--1--1,,1|(1457,546)|
+1,52,39,50,1,0,0,0,0,64,0,-1--1--1,,1|(1428,413)|
+10,53,effect of remaining time on change in electricity tariff,1092,684,105,34,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,54,50,53,1,0,0,0,0,64,0,-1--1--1,,1|(1220,551)|
+1,55,53,48,1,0,0,0,0,64,0,-1--1--1,,1|(1058,616)|
+10,56,std of effect of remaining time,1330,594,66,23,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,57,56,53,1,0,0,0,0,64,0,-1--1--1,,1|(1232,612)|
+10,58,pi,912,589,10,13,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,59,58,53,1,0,0,0,0,64,0,-1--1--1,,1|(980,616)|
+1,60,40,48,1,0,0,0,0,64,0,-1--1--1,,1|(1250,434)|
+10,61,percent std effect of remaining time,1302,702,43,43,2,131,0,12,0,0,0,0,-1--1--1,192-192-192,|10||0-0-0,0,0,0,0,0,0
+1,62,38,56,1,0,0,0,0,64,0,-1--1--1,,1|(1416,552)|
+1,63,61,56,1,0,0,0,0,64,0,-1--1--1,,1|(1355,660)|
+10,64,Deficit recovery period,1488,306,49,49,2,131,0,12,0,0,0,0,-1--1--1,128-192-0,|14||0-0-0,0,0,0,0,0,0
+1,65,64,40,1,0,0,0,0,64,0,-1--1--1,,1|(1443,234)|
+10,66,Electricity Loss,545,17,51,51,2,131,0,12,0,0,0,0,-1--1--1,128-128-192,|14||0-0-0,0,0,0,0,0,0
+1,67,66,2,1,0,0,0,0,64,0,-1--1--1,,1|(483,101)|
+10,68,Initial Electricity Tariff,637,594,53,53,2,131,0,12,0,0,0,0,-1--1--1,0-192-255,|14||0-0-0,0,0,0,0,0,0
+1,69,68,43,1,0,0,0,0,64,1,-1--1--1,,1|(691,505)|
+10,70,Initial Budget Deficit,1457,-95,35,35,2,131,0,12,0,0,0,0,-1--1--1,192-192-192,|12||0-0-0,0,0,0,0,0,0
+1,71,70,18,1,0,0,0,0,64,1,-1--1--1,,1|(1369,-84)|
 ///---\\\
 :GRAPH Consumer_Concepts
 :TITLE Concepts
@@ -1070,14 +1149,14 @@ $192-192-192,0,Times New Roman|16||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,1
 9:edison data_euler_7_new
 23:0
 15:0,0,0,0,0,0
-19:5,0
+19:100,5
 27:0,
 34:0,
 42:1
 72:0
 73:0
 4:Time
-5:effect of direct defection NPV on imitation
+5:Initial Budget Deficit
 35:Date
 36:YYYY-MM-DD
 37:2000
