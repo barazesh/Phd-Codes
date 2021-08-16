@@ -14,16 +14,16 @@ def Main():
 
     units = GetUnits(directoryPath)
 
-    # sensitivity_var = 'populationGrowth'
-    # chart_vars = [(1+s)**(1/240)-1 for s in np.arange(0, 1.1, 0.2)]
+    sensitivity_var = 'populationGrowth'
+    chart_vars = [(1+s)**(1/240)-1 for s in np.arange(0, 1.1, 0.2)]
 
-    sensitivity_var = 'period'
-    chart_vars = [1, 6, 12, 24, 36]
+    # sensitivity_var = 'period'
+    # chart_vars = [1, 6, 12, 24, 36]
 
     result = GetValues(sensitivity_var, important_vars,
                        chart_vars, directoryPath)
 
-    CreateCharts(directoryPath, result, units,sensitivity_var)
+    CreateCharts(directoryPath, result, units, sensitivity_var)
 
 
 def CreateCharts(directoryPath, data, units, sensitivity_var):
@@ -32,7 +32,11 @@ def CreateCharts(directoryPath, data, units, sensitivity_var):
         data[v].plot(markevery=markerinterval)
         plt.grid(True)
         plt.legend()
-        plt.title(v)
+        if v == 'Budget Deficit':
+            plt.title('Revenue Deficit')
+        else:
+            plt.title(v)
+
         plt.xlabel('Time (Month)')
         plt.xticks(range(0, 250, 24))
         u = '%'
