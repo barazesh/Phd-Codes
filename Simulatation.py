@@ -3,12 +3,13 @@ from pathlib import Path
 import numpy as np
 import matplotlib as mpl
 from matplotlib import pyplot as plt
+# import timeit
 
 
 def Main():
     model = ReadModel()
     # SimulateBaseCase(model)
-    # SimulatePeriod(model)
+    SimulatePeriod(model)
     # SimulatePopulation(model)
 
 
@@ -28,12 +29,14 @@ def SimulateBaseCase(model):
         'time to adjust Prosumer Demand': 1,
         'time to adjust Regular Consumer demand': 1,
         'TIME STEP': 2**-10,
-        'SAVEPER': 2**-4,
+        'SAVEPER': 2**-10,
         'Tariff Correction Period': 12,
         'price elasticity of prosumers': -0.2,
         'price elasticity of regular consumers': -0.1,
         'Initial Electricity Tariff': 0.15,
         'PV Potential': 0.3,
+        'FINAL TIME': 600
+
 
     }
     variables = model.doc()
@@ -64,7 +67,9 @@ def SimulatePeriod(model):
         'time to adjust Prosumer Demand': 1,
         'time to adjust Regular Consumer demand': 1,
         'TIME STEP': 2**-10,
-        'SAVEPER': 2**-4,
+        'SAVEPER': 2**-10,
+        'FINAL TIME': 600
+        
         # 'Tariff Correction Period': 12
         # 'price elasticity of prosumers':0,
         # 'price elasticity of regular consumers':0

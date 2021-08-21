@@ -1882,14 +1882,14 @@ def innovation_factor():
 def final_time():
     """
     Real Name: b'FINAL TIME'
-    Original Eqn: b'240'
+    Original Eqn: b'600'
     Units: b'Month'
     Limits: (None, None)
     Type: constant
 
     b'The final time for the simulation.'
     """
-    return 240
+    return 600
 
 
 @cache('run')
