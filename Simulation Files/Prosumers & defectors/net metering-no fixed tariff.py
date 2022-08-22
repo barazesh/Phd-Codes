@@ -3,14 +3,17 @@ Python model 'net metering-no fixed tariff.py'
 Translated using PySD
 """
 
+from pathlib import Path
 import numpy as np
 
 from pysd.py_backend.functions import integer, modulo, if_then_else
 from pysd.py_backend.statefuls import Integ
 
-__pysd_version__ = "2.0.0"
+__pysd_version__ = "2.2.4"
 
 __data = {"scope": None, "time": lambda: 0}
+
+_root = Path(__file__).parent
 
 _subscript_dict = {}
 
