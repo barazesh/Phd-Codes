@@ -9,6 +9,7 @@ from RegularConsumer import RegularConsumer
 from StandAlone import StandAloneSystem
 from Utility import Utility
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 
 
 class Environment:
@@ -25,6 +26,8 @@ class Environment:
                                minimumPrice=inputData["minimumBatteryPrice"],
                                effectiveLife=inputData["BatteryEffectiveLife"],
                                )
+        self.totalHousholds = [
+            inputData["initialRegularConsumerNumber"]+inputData["initialProsumerNumber"]]
 
         self.tariff = self.__CreateTariff(inputData)
         self.prosumers = self.__CreateProsumer(inputData)
@@ -42,6 +45,7 @@ class Environment:
         self.imitationFactor = inputData["imitationFactor"]
         self.innovationFactor = inputData["innovationFactor"]
         self.interestRate = inputData["DiscountRate"]
+        self.populationGrowthRate = inputData["populationGrowthRate"]
 
     def __CreateTariff(self, data) -> ElectricityTariff:
         return ElectricityTariff(data["initialTariff"])
@@ -60,34 +64,6 @@ class Environment:
                                data["initialRegularConsumerMonthlyDemand"],
                                data["regularConsumerPriceElasticity"],
                                data["regularConsumerDemandChangeLimit"])
-
-    def __CalculateMigrationFromRegular2prosumer(self, pvPenetrationratio, NPVRatio) -> float:
-        effectOfPVNPV = hlp.Logistic(L=2, k=-4, b=1, x0=2, input=NPVRatio)
-
-        innovators = effectOfPVNPV*self.innovationFactor * \
-            self.regularConsumers.currentNumber
-
-        imitators = effectOfPVNPV*self.imitationFactor * \
-            pvPenetrationratio * self.regularConsumers.currentNumber
-        return innovators+imitators
-
-    def __CalculateMigrationFromRegular2Defector(self, defectorRatio, NPVRatio) -> float:
-        effectOfPVNPV = hlp.Logistic(L=2, k=-4, b=1, x0=2, input=NPVRatio)
-        innovators = effectOfPVNPV*self.innovationFactor * \
-            self.regularConsumers.currentNumber
-
-        imitators = effectOfPVNPV*self.imitationFactor * \
-            defectorRatio * self.regularConsumers.currentNumber
-        return innovators+imitators
-
-    def __CalculateMigrationFromProsumer2Defector(self, defectorRatio, NPVRatio) -> float:
-        effectOfPVNPV = hlp.Logistic(L=2, k=-4, b=1, x0=2, input=NPVRatio)
-        innovators = effectOfPVNPV*self.innovationFactor * \
-            self.prosumers.currentNumber
-
-        imitators = effectOfPVNPV*self.imitationFactor * \
-            defectorRatio * self.prosumers.currentNumber
-        return innovators+imitators
 
     def __CalculatePVPenetrationRatio(self) -> float:
         totalPVHousholds = self.prosumers.currentNumber + self.defectors.currentNumber
@@ -116,26 +92,53 @@ class Environment:
             self.tariff.currentPrice, hlp.ConvertYearly2MonthlyRate(self.interestRate))
         NPVstandAlone = self.standAlone.CalculateNPV(
             hlp.ConvertYearly2MonthlyRate(self.interestRate), self.tariff, self.regularConsumers.monthlyDemand)
-        
-        p2d = self.__CalculateMigrationFromProsumer2Defector(
-            batteryRatio, NPVstandAlone-NPVProsumer)
-        r2d = self.__CalculateMigrationFromRegular2Defector(batteryRatio, NPVstandAlone)
-        r2p = self.__CalculateMigrationFromRegular2prosumer(pvRatio, NPVProsumer)
-        self.regularConsumers.ChangeNumber(-(r2d+r2p))
-        self.prosumers.ChangeNumber(r2p-p2d)
-        self.defectors.ChangeNumber(r2d+r2p)
+        self.__MigrateHouseholds(
+            pvRatio, batteryRatio, NPVProsumer, NPVstandAlone)
+
+    def __MigrateHouseholds(self, pvRatio, batteryRatio, NPVProsumer, NPVstandAlone):
+        p2d = self.__CalculateBassMigration(
+            batteryRatio, NPVstandAlone-NPVProsumer, self.prosumers.currentNumber)
+        r2d = self.__CalculateBassMigration(
+            batteryRatio, NPVstandAlone, self.regularConsumers.currentNumber)
+        r2p = self.__CalculateBassMigration(
+            pvRatio, NPVProsumer, self.regularConsumers.currentNumber)
+        r,p,d = self.__GrowPopulation()
+        self.regularConsumers.ChangeNumber(r-(r2d+r2p))
+        self.prosumers.ChangeNumber(p+r2p-p2d)
+        self.defectors.ChangeNumber(d+r2d+p2d)
+        self.totalHousholds.append(self.regularConsumers.currentNumber +
+                                   self.prosumers.currentNumber+self.defectors.currentNumber)
         # print(
         #     f"Electricity Price:{self.tariff.currentPrice:.3f}--PV Price:{self.pv.currentPrice:.2f}--NPV:{NPVRatio}")
 
+    def __CalculateBassMigration(self, penetration, NPVRatio, sourcePopulation) -> float:
+        financialEffect = hlp.Logistic(L=2, k=-4, b=1, x0=2, input=NPVRatio)
+        adaoptionrate = financialEffect * \
+            (self.innovationFactor+self.imitationFactor * penetration)
+        return adaoptionrate*sourcePopulation
+
+    def __GrowPopulation(self)-> tuple:
+        r=(hlp.ConvertYearly2MonthlyRate(self.populationGrowthRate))*self.regularConsumers.currentNumber
+        p=(hlp.ConvertYearly2MonthlyRate(self.populationGrowthRate))*self.prosumers.currentNumber
+        d=(hlp.ConvertYearly2MonthlyRate(self.populationGrowthRate))*self.defectors.currentNumber
+        return (r,p,d)
+        
     def ShowResults(self):
+        mpl.rc('lines', linewidth=1.5, markersize=4)
+        mpl.rc('grid', linewidth=0.5, linestyle='--')
+        mpl.rc('font', size=7, family='Times New Roman')
         fig, ax = plt.subplots(3)
-        ax[0].plot(self.regularConsumers.GetNumberHistory(),label='Regular Consumers')
-        ax[0].plot(self.prosumers.GetNumberHistory(),label='Prosumers')
-        ax[0].plot(self.defectors.GetNumberHistory(),label='Defectors')
+        ax[0].plot(self.regularConsumers.GetNumberHistory(),
+                   label='Regular Consumers')
+        ax[0].plot(self.prosumers.GetNumberHistory(), label='Prosumers')
+        ax[0].plot(self.defectors.GetNumberHistory(), label='Defectors')
+        ax[0].plot(self.totalHousholds, label='Total')
         ax[0].legend()
         ax[0].set_title("Number of Consumers")
         ax[1].plot(self.utility.saleHistory)
         ax[1].set_title("Utility Sales")
         ax[2].plot(self.tariff.GetHistory())
         ax[2].set_title("Electricity tariff")
+        for a in ax:
+            a.grid(True)
         plt.show()

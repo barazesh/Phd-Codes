@@ -30,6 +30,7 @@ inputdata = {
     "BatteryEffectiveLife": 40,
     "PVMonthlyEnergyOutput": 140,
     "DiscountRate": 0.012,
+    "populationGrowthRate": 0.004,
     "imitationFactor": 0.02/12,
     "innovationFactor": 0.01/12,
 }
