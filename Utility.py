@@ -13,7 +13,8 @@ class Utility:
         self.tariff = tariff
         self.regularConsumer = regularConsumer
         self.prosumers = prosumer
-        self.saleHistory=[]
+        self.saleHistory = []
+        self.budgetDeficit = [0.0]
 
     def Iterate(self):
         pass
@@ -27,20 +28,20 @@ class Utility:
         self.costs = self.__fixedCosts+self.saleHistory[-1] * \
             (1+self.__lossRate)*self.__generationPrice
 
-    def __CalculateActualIncome(self) -> None   :
-        self.ActualIncome = self.saleHistory[-1] * self.tariff.currentPrice
+    def __CalculateActualIncome(self) -> float:
+        return self.saleHistory[-1] * self.tariff.currentPrice
 
-    def __CalculateExpectedIncome(self) -> None:
-        self.ExpectedIncome = self.costs * (1+self.__permittedRoR)
+    def __CalculateExpectedIncome(self) -> float:
+        return self.costs * (1+self.__permittedRoR)
 
-    def CalculateNewTariff(self) -> None:
+    def CalculateFinances(self) -> None:
         self.__CalculateSale()
         self.__CalculateCost()
-        self.__CalculateActualIncome()
-        self.__CalculateExpectedIncome()
-        newprice1 = self.__CalculateNewTariff()
+        self.budgetDeficit.append(
+            self.budgetDeficit[-1]+self.__CalculateExpectedIncome()-self.__CalculateActualIncome())
 
-    def __CalculateNewTariff(self) -> None:
-        budgetDeficit = self.ExpectedIncome - self.ActualIncome
-        priceChange = budgetDeficit/self.saleHistory[-1]
-        self.tariff.SetNewTariff(self.tariff.currentPrice + priceChange)
+    def CalculateNewTariff(self, time):
+        priceChange = self.budgetDeficit[-1]/self.saleHistory[-1]
+        priceChange = priceChange/6
+        # priceChange = priceChange/self.__rateCorrectionFreq
+        self.tariff.SetNewTariff(time, self.tariff.currentPrice + priceChange)

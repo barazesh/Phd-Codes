@@ -46,6 +46,7 @@ class Environment:
         self.innovationFactor = inputData["innovationFactor"]
         self.interestRate = inputData["DiscountRate"]
         self.populationGrowthRate = inputData["populationGrowthRate"]
+        self.rateCorrectionFreq = inputData["rateCorrectionFreq"]
 
     def __CreateTariff(self, data) -> ElectricityTariff:
         return ElectricityTariff(data["initialTariff"])
@@ -81,9 +82,12 @@ class Environment:
         return result
 
     def Iterate(self, time):
-        self.utility.CalculateNewTariff()
-        self.regularConsumers.ChangeDemand(tariff=self.tariff)
-        self.prosumers.ChangeDemand(tariff=self.tariff)
+        self.utility.CalculateFinances()
+        if time%self.rateCorrectionFreq==0:
+            self.utility.CalculateNewTariff(time)
+            self.regularConsumers.ChangeDemand(tariff=self.tariff)
+            self.prosumers.ChangeDemand(tariff=self.tariff)
+
         pvRatio = self.__CalculatePVPenetrationRatio()
         self.pv.DecreasePrice(pvRatio)
         batteryRatio = self.__CalculateBatteryPenetrationRatio()
@@ -101,7 +105,7 @@ class Environment:
         r2d = self.__CalculateBassMigration(
             batteryRatio, NPVstandAlone, self.regularConsumers.currentNumber)
         r2p = self.__CalculateBassMigration(
-            pvRatio, NPVProsumer, self.regularConsumers.currentNumber)
+            pvRatio, NPVProsumer, self.regularConsumers.currentNumber,multiplier=3)
         r,p,d = self.__GrowPopulation()
         self.regularConsumers.ChangeNumber(r-(r2d+r2p))
         self.prosumers.ChangeNumber(p+r2p-p2d)
@@ -111,10 +115,10 @@ class Environment:
         # print(
         #     f"Electricity Price:{self.tariff.currentPrice:.3f}--PV Price:{self.pv.currentPrice:.2f}--NPV:{NPVRatio}")
 
-    def __CalculateBassMigration(self, penetration, NPVRatio, sourcePopulation) -> float:
-        financialEffect = hlp.Logistic(L=2, k=-4, b=1, x0=2, input=NPVRatio)
+    def __CalculateBassMigration(self, penetration, NPVRatio, sourcePopulation, multiplier=1) -> float:
+        financialEffect = hlp.Logistic(L=2, k=4, b=1, x0=2, input=NPVRatio)
         adaoptionrate = financialEffect * \
-            (self.innovationFactor+self.imitationFactor * penetration)
+            (self.innovationFactor+multiplier*self.imitationFactor * penetration)
         return adaoptionrate*sourcePopulation
 
     def __GrowPopulation(self)-> tuple:
@@ -126,8 +130,8 @@ class Environment:
     def ShowResults(self):
         mpl.rc('lines', linewidth=1.5, markersize=4)
         mpl.rc('grid', linewidth=0.5, linestyle='--')
-        mpl.rc('font', size=7, family='Times New Roman')
-        fig, ax = plt.subplots(3)
+        mpl.rc('font', size=11, family='Times New Roman')
+        fig, ax = plt.subplots(5,sharex=True)
         ax[0].plot(self.regularConsumers.GetNumberHistory(),
                    label='Regular Consumers')
         ax[0].plot(self.prosumers.GetNumberHistory(), label='Prosumers')
@@ -137,8 +141,15 @@ class Environment:
         ax[0].set_title("Number of Consumers")
         ax[1].plot(self.utility.saleHistory)
         ax[1].set_title("Utility Sales")
-        ax[2].plot(self.tariff.GetHistory())
+
+        a=self.tariff.GetHistory()[0]
+        ax[2].scatter([t[0] for t in self.tariff.GetHistory()],[t[1] for t in self.tariff.GetHistory()])
+        # ax[2].bar([t[0] for t in self.tariff.GetHistory()],[t[1] for t in self.tariff.GetHistory()])
         ax[2].set_title("Electricity tariff")
+        ax[3].plot(self.utility.budgetDeficit)
+        ax[3].set_title("Utility Budget Deficit")
+        ax[4].plot([a[0]/a[1] for a in zip(self.utility.budgetDeficit,self.utility.saleHistory)])
+        ax[3].set_title("Utility Budget Deficit fraction")
         for a in ax:
             a.grid(True)
         plt.show()
