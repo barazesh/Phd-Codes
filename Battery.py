@@ -12,7 +12,7 @@ class Battery:
 
     def DecreasePrice(self, penetrationRatio) -> None:
         penetrationEffect = hlp.Logistic(
-            b=1, L=-1, k=15, x0=1/3, input=penetrationRatio)
+            b=1, L=0.5, k=15, x0=1/3, input=penetrationRatio)
         indicatedReduction = penetrationEffect * \
             self.__normalReductionRate*self.currentPrice
         limitEffect = self.__GetLimitEffect(
@@ -22,5 +22,5 @@ class Battery:
 
     def __GetLimitEffect(self, tempPrice) -> float:
         ratio = self.__minimumPrice/tempPrice
-        result = hlp.Logistic(b=1, L=-1, k=15, x0=1/3, input=ratio)
+        result = hlp.Logistic4RatioLimit(input=ratio)
         return result
