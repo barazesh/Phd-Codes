@@ -4,27 +4,31 @@ from Helper import Logistic
 
 
 class Consumer:
-    def __init__(self, initialNumber, initialMonthlyDemand, priceElasticity, demandChangeLimit) -> None:
+    def __init__(self, initialNumber:int, initialDemandProfile:np.ndarray, priceElasticity:float, demandChangeLimit:float) -> None:
         self.__numberHistory = []
-        self.__demandHistory = []
+        self.__demandChangeHistory = []
         self.__priceElasticity = priceElasticity
         self.__demandChangeLimit = demandChangeLimit
         self.currentNumber = initialNumber
-        self.monthlyDemand = initialMonthlyDemand
+        self.demandProfile=initialDemandProfile
 
 
     def ChangeDemand(self,tariff:ElectricityTariff)->None:
-        self.__demandHistory.append(self.monthlyDemand)
-        indicatedChange = self.__priceElasticity*tariff.GetPriceChange()*self.monthlyDemand/tariff.currentPrice
-        limitEffect = self.__GetLimitEffect(indicatedChange)
-        self.monthlyDemand = self.monthlyDemand +indicatedChange*limitEffect
 
-    def __GetLimitEffect(self,input)->float:
-        ratio = input/self.monthlyDemand/self.__demandChangeLimit
+        indicatedChange = self.__priceElasticity*tariff.GetPriceChangeRatio()
+        limitEffect = self.__GetLimitEffect(indicatedChange)
+        changeFactor= 1+indicatedChange*limitEffect
+        self.__demandChangeHistory.append(changeFactor)
+        # TODO: implement the change in demand correctly
+        # self.monthlyDemand = self.monthlyDemand*changeFactor
+        self.demandProfile = self.demandProfile * changeFactor
+
+    def __GetLimitEffect(self,input:float)->float:
+        ratio = input/self.__demandChangeLimit
         result=Logistic(b=1,L=-1,k=15,x0=1/3,input=ratio)
         return result
 
-    def ChangeNumber(self,value)->None:
+    def ChangeNumber(self,value:float)->None:
         self.__numberHistory.append(self.currentNumber)
         self.currentNumber = self.currentNumber +value
 

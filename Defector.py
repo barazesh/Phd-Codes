@@ -1,5 +1,5 @@
 class Defector:
-    def __init__(self, initialNumber) -> None:
+    def __init__(self, initialNumber:int) -> None:
         self.__numberHistory = []
         self.currentNumber = initialNumber
 

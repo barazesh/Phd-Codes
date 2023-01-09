@@ -3,13 +3,15 @@ import Helper as hlp
 
 
 class PV:
-    def __init__(self, initialPrice, normalReductionRate, minimumPrice, effectiveLife, monthlyEnergyOutput) -> None:
+    def __init__(self, initialPrice, normalReductionRate, minimumPrice, effectiveLife, monthlyEnergyOutput,hourlyEnergyOutput) -> None:
         self.__priceHistory = []
         self.currentPrice = initialPrice
         self.__minimumPrice = minimumPrice
         self.__normalReductionRate = normalReductionRate
         self.effectiveLife = effectiveLife
         self.monthlyEnergyOutput = monthlyEnergyOutput
+        self.hourlyEnergyOutput = hourlyEnergyOutput
+
 
     def ConvertYearly2MonthlyRate(self, yearly):
         return ((1+yearly)**(1/12)-1)

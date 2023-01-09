@@ -36,6 +36,9 @@ inputdata = {
     "PVEffectiveLife": 240,
     "pvPotential":0.5,
     "PVMonthlyEnergyOutput": 140,
+    "PVSize":5,
+    "PVHourlyEnergyOutput":[],
+    "ConsumptionProfile":[],
 }
 
 

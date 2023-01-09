@@ -19,6 +19,7 @@ class Environment:
                      minimumPrice=inputData["minimumPVPrice"],
                      effectiveLife=inputData["PVEffectiveLife"],
                      monthlyEnergyOutput=inputData["PVMonthlyEnergyOutput"],
+                     hourlyEnergyOutput=inputData["PVHourlyEnergyOutput"],
                      )
 
         self.battery = Battery(initialPrice=inputData["initialBatteryPrice"],
@@ -53,19 +54,22 @@ class Environment:
         return ElectricityTariff(data["initialTariff"])
 
     def __CreateProsumer(self, data) -> Prosumer:
-        return Prosumer(data["initialProsumerNumber"],
-                        data["initialProsumerMonthlyDemand"],
-                        data["prosumerPriceElasticity"],
-                        data["prosumerDemandChangeLimit"])
+        return Prosumer(initialNumber= data["initialProsumerNumber"],
+                        initialDemandProfile= data["ConsumptionProfile"],
+                        priceElasticity= data["prosumerPriceElasticity"],
+                        demandChangeLimit= data["prosumerDemandChangeLimit"],
+                        PVSystem=self.pv,
+                        PVSize= data["PVSize"])
 
     def __CreateDefector(self, data) -> Defector:
         return Defector(data["initialProsumerNumber"])
 
     def __CreateRegularConsumer(self, data) -> RegularConsumer:
-        return RegularConsumer(data["initialRegularConsumerNumber"],
-                               data["initialRegularConsumerMonthlyDemand"],
-                               data["regularConsumerPriceElasticity"],
-                               data["regularConsumerDemandChangeLimit"])
+        return RegularConsumer(initialNumber=data["initialRegularConsumerNumber"],
+                               initialDemandProfile= data["ConsumptionProfile"],
+                               priceElasticity=data["regularConsumerPriceElasticity"],
+                               demandChangeLimit=data["regularConsumerDemandChangeLimit"],
+                               )
 
     def __CalculatePVPenetrationRatio(self) -> float:
         totalPVHousholds = self.prosumers.currentNumber + self.defectors.currentNumber
@@ -89,7 +93,7 @@ class Environment:
             self.regularConsumers.ChangeDemand(tariff=self.tariff)
             self.prosumers.ChangeDemand(tariff=self.tariff)
 
-        pvRatio = self.__CalculatePVPenetrationRatio()        
+        pvRatio = self.__CalculatePVPenetrationRatio()
         self.pv.DecreasePrice(pvRatio)
         batteryRatio = self.__CalculateBatteryPenetrationRatio()
         self.battery.DecreasePrice(batteryRatio)
