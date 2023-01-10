@@ -87,7 +87,7 @@ class Environment:
         return result
 
     def Iterate(self, time):
-        self.utility.CalculateFinances()
+        self.utility.CalculateFinances(time)
         if time % self.rateCorrectionFreq == 0:
             self.utility.CalculateNewTariff(time)
             self.regularConsumers.ChangeDemand(tariff=self.tariff)
@@ -100,7 +100,7 @@ class Environment:
         NPVProsumer = self.pv.CalculateNPV(
             self.tariff.currentPrice, hlp.ConvertYearly2MonthlyRate(self.interestRate))
         NPVstandAlone = self.standAlone.CalculateNPV(
-            hlp.ConvertYearly2MonthlyRate(self.interestRate), self.tariff, self.regularConsumers.monthlyDemand)
+            hlp.ConvertYearly2MonthlyRate(self.interestRate), self.tariff, self.regularConsumers.GetMonthlyConsumption(time))
         self.__MigrateHouseholds(
             pvRatio, batteryRatio, NPVProsumer, NPVstandAlone)
 
