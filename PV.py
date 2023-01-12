@@ -30,7 +30,7 @@ class PV:
         ratio = self.__minimumPrice/tempPrice
         return hlp.Logistic4RatioLimit(ratio)
 
-    def CalculateNPV(self, electricityPrice, interestRate) -> float:
+    def CalculateNPV(self, electricityPrice:float, interestRate:float) -> float:
         I = self.monthlyEnergyOutput*electricityPrice
         NPVI = I*((1+interestRate)**self.effectiveLife+1) / interestRate
         result = NPVI-self.currentPrice

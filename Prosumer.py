@@ -30,5 +30,16 @@ class Prosumer(Consumer):
             array=np.array(productionOnly), month=month))
         return result
 
-    def CalculateNPV(self,tariff:ElectricityTariff):
-        pass
+    def CalculateNPV(self,consumptionTariff:ElectricityTariff,productionTariff:ElectricityTariff,interestRate:float)->float:
+        pvCost=self.PVSystem.currentPrice*self.PVSystemSize
+        pvIncome=0
+        for i,e in enumerate(self.PVSystem.hourlyEnergyOutput):
+            if e > self.demandProfile[i]: #Prosumer in production mode
+                pvIncome=e*productionTariff.currentPrice+pvIncome
+            else:
+                pvIncome=pvIncome+e*consumptionTariff.currentPrice
+        pvIncomeNPV=pvIncome*((1+interestRate)**self.PVSystem.effectiveLife+1) / interestRate
+        return pvIncomeNPV-pvCost
+
+        
+
