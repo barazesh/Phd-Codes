@@ -15,11 +15,11 @@ def Logistic4RatioLimit(input) -> float:
     return result
 
 
-def __CalculateFirstHour(month):
+def __CalculateFirstHour(month)->int:
     a = datetime(2017, 1, 1)
     b = datetime(2017, month, 1)
     diff = b-a
-    return diff.total_seconds()/3600
+    return int(diff.total_seconds()/3600)
 
 
 def CalculateFirstHour(month):

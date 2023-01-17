@@ -54,19 +54,19 @@ class Environment:
         return ElectricityTariff(data["initialTariff"])
 
     def __CreateProsumer(self, data) -> Prosumer:
-        return Prosumer(initialNumber= data["initialProsumerNumber"],
-                        initialDemandProfile= data["ConsumptionProfile"],
-                        priceElasticity= data["prosumerPriceElasticity"],
-                        demandChangeLimit= data["prosumerDemandChangeLimit"],
+        return Prosumer(initialNumber=data["initialProsumerNumber"],
+                        initialDemandProfile=data["ConsumptionProfile"],
+                        priceElasticity=data["prosumerPriceElasticity"],
+                        demandChangeLimit=data["prosumerDemandChangeLimit"],
                         PVSystem=self.pv,
-                        PVSize= data["PVSize"])
+                        PVSize=data["PVSize"])
 
     def __CreateDefector(self, data) -> Defector:
         return Defector(data["initialProsumerNumber"])
 
     def __CreateRegularConsumer(self, data) -> RegularConsumer:
         return RegularConsumer(initialNumber=data["initialRegularConsumerNumber"],
-                               initialDemandProfile= data["ConsumptionProfile"],
+                               initialDemandProfile=data["ConsumptionProfile"],
                                priceElasticity=data["regularConsumerPriceElasticity"],
                                demandChangeLimit=data["regularConsumerDemandChangeLimit"],
                                )
@@ -97,8 +97,8 @@ class Environment:
         self.pv.DecreasePrice(pvRatio)
         batteryRatio = self.__CalculateBatteryPenetrationRatio()
         self.battery.DecreasePrice(batteryRatio)
-        NPVProsumer = self.pv.CalculateNPV(
-            self.tariff.currentPrice, hlp.ConvertYearly2MonthlyRate(self.interestRate))
+        NPVProsumer = self.prosumers.CalculateNPV(
+            consumptionTariff=self.tariff, productionTariff=self.tariff, interestRate=self.interestRate)
         NPVstandAlone = self.standAlone.CalculateNPV(
             hlp.ConvertYearly2MonthlyRate(self.interestRate), self.tariff, self.regularConsumers.GetMonthlyConsumption(time))
         self.__MigrateHouseholds(

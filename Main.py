@@ -1,9 +1,10 @@
 import numpy as np
 from PV import PV
 from Environment import Environment
+import pandas as pd
 duration = 240
 timeStep = 1
-time = np.arange(0, duration+timeStep, timeStep)
+time = np.arange(1, duration+timeStep, timeStep)
 
 inputdata = {
     "generationPrice": 0.06,
@@ -33,7 +34,7 @@ inputdata = {
     'normalPVCostReductionRate': 0.015,
     "initialProsumerNumber": 0,
     "initialRegularConsumerNumber": 4000000,
-    "PVEffectiveLife": 240,
+    "PVEffectiveLife": 25,
     "pvPotential":0.5,
     "PVMonthlyEnergyOutput": 140,
     "PVSize":5,
@@ -41,7 +42,9 @@ inputdata = {
     "ConsumptionProfile":[],
 }
 
-
+hourlyData=pd.read_csv('./Data/LosAngles.csv',index_col=0)
+inputdata["PVHourlyEnergyOutput"]=hourlyData['Solar Output'].to_numpy()
+inputdata["ConsumptionProfile"]=hourlyData['Demand'].to_numpy()
 def main():
     Env = Environment(inputData=inputdata)
     for t in time:

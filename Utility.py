@@ -19,14 +19,14 @@ class Utility:
     def Iterate(self):
         pass
 
-    def __CalculateSale(self,month:float) -> None:
+    def __CalculateSale(self,month:int) -> None:
         sale = self.regularConsumer.GetMonthlyConsumption(month)*self.regularConsumer.currentNumber + \
             self.prosumers.GetMonthlyConsumption(month)*self.prosumers.currentNumber
         self.saleHistory.append(sale)
 
-    def __CalculateCost(self,month:float) -> None:
+    def __CalculateCost(self,month:int) -> None:
         self.costs = self.__fixedCosts+self.saleHistory[-1] * \
-            (1+self.__lossRate)*self.__generationPrice + self.prosumers.GetMonthlyConsumption(month)*(self.tariff.currentPrice-self.__generationPrice)
+            (1+self.__lossRate)*self.__generationPrice + self.prosumers.GetMonthlyProduction(month)*(self.tariff.currentPrice-self.__generationPrice)
 
     def __CalculateActualIncome(self) -> float:
         return self.saleHistory[-1] * self.tariff.currentPrice
@@ -34,7 +34,7 @@ class Utility:
     def __CalculateExpectedIncome(self) -> float:
         return self.costs * (1+self.__permittedRoR)
 
-    def CalculateFinances(self,month:float) -> None:
+    def CalculateFinances(self,month:int) -> None:
         self.__CalculateSale(month)
         self.__CalculateCost(month)
         self.budgetDeficit.append(
