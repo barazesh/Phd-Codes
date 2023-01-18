@@ -3,7 +3,7 @@ import Helper as hlp
 
 
 class PV:
-    def __init__(self, initialPrice, normalReductionRate, minimumPrice, effectiveLife, monthlyEnergyOutput,hourlyEnergyOutput) -> None:
+    def __init__(self, initialPrice, normalReductionRate, minimumPrice, effectiveLife, monthlyEnergyOutput,hourlyEnergyOutput:np.ndarray) -> None:
         self.__priceHistory = []
         self.currentPrice = initialPrice
         self.__minimumPrice = minimumPrice

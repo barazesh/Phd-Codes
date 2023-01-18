@@ -35,7 +35,7 @@ inputdata = {
     "initialProsumerNumber": 0,
     "initialRegularConsumerNumber": 4000000,
     "PVEffectiveLife": 25,
-    "pvPotential":0.5,
+    "pvPotential":0.8,
     "PVMonthlyEnergyOutput": 140,
     "PVSize":5,
     "PVHourlyEnergyOutput":[],

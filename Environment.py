@@ -62,7 +62,13 @@ class Environment:
                         PVSize=data["PVSize"])
 
     def __CreateDefector(self, data) -> Defector:
-        return Defector(data["initialProsumerNumber"])
+        return Defector(initialNumber=data["initialProsumerNumber"],
+                        initialDemandProfile=data["ConsumptionProfile"],
+                        priceElasticity=0,
+                        demandChangeLimit=0,
+                        PVSystem=self.pv,
+                        battery=self.battery)
+
 
     def __CreateRegularConsumer(self, data) -> RegularConsumer:
         return RegularConsumer(initialNumber=data["initialRegularConsumerNumber"],
@@ -97,10 +103,12 @@ class Environment:
         self.pv.DecreasePrice(pvRatio)
         batteryRatio = self.__CalculateBatteryPenetrationRatio()
         self.battery.DecreasePrice(batteryRatio)
+
         NPVProsumer = self.prosumers.CalculateNPV(
             consumptionTariff=self.tariff, productionTariff=self.tariff, interestRate=self.interestRate)
         NPVstandAlone = self.standAlone.CalculateNPV(
             hlp.ConvertYearly2MonthlyRate(self.interestRate), self.tariff, self.regularConsumers.GetMonthlyConsumption(time))
+        self.defectors.OptimizeSystemSize()
         self.__MigrateHouseholds(
             pvRatio, batteryRatio, NPVProsumer, NPVstandAlone)
 
