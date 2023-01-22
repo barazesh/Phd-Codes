@@ -108,7 +108,6 @@ class Environment:
             consumptionTariff=self.tariff, productionTariff=self.tariff, interestRate=self.interestRate)
         NPVstandAlone = self.standAlone.CalculateNPV(
             hlp.ConvertYearly2MonthlyRate(self.interestRate), self.tariff, self.regularConsumers.GetMonthlyConsumption(time))
-        self.defectors.OptimizeSystemSize()
         self.__MigrateHouseholds(
             pvRatio, batteryRatio, NPVProsumer, NPVstandAlone)
 
@@ -145,6 +144,8 @@ class Environment:
         return (r, p, d)
 
     def ShowResults(self):
+        self.standAlone.OptimizeSystemSize(demandProfile=self.prosumers.demandProfile)
+
         mpl.rc('lines', linewidth=1.5, markersize=4)
         mpl.rc('grid', linewidth=0.5, linestyle='--')
         mpl.rc('font', size=11, family='Times New Roman')

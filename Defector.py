@@ -10,20 +10,3 @@ class Defector(Consumer):
                          priceElasticity, demandChangeLimit)
         self.PVSystem = PVSystem
         self.Battery = battery
-
-    def OptimizeSystemSize(self):
-        annaulPVGeneration=self.PVSystem.hourlyEnergyOutput.sum()
-        annualDemand=self.demandProfile.sum()
-        minPVSize=annualDemand/annaulPVGeneration
-        maxPVSize=4*minPVSize
-        batsize=self.__CalculateBatterySize(minPVSize)
-        batsize1=self.__CalculateBatterySize(maxPVSize)
-        
-
-    def __CalculateBatterySize(self,PVsize:float)->float:
-        mismatch=self.PVSystem.hourlyEnergyOutput*PVsize-self.demandProfile
-        accumulatedMismatch=mismatch.cumsum()
-        batterysize=np.abs(accumulatedMismatch)
-        return max(batterysize)
-
-

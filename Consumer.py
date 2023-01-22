@@ -21,7 +21,7 @@ class Consumer:
         self.__demandChangeHistory.append(changeFactor)
         # TODO: implement the change in demand correctly
         # self.monthlyDemand = self.monthlyDemand*changeFactor
-        self.demandProfile = self.demandProfile * changeFactor
+        self.demandProfile *= changeFactor
 
     def __GetLimitEffect(self, input: float) -> float:
         ratio = input/self.__demandChangeLimit

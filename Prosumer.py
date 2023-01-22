@@ -13,7 +13,7 @@ class Prosumer(Consumer):
         self.PVSystem = PVSystem
         self.PVSystemSize = PVSize
 
-    def __CalculateNetDemand(self)->list:
+    def __CalculateNetDemand(self)->np.ndarray:
         return self.demandProfile-self.PVSystem.hourlyEnergyOutput*self.PVSystemSize
 
     def GetMonthlyConsumption(self, month: int) -> float:
@@ -37,10 +37,10 @@ class Prosumer(Consumer):
         pvIncome=0
         for i,e in enumerate(self.PVSystem.hourlyEnergyOutput):
             if e > self.demandProfile[i]: #Prosumer in production mode
-                pvIncome=e*productionTariff.currentPrice+pvIncome
+                pvIncome+=e*productionTariff.currentPrice
             else:
-                pvIncome=pvIncome+e*consumptionTariff.currentPrice
-        pvIncomeNPV=pvIncome*((1+interestRate)**self.PVSystem.effectiveLife+1) / interestRate
+                pvIncome+=e*consumptionTariff.currentPrice
+        pvIncomeNPV=(pvIncome/12)*((1+interestRate)**self.PVSystem.effectiveLife+1) / interestRate
         return pvIncomeNPV-pvCost
 
         

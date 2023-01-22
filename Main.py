@@ -24,7 +24,7 @@ inputdata = {
     "prosumerPriceElasticity": -0.2,
     "prosumerDemandChangeLimit": 0.2,
     
-    "BatteryEffectiveLife": 40,
+    "BatteryEffectiveLife": 80,
     "DiscountRate": 0.012,
     "initialBatteryPrice": 600,
     'initialPVPrice': 4000,
@@ -34,7 +34,7 @@ inputdata = {
     'normalPVCostReductionRate': 0.015,
     "initialProsumerNumber": 0,
     "initialRegularConsumerNumber": 4000000,
-    "PVEffectiveLife": 25,
+    "PVEffectiveLife": 250,
     "pvPotential":0.8,
     "PVMonthlyEnergyOutput": 140,
     "PVSize":5,
