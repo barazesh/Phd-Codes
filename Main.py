@@ -49,6 +49,7 @@ def main():
     Env = Environment(inputData=inputdata)
     for t in time:
         if t != 0:
+            print(t)
             Env.Iterate(t)
     Env.ShowResults()
 
