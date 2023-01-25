@@ -12,7 +12,6 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 
 
-
 class Environment:
     def __init__(self, inputData) -> None:
         self.pv = PV(
@@ -137,7 +136,6 @@ class Environment:
             self.tariff,
             self.regularConsumers.demandProfile,
         )
-
 
         self.__MigrateHouseholds(pvRatio, batteryRatio, NPVProsumer, NPVstandAlone)
 

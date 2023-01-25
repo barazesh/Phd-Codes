@@ -2,8 +2,7 @@ from Battery import Battery
 from ElectricityTariff import ElectricityTariff
 from PV import PV
 import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib as mpl
+import Helper as hlp
 
 
 class StandAloneSystem:
@@ -48,10 +47,12 @@ class StandAloneSystem:
         elecTariff: ElectricityTariff,
         demandProfile: np.ndarray,
     ) -> float:
-        _ , _ ,cost=self.OptimizeSystemSize(demandProfile)
-        saving=self.__CalculateSaving(interestRate,elecTariff,demandProfile.sum()/12)
+        _, _, cost = self.OptimizeSystemSize(demandProfile)
+        saving = self.__CalculateSaving(
+            interestRate, elecTariff, demandProfile.sum() / 12
+        )
 
-        return saving-cost
+        return saving - cost
 
     def OptimizeSystemSize(self, demandProfile: np.ndarray):
         annaulPVGeneration = self.__pv.hourlyEnergyOutput.sum()
@@ -60,7 +61,7 @@ class StandAloneSystem:
         currentSystem = self.__DesignSystem(bestPVSize, demandProfile)
         bestSystem = currentSystem
         systems = []
-        initial_temperature = 10
+        initial_temperature = 100
         for i in range(initial_temperature):
             temperature = initial_temperature / float(i + 1)
             newPVSize = currentSystem[0] + np.random.normal() * temperature
@@ -148,14 +149,10 @@ class StandAloneSystem:
     def __EvaluateSystem(
         self, pvsize: float, batterySize: float, demandProfile: np.ndarray
     ) -> int:
-        charge = batterySize * 0.8
-        violation = 0
-        for excess in pvsize*self.__pv.hourlyEnergyOutput-demandProfile:
-            charge += excess
-            if charge < 0:
-                charge = 0
-                violation += 1
-            elif charge > batterySize:
-                charge = batterySize
-                # violation +=1
+        (result, violation) = hlp.cumsum_with_limits(
+            input=pvsize * self.__pv.hourlyEnergyOutput - demandProfile,
+            initialValue=batterySize * 0.8,
+            upperLimit=batterySize,
+            lowerLimit=0,
+        )
         return violation

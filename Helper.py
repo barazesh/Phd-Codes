@@ -1,5 +1,7 @@
 from datetime import datetime
 import numpy as np
+from numba import njit
+
 
 
 def Logistic(b, L, k, x0, input) -> float:
@@ -39,3 +41,17 @@ def SliceMonth(array:np.ndarray, month)->np.ndarray:
         return array[first:]
     else:
         return array[first:last]
+
+@njit
+def cumsum_with_limits(input:np.ndarray,lowerLimit:float,upperLimit:float,initialValue:float):
+    sum_value = initialValue
+    violation=0
+    for x in input:
+        sum_value += x
+        if sum_value < lowerLimit:
+                sum_value = lowerLimit
+                violation += 1
+        elif sum_value > upperLimit:
+                sum_value = upperLimit
+                # violation +=1
+    return (sum_value,violation)
