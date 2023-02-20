@@ -120,6 +120,15 @@ class Environment:
         batteryRatio = self.__CalculateBatteryPenetrationRatio()
         self.battery.DecreasePrice(batteryRatio)
 
+        # from regular consumer to prosumer
+        self.CalculateRegular2ProsumerIRR()
+
+        # from regular consumer to defector
+        self.CalculateRegular2DefectorIRR()
+
+        # from prosumer to defector
+        self.CalculateProsumer2DefectorIRR()
+
         NPVProsumer = self.prosumers.CalculateNPV(
             consumptionTariff=self.tariff,
             productionTariff=self.tariff,
@@ -138,6 +147,32 @@ class Environment:
         )
 
         self.__MigrateHouseholds(pvRatio, batteryRatio, NPVProsumer, NPVstandAlone)
+
+    def CalculateRegular2ProsumerIRR(self)->float:
+        proEx = self.prosumers.GetYearlyExpenditure(
+            consumptionTariff=self.tariff, productionTariff=self.tariff
+        )
+        regEx=self.regularConsumers.GetYearlyExpenditure(consumptionTariff=self.tariff)
+        saving=regEx-proEx
+        cost=self.prosumers.PVSystemSize*self.pv.currentPrice
+        irr=hlp.CalculateIRR(inflow=saving,outflow=cost,period=25)
+        return irr
+
+    def CalculateRegular2DefectorIRR(self)->float:
+        # calculate the saving
+        saving=0
+        # calculate the cost
+        cost=0
+        irr=hlp.CalculateIRR(inflow=saving,outflow=cost,period=25)
+        return irr
+    
+    def CalculateProsumer2DefectorIRR(self)->float:
+        # calculate the saving
+        saving=0
+        # calculate the cost
+        cost=0
+        irr=hlp.CalculateIRR(inflow=saving,outflow=cost,period=25)
+        return irr
 
     def __MigrateHouseholds(self, pvRatio, batteryRatio, NPVProsumer, NPVstandAlone):
         pvLimitEffect = hlp.Logistic4RatioLimit(pvRatio / self.pvPotential)

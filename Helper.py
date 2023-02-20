@@ -1,5 +1,6 @@
 from datetime import datetime
 import numpy as np
+import numpy_financial as npf
 from numba import njit
 
 
@@ -55,3 +56,15 @@ def cumsum_with_limits(input:np.ndarray,lowerLimit:float,upperLimit:float,initia
                 sum_value = upperLimit
                 # violation +=1
     return (sum_value,violation)
+
+def CalculateIRR(outflow:float,inflow:float,period:int):
+    # ratio=outflow/inflow
+    # coefs = np.ones((period+1))
+    # coefs[0] -= ratio
+    # roots=np.roots(coefs)
+    # answers=1/roots-1
+    # filter =  [ (a.imag==0) and (a.real>0) and (a.real <1) for a in answers]
+    cashflow=inflow*np.ones((period+1))
+    cashflow[0]=-outflow
+    result=npf.irr(cashflow)
+    return result

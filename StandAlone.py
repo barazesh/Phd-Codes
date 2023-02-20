@@ -85,20 +85,20 @@ class StandAloneSystem:
         return (pvsize, batsize, cost)
 
     def __CalculateBatterySize(self, PVsize: float, demandProfile: np.ndarray) -> float:
-        targetViolation = 24
-        tollerance = 5
-        lower, upper = self.__FindRange(PVsize, demandProfile, targetViolation)
+        acceptableViolation = 24 #number of unsupported hours acceptable
+        tollerance = 5 #number of unsupported hours acceptable
+        lower, upper = self.__FindRange(PVsize, demandProfile, acceptableViolation)
 
         while lower[1] - upper[1] > tollerance:
             # tempbattery=self.__FindMiddlePointAdaptive(targetViolation, lower, upper)
-            tempbattery = self.__FindMiddlePoint(lower, upper)
-            tempviolation = self.__EvaluateSystem(PVsize, tempbattery, demandProfile)
-            if tempviolation > targetViolation:
-                lower = (tempbattery, tempviolation)
-            elif tempviolation < targetViolation:
-                upper = (tempbattery, tempviolation)
+            battery = self.__FindMiddlePoint(lower, upper)
+            violations = self.__EvaluateSystem(PVsize, battery, demandProfile)
+            if violations > acceptableViolation:
+                lower = (battery, violations)
+            elif violations < acceptableViolation:
+                upper = (battery, violations)
             else:
-                return tempbattery
+                return battery
 
         # print(f'second loop:{c}')
         return upper[0]
@@ -142,14 +142,12 @@ class StandAloneSystem:
         return result
 
     def __FindMiddlePoint(self, lower, upper):
-        a = 0.5
-        tempbattery = a * lower[0] + (1 - a) * upper[0]
-        return tempbattery
+        return (lower[0] + upper[0]) / 2
 
     def __EvaluateSystem(
         self, pvsize: float, batterySize: float, demandProfile: np.ndarray
     ) -> int:
-        (result, violation) = hlp.cumsum_with_limits(
+        (_, violation) = hlp.cumsum_with_limits(
             input=pvsize * self.__pv.hourlyEnergyOutput - demandProfile,
             initialValue=batterySize * 0.8,
             upperLimit=batterySize,
