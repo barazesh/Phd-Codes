@@ -10,50 +10,6 @@ class StandAloneSystem:
         self.__pv = pv
         self.__battery = battery
 
-    def CalculateNPV(
-        self, interestRate, elecTariff: ElectricityTariff, monthlyDemand
-    ) -> float:
-        pvSize = self.__CalculatePVSize(monthlyDemand)
-        batterySize = self.__CalculateBatterySizeOld(monthlyDemand)
-        cost = (
-            pvSize * self.__pv.currentPrice
-            + batterySize
-            * self.__battery.currentPrice
-            * int(self.__pv.effectiveLife / self.__battery.effectiveLife)
-        )
-        saving = self.__CalculateSaving(interestRate, elecTariff, monthlyDemand)
-        return saving - cost
-
-    def __CalculateSaving(self, interestRate, elecTariff, monthlyDemand):
-        saving = (
-            elecTariff.currentPrice
-            * monthlyDemand
-            * ((1 + interestRate) ** self.__pv.effectiveLife + 1)
-            / interestRate
-        )
-        return saving
-
-    def __CalculateBatterySizeOld(self, monthlyDemand) -> int:
-        result = int(0.5 * monthlyDemand / 30) + 1
-        return result
-
-    def __CalculatePVSize(self, monthlyDemand) -> int:
-        result = int(monthlyDemand * 1.5 / self.__pv.monthlyEnergyOutput) + 1
-        return result
-
-    def CalculateNPVnew(
-        self,
-        interestRate: float,
-        elecTariff: ElectricityTariff,
-        demandProfile: np.ndarray,
-    ) -> float:
-        _, _, cost = self.OptimizeSystemSize(demandProfile)
-        saving = self.__CalculateSaving(
-            interestRate, elecTariff, demandProfile.sum() / 12
-        )
-
-        return saving - cost
-
     def OptimizeSystemSize(self, demandProfile: np.ndarray):
         annaulPVGeneration = self.__pv.hourlyEnergyOutput.sum()
         annualDemand = demandProfile.sum()
@@ -133,13 +89,6 @@ class StandAloneSystem:
             upper = (newbatterysize, newviolation)
             lower = (batterysize, violation)
         return lower, upper
-
-    def __FindMiddlePointAdaptive(self, targetViolation, lower, upper):
-        L = lower[1] - targetViolation
-        U = targetViolation - upper[1]
-        a = U / (U + L)
-        result = a * lower[0] + (1 - a) * upper[0]
-        return result
 
     def __FindMiddlePoint(self, lower, upper):
         return (lower[0] + upper[0]) / 2

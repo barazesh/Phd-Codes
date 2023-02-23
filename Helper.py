@@ -58,13 +58,10 @@ def cumsum_with_limits(input:np.ndarray,lowerLimit:float,upperLimit:float,initia
     return (sum_value,violation)
 
 def CalculateIRR(outflow:float,inflow:float,period:int):
-    # ratio=outflow/inflow
-    # coefs = np.ones((period+1))
-    # coefs[0] -= ratio
-    # roots=np.roots(coefs)
-    # answers=1/roots-1
-    # filter =  [ (a.imag==0) and (a.real>0) and (a.real <1) for a in answers]
-    cashflow=inflow*np.ones((period+1))
-    cashflow[0]=-outflow
-    result=npf.irr(cashflow)
+    coefficients=inflow*np.ones((period+1))
+    coefficients[-1]=-outflow
+    roots=np.roots(coefficients)
+    mask = (roots.imag == 0)
+    rates=1/roots[mask].real-1
+    result = rates.item(np.argmin(np.abs(rates)))
     return result
