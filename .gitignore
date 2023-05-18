@@ -11,6 +11,10 @@
 # C extensions
 *.so
 
+# images
+*.jpg
+*.png
+
 # Distribution / packaging
 .Python
 env/

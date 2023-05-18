@@ -14,6 +14,7 @@ class StandAloneSystem:
         annaulPVGeneration = self.__pv.hourlyEnergyOutput.sum()
         annualDemand = demandProfile.sum()
         bestPVSize = annualDemand / annaulPVGeneration
+        # bestPVSize = 32
         currentSystem = self.__DesignSystem(bestPVSize, demandProfile)
         bestSystem = currentSystem
         systems = []

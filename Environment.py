@@ -137,9 +137,10 @@ class Environment:
             consumptionTariff=self.tariff
         )
         # calculate the cost
-        _, _, cost = self.standAlone.OptimizeSystemSize(
+        pvsize, batterysize, cost = self.standAlone.OptimizeSystemSize(
             self.regularConsumers.demandProfile
         )
+        # print(f'optimal system size-> PV: {pvsize:.2f}, Battery:{batterysize:.2f}, Cost:{cost}')
         irr = hlp.CalculateIRR(inflow=saving, outflow=cost, period=period)
         return irr
 
@@ -152,6 +153,7 @@ class Environment:
         pvsize, batterysize, _ = self.standAlone.OptimizeSystemSize(
             self.regularConsumers.demandProfile
         )
+
         pvsize -= self.prosumers.PVSystemSize
         batterychanges = int(self.pv.effectiveLife / self.battery.effectiveLife)
         cost = (
@@ -252,4 +254,5 @@ class Environment:
         ax[4].set_title("Utility Budget Deficit fraction")
         for a in ax:
             a.grid(True)
-        plt.show()
+        # plt.show()
+        plt.savefig(f'result-{self.rateCorrectionFreq}.jpg')
