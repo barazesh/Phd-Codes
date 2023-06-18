@@ -1,3 +1,4 @@
+import numpy as np
 from ElectricityTariff import ElectricityTariff
 from Prosumer import Prosumer
 from RegularConsumer import RegularConsumer
@@ -25,6 +26,7 @@ class Utility:
         self.prosumers = prosumer
         self.saleHistory = []
         self.budgetDeficit = [0.0]
+        self.__CalculateSale(0)
 
     def Iterate(self):
         pass
@@ -60,8 +62,16 @@ class Utility:
             - self.__CalculateActualIncome()
         )
 
-    def CalculateNewTariff(self, time):
-        priceChange = self.budgetDeficit[-1] / self.saleHistory[-1]
-        priceChange = priceChange / 6
+    def CalculateNewTariff(self, time) -> None:
+        totalSale = sum(self.saleHistory[-self.__rateCorrectionFreq :])
+        priceChange = self.budgetDeficit[-1] / totalSale
+        # priceChange = priceChange / 6
         # priceChange = priceChange/self.__rateCorrectionFreq
         self.tariff.SetNewTariff(time, self.tariff.currentPrice + priceChange)
+
+    def GetYearlySale(self) -> np.ndarray:
+        n = 12
+        result = [
+            sum(self.saleHistory[i : i + n]) for i in range(0, len(self.saleHistory), n)
+        ]
+        return np.array(result)

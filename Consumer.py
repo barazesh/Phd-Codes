@@ -6,7 +6,7 @@ import Helper as hlp
 
 class Consumer:
     def __init__(self, initialNumber: int, initialDemandProfile: np.ndarray, priceElasticity: float, demandChangeLimit: float) -> None:
-        self.__numberHistory = []
+        self.__numberHistory = [float(initialNumber)]
         self.__demandChangeHistory = []
         self.__priceElasticity = priceElasticity
         self.__demandChangeLimit = demandChangeLimit
@@ -32,5 +32,5 @@ class Consumer:
         self.__numberHistory.append(self.currentNumber)
         self.currentNumber = self.currentNumber + value
 
-    def GetNumberHistory(self):
-        return self.__numberHistory
+    def GetNumberHistory(self)->np.ndarray:
+        return np.array(self.__numberHistory)
