@@ -48,6 +48,21 @@ inputdata["ConsumptionProfile"] = hourlyData["Demand"].to_numpy()
 
 
 def main():
+    RunBaseCae()
+    # RunSensitivityAnalysis()
+
+def RunBaseCae():
+    temp = {}
+    index = time
+    Env = Environment(inputData=inputdata)
+    for t in time:
+        if t == 0:
+            continue
+        print(t)
+        Env.Iterate(t)
+    Env.GetResults(list(index)).to_csv('./Outputs/baseCaseResults.csv')
+
+def RunSensitivityAnalysis():
     period = range(12, 40, 6)
     temp = {}
     index = time
@@ -57,22 +72,19 @@ def main():
         Env = Environment(inputData=inputdata)
         for t in time:
             if t != 0:
-                print(t)
+                # print(t)
                 Env.Iterate(t)
-        # Env.ShowResults()
-        # Env.SaveResults()
         temp[str(p)] = Env.GetResults(list(index))
 
     vars = temp[str(period[0])].columns
-
     result = {}
     for v in vars:
         df = pd.DataFrame(index=index)
         for p in temp.keys():
             df[p] = temp[p][v]
         result[v] = df
-    PlotResults(result)
 
+    return result
 
 def PlotResults(input):
     mpl.rc("lines", linewidth=1, markersize=4)
@@ -81,7 +93,7 @@ def PlotResults(input):
     mpl.rc("font", size=8, family="Times New Roman")
     vars = ["Tariff"]
     for v in vars:
-        fig, ax = plt.subplots(figsize=(3.25, 2))
+        fig, ax = plt.subplots(figsize=(6, 3.7))
         input[v].plot(ax=ax)
         ax.set_xlabel("Time (Month)")
         ax.set_xlim(-5, 245)

@@ -10,7 +10,7 @@ class StandAloneSystem:
         self.__pv = pv
         self.__battery = battery
 
-    def OptimizeSystemSize(self, demandProfile: np.ndarray):
+    def OptimizeSystemSize(self, demandProfile: np.ndarray) -> tuple:
         annaulPVGeneration = self.__pv.hourlyEnergyOutput.sum()
         annualDemand = demandProfile.sum()
         bestPVSize = annualDemand / annaulPVGeneration
@@ -32,7 +32,7 @@ class StandAloneSystem:
                 currentSystem = newSystem
         return bestSystem
 
-    def __DesignSystem(self, pvsize: float, demandProfile: np.ndarray):
+    def __DesignSystem(self, pvsize: float, demandProfile: np.ndarray) -> tuple:
         batsize = self.__CalculateBatterySize(pvsize, demandProfile)
         batterychanges = int(self.__pv.effectiveLife / self.__battery.effectiveLife)
         cost = (
@@ -42,8 +42,8 @@ class StandAloneSystem:
         return (pvsize, batsize, cost)
 
     def __CalculateBatterySize(self, PVsize: float, demandProfile: np.ndarray) -> float:
-        acceptableViolation = 24 #number of unsupported hours acceptable
-        tollerance = 5 #number of unsupported hours acceptable
+        acceptableViolation = 24  # number of unsupported hours acceptable
+        tollerance = 5  # number of unsupported hours acceptable
         lower, upper = self.__FindRange(PVsize, demandProfile, acceptableViolation)
 
         while lower[1] - upper[1] > tollerance:
@@ -60,7 +60,7 @@ class StandAloneSystem:
         # print(f'second loop:{c}')
         return upper[0]
 
-    def __FindRange(self, PVsize, demandProfile, targetViolation):
+    def __FindRange(self, PVsize:float, demandProfile:np.ndarray, targetViolation:float):
         mismatch = self.__pv.hourlyEnergyOutput * PVsize - demandProfile
         accumulatedMismatch = mismatch.cumsum()
         batterysize = np.abs(accumulatedMismatch).max()
@@ -70,7 +70,7 @@ class StandAloneSystem:
 
         c = 0
         while (targetViolation - violation) * (targetViolation - newviolation) > 0:
-            batterysize = newbatterysize
+            batterysize = newbatterysize 
             violation = newviolation
             if violation == 0:
                 m = 1 / targetViolation
