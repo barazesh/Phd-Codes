@@ -36,22 +36,24 @@ inputdata = {
     "initialProsumerNumber": 0,
     "initialRegularConsumerNumber": 4000000,
     "PVEffectiveLife": 25,
-    "pvPotential": 0.5,
+    "pvPotential": 0.3,
     "PVSize": 5,
     "PVHourlyEnergyOutput": [],
     "ConsumptionProfile": [],
 }
 
-hourlyData = pd.read_csv("./Data/LosAngles.csv", index_col=0)
-inputdata["PVHourlyEnergyOutput"] = hourlyData["Solar Output"].to_numpy()
-inputdata["ConsumptionProfile"] = hourlyData["Demand"].to_numpy()
+def AddProfilestoInputData():
+    hourlyData = pd.read_csv("./Data/LosAngles.csv", index_col=0)
+    inputdata["PVHourlyEnergyOutput"] = hourlyData["Solar Output"].to_numpy()
+    inputdata["ConsumptionProfile"] = hourlyData["Demand"].to_numpy()
 
 
 def main():
-    RunBaseCae()
-    # RunSensitivityAnalysis()
+    # RunBaseCae()
+    RunSensitivityAnalysis()
 
 def RunBaseCae():
+    AddProfilestoInputData()
     temp = {}
     index = time
     Env = Environment(inputData=inputdata)
@@ -67,6 +69,7 @@ def RunSensitivityAnalysis():
     temp = {}
     index = time
     for p in period:
+        AddProfilestoInputData()
         print(f"###rate correction frequency:{p}###")
         inputdata["rateCorrectionFreq"] = p
         Env = Environment(inputData=inputdata)
@@ -77,14 +80,14 @@ def RunSensitivityAnalysis():
         temp[str(p)] = Env.GetResults(list(index))
 
     vars = temp[str(period[0])].columns
-    result = {}
-    for v in vars:
-        df = pd.DataFrame(index=index)
-        for p in temp.keys():
-            df[p] = temp[p][v]
-        result[v] = df
+    # result = {}
+    with pd.ExcelWriter("./Outputs/sensitivity_period.xlsx") as writer:
+        for v in vars:
+            df = pd.DataFrame(index=index)
+            for p in temp.keys():
+                df[p] = temp[p][v]
+            df.to_excel(writer, sheet_name=v) 
 
-    return result
 
 def PlotResults(input):
     mpl.rc("lines", linewidth=1, markersize=4)
