@@ -15,7 +15,7 @@ inputdata = {
     "fixed2VariableRatio":0,
     "permittedRoR": 0.15,
     "lossRate": 0.1,
-    "initialFixedTariff": 0.14,
+    "initialFixedTariff": 0.001,
     "initialVariableTariff": 0.14,
     "rateCorrectionFreq": 12,
     # "populationGrowthRate": 0.00,
@@ -24,8 +24,10 @@ inputdata = {
     "imitationFactor": 0.02 / 12,
     "initialRegularConsumerMonthlyDemand": 500,
     "regularConsumerPriceElasticity": -0.1,
+    # "regularConsumerPriceElasticity": 0,
     "regularConsumerDemandChangeLimit": 0.2,
     "initialProsumerMonthlyDemand": 275,
+    # "prosumerPriceElasticity": 0,
     "prosumerPriceElasticity": -0.2,
     "prosumerDemandChangeLimit": 0.2,
     "BatteryEffectiveLife": 7,
@@ -51,8 +53,8 @@ def AddProfilestoInputData():
 
 
 def main():
-    RunBaseCae()
-    # RunSensitivityAnalysis()
+    # RunBaseCae()
+    RunSensitivityAnalysis()
 
 def RunBaseCae():
     AddProfilestoInputData()
@@ -68,16 +70,20 @@ def RunBaseCae():
 
 def RunSensitivityAnalysis():
     period = range(12, 40, 6)
+    ratio= np.linspace(0.6,1,5,endpoint=False)
     temp = {}
     index = time
-    for p in period:
+    # for p in period:
+    for p in ratio:
         AddProfilestoInputData()
-        print(f"###rate correction frequency:{p}###")
-        inputdata["rateCorrectionFreq"] = p
+        # print(f"###rate correction frequency:{p}###")
+        print(f"###fixed to variable price ratio:{p}###")
+        # inputdata["rateCorrectionFreq"] = p
+        inputdata["fixed2VariableRatio"] = p
         Env = Environment(inputData=inputdata)
         for t in time:
             if t != 0:
-                # print(t)
+                print(t)
                 Env.Iterate(t)
         temp[str(p)] = Env.GetResults(list(index))
 

@@ -64,7 +64,7 @@ class Environment:
     def __CreateProsumer(self, data) -> Prosumer:
         return Prosumer(
             initialNumber=data["initialProsumerNumber"],
-            initialDemandProfile=data["ConsumptionProfile"],
+            initialDemandProfile=np.copy(data["ConsumptionProfile"]),
             priceElasticity=data["prosumerPriceElasticity"],
             demandChangeLimit=data["prosumerDemandChangeLimit"],
             PVSystem=self.pv,
@@ -74,7 +74,7 @@ class Environment:
     def __CreateDefector(self, data) -> Defector:
         return Defector(
             initialNumber=data["initialProsumerNumber"],
-            initialDemandProfile=data["ConsumptionProfile"],
+            initialDemandProfile=np.copy(data["ConsumptionProfile"]),
             priceElasticity=0,
             demandChangeLimit=0,
             PVSystem=self.pv,
@@ -84,7 +84,7 @@ class Environment:
     def __CreateRegularConsumer(self, data) -> RegularConsumer:
         return RegularConsumer(
             initialNumber=data["initialRegularConsumerNumber"],
-            initialDemandProfile=data["ConsumptionProfile"],
+            initialDemandProfile=np.copy(data["ConsumptionProfile"]),
             priceElasticity=data["regularConsumerPriceElasticity"],
             demandChangeLimit=data["regularConsumerDemandChangeLimit"],
         )
@@ -188,7 +188,7 @@ class Environment:
         )
         # calculate the cost
         pvsize, batterysize, cost = self.standAlone.OptimizeSystemSize(
-            self.regularConsumers.demandProfile
+            self.regularConsumers.DemandProfile
         )
         # print(f'optimal system size-> PV: {pvsize:.2f}, Battery:{batterysize:.2f}, Cost:{cost}')
         irr = hlp.CalculateIRR(inflow=saving, outflow=cost, period=period)
@@ -201,7 +201,7 @@ class Environment:
         )
         # calculate the cost
         pvsize, batterysize, _ = self.standAlone.OptimizeSystemSize(
-            self.regularConsumers.demandProfile
+            self.regularConsumers.DemandProfile
         )
 
         pvsize -= self.prosumers.PVSystemSize

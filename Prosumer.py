@@ -23,7 +23,7 @@ class Prosumer(Consumer):
         self.PVSystemSize = PVSize
 
     def __CalculateNetDemand(self) -> np.ndarray:
-        return self.demandProfile - self.PVSystem.hourlyEnergyOutput * self.PVSystemSize
+        return self.DemandProfile - self.PVSystem.hourlyEnergyOutput * self.PVSystemSize
 
     def GetMonthlyConsumption(self, month: int) -> float:
         month = int(np.ceil(month % 12)) if (month % 12) > 0 else 12

@@ -69,10 +69,9 @@ plt.xlabel('Time (Month)')
 plt.ylabel('Dollar')
 plt.savefig('./Outputs/period_sale.pdf', bbox_inches='tight')
 
-
-#%%
 #%%
 data = pd.read_csv("./Outputs/baseCaseResults.csv", index_col=0)
+
 
 plt.plot(data['Tariff'])
 plt.title(f'Electricity Tariff')
@@ -80,8 +79,8 @@ plt.xlim([0, 240])
 plt.xticks([r for r in range(0,241,24)])
 plt.xlabel('Time (Month)')
 plt.ylabel('Dollar/kWh') 
-# plt.savefig('./Outputs/base_tariff.pdf', bbox_inches='tight')
-#%%
+plt.savefig('./Outputs/base_tariff.pdf', bbox_inches='tight')
+
 
 (100*data[['Regular_Consumers','Prosumers','Defectors']].divide(data['Total_Housholds'],axis=0)).plot(markevery=markerinterval)
 plt.title('Fraction of consumers adopting each concept')
@@ -90,8 +89,9 @@ plt.xticks([r for r in range(0,241,24)])
 plt.legend(loc='center')
 plt.xlabel('Time (Month)')
 plt.ylabel('%')
-# plt.savefig('./Outputs/base_Customers.pdf', bbox_inches='tight')
-#%%
+plt.savefig('./Outputs/base_Customers.pdf', bbox_inches='tight')
+plt.clf()
+
 # plt.plot(data[['Regular_Consumers','Prosumers','Defectors']],markevery=markerinterval)
 data[['Regular_Consumers','Prosumers','Defectors']].plot(markevery=markerinterval)
 plt.title('Total number of consumers adopting each concept')
@@ -101,6 +101,7 @@ plt.xticks([r for r in range(0,241,24)])
 plt.xlabel('Time (Month)')
 plt.ylabel('Consumers')
 plt.savefig('./Outputs/base_CustomersNo.pdf', bbox_inches='tight')
+plt.clf()
 
 plt.plot(data.rolling(12,on='Utility_Sales',step=12)['Utility_Sales'].sum())
 plt.title('Total Utility Energy Sale')
@@ -109,6 +110,7 @@ plt.xticks([r for r in range(0,241,24)])
 plt.xlabel('Time (Month)')
 plt.ylabel('Dollar')
 plt.savefig('./Outputs/base_sale.pdf', bbox_inches='tight')
+plt.clf()
 
 plt.plot(data['Utility_Deficit'])
 plt.title('Total Utility Budget Deficit')
@@ -117,6 +119,7 @@ plt.xticks([r for r in range(0,241,24)])
 plt.xlabel('Time (Month)')
 plt.ylabel('Dollar')
 plt.savefig('./Outputs/base_deficit.pdf', bbox_inches='tight')
+plt.clf()
 
 plt.plot(100*data['Utility_Deficit_Fraction'])
 plt.title('Utility Budget Deficit as a fraction of Sales')
@@ -125,10 +128,7 @@ plt.xticks([r for r in range(0,241,24)])
 plt.xlabel('Time (Month)')
 plt.ylabel('%')
 plt.savefig('./Outputs/base_deficit_fraction.pdf', bbox_inches='tight')
-
-
-
-
+plt.clf()
 
 #%%
 for c in data.columns:
