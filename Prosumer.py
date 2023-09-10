@@ -48,9 +48,9 @@ class Prosumer(Consumer):
     ) -> float:
         net = self.__CalculateNetDemand()
         result = [
-            i * consumptionTariff.currentPrice
+            i * consumptionTariff.currentVariablePrice
             if i > 0
-            else i * productionTariff.currentPrice
+            else i * productionTariff.currentVariablePrice
             for i in net
         ]
-        return np.sum(result, dtype=float)
+        return consumptionTariff.currentFixedPrice * 12 + np.sum(result, dtype=float)

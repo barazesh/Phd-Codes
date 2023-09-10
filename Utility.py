@@ -7,21 +7,26 @@ from RegularConsumer import RegularConsumer
 class Utility:
     def __init__(
         self,
-        generationPrice,
-        fixedCosts,
-        permittedRoR,
-        lossRate,
-        rateCorrectionFreq,
-        tariff: ElectricityTariff,
+        generationPrice: float,
+        fixedCosts: float,
+        fixed2VariableRatio:float,
+        permittedRoR: float,
+        lossRate: float,
+        rateCorrectionFreq: int,
+        retailTariff: ElectricityTariff,
+        buybackTariff: ElectricityTariff,
         regularConsumer: RegularConsumer,
         prosumer: Prosumer,
     ) -> None:
+        assert ((fixed2VariableRatio >= 0) & (fixed2VariableRatio <=1))
         self.__generationPrice = generationPrice
         self.__fixedCosts = fixedCosts
+        self.__fixed2VariableRatio=fixed2VariableRatio
         self.__permittedRoR = permittedRoR
         self.__lossRate = lossRate
         self.__rateCorrectionFreq = rateCorrectionFreq
-        self.tariff = tariff
+        self.retailTariff = retailTariff
+        self.buybackTariff = buybackTariff
         self.regularConsumer = regularConsumer
         self.prosumers = prosumer
         self.saleHistory = []
@@ -44,11 +49,15 @@ class Utility:
             self.__fixedCosts
             + self.saleHistory[-1] * (1 + self.__lossRate) * self.__generationPrice
             + self.prosumers.GetMonthlyProduction(month)
-            * (self.tariff.currentPrice - self.__generationPrice)
+            * (self.buybackTariff.currentVariablePrice - self.__generationPrice)
         )
 
     def __CalculateActualIncome(self) -> float:
-        return self.saleHistory[-1] * self.tariff.currentPrice
+        variableIncome = self.saleHistory[-1] * self.retailTariff.currentVariablePrice
+        fixedIncome = (
+            self.regularConsumer.currentNumber + self.prosumers.currentNumber
+        ) * self.retailTariff.currentFixedPrice
+        return variableIncome + fixedIncome
 
     def __CalculateExpectedIncome(self) -> float:
         return self.costs * (1 + self.__permittedRoR)
@@ -64,10 +73,11 @@ class Utility:
 
     def CalculateNewTariff(self, time) -> None:
         totalSale = sum(self.saleHistory[-self.__rateCorrectionFreq :])
-        priceChange = self.budgetDeficit[-1] / totalSale
-        # priceChange = priceChange / 6
-        # priceChange = priceChange/self.__rateCorrectionFreq
-        self.tariff.SetNewTariff(time, self.tariff.currentPrice + priceChange)
+        fixedPriceChange = self.__fixed2VariableRatio*self.budgetDeficit[-1] / (self.prosumers.currentNumber+self.regularConsumer.currentNumber)
+        variablePriceChange = (1-self.__fixed2VariableRatio)*self.budgetDeficit[-1] / totalSale
+        self.retailTariff.SetNewTariff(
+            time, fixedPriceChange=fixedPriceChange,variablePriceChange=variablePriceChange
+        )
 
     def GetYearlySale(self) -> np.ndarray:
         n = 12

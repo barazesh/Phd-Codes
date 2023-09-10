@@ -34,17 +34,19 @@ class Environment:
             + inputData["initialProsumerNumber"]
         ]
 
-        self.tariff = self.__CreateTariff(inputData)
+        self.__CreateTariff(inputData)
         self.prosumers = self.__CreateProsumer(inputData)
         self.regularConsumers = self.__CreateRegularConsumer(inputData)
         self.defectors = self.__CreateDefector(inputData)
         self.utility = Utility(
             generationPrice=inputData["generationPrice"],
             fixedCosts=inputData["fixedCosts"],
+            fixed2VariableRatio=inputData["fixed2VariableRatio"],
             permittedRoR=inputData["permittedRoR"],
             lossRate=inputData["lossRate"],
             rateCorrectionFreq=inputData["rateCorrectionFreq"],
-            tariff=self.tariff,
+            retailTariff=self.tariff,
+            buybackTariff=self.tariff, # net metering: the price of buyback is equal to retail price
             regularConsumer=self.regularConsumers,
             prosumer=self.prosumers,
         )
@@ -55,8 +57,9 @@ class Environment:
         self.rateCorrectionFreq = inputData["rateCorrectionFreq"]
         self.pvPotential = inputData["pvPotential"]
 
-    def __CreateTariff(self, data) -> ElectricityTariff:
-        return ElectricityTariff(data["initialTariff"])
+    def __CreateTariff(self, data) -> None:
+
+        self.tariff=ElectricityTariff(initialFixedTariff= data["initialFixedTariff"], initialVariableTariff=data["initialVariableTariff"])
 
     def __CreateProsumer(self, data) -> Prosumer:
         return Prosumer(
@@ -120,57 +123,13 @@ class Environment:
         self.battery.DecreasePrice(batteryRatio)
         self.__MigrateHouseholds(pvRatio, batteryRatio)
 
-    def _CalculateRegular2ProsumerIRR(self, period: int) -> float:
-        proEx = self.prosumers.GetYearlyExpenditure(
-            consumptionTariff=self.tariff, productionTariff=self.tariff
-        )
-        regEx = self.regularConsumers.GetYearlyExpenditure(
-            consumptionTariff=self.tariff
-        )
-        saving = regEx - proEx
-        cost = self.prosumers.PVSystemSize * self.pv.currentPrice
-        irr = hlp.CalculateIRR(inflow=saving, outflow=cost, period=period)
-        return irr
-
-    def _CalculateRegular2DefectorIRR(self, period: int) -> float:
-        # calculate the saving
-        saving = self.regularConsumers.GetYearlyExpenditure(
-            consumptionTariff=self.tariff
-        )
-        # calculate the cost
-        pvsize, batterysize, cost = self.standAlone.OptimizeSystemSize(
-            self.regularConsumers.demandProfile
-        )
-        # print(f'optimal system size-> PV: {pvsize:.2f}, Battery:{batterysize:.2f}, Cost:{cost}')
-        irr = hlp.CalculateIRR(inflow=saving, outflow=cost, period=period)
-        return irr
-
-    def _CalculateProsumer2DefectorIRR(self, period: int) -> float:
-        # calculate the saving
-        saving = self.prosumers.GetYearlyExpenditure(
-            consumptionTariff=self.tariff, productionTariff=self.tariff
-        )
-        # calculate the cost
-        pvsize, batterysize, _ = self.standAlone.OptimizeSystemSize(
-            self.regularConsumers.demandProfile
-        )
-
-        pvsize -= self.prosumers.PVSystemSize
-        batterychanges = int(self.pv.effectiveLife / self.battery.effectiveLife)
-        cost = (
-            pvsize * self.pv.currentPrice
-            + batterysize * self.battery.currentPrice * batterychanges
-        )
-        irr = hlp.CalculateIRR(inflow=saving, outflow=cost, period=period)
-        return irr
-
     def __MigrateHouseholds(self, pvRatio, batteryRatio):
         pvLimitEffect = hlp.Logistic4RatioLimit(pvRatio / self.pvPotential)
         projectLife = 25
         # from regular consumer to prosumer
         r2p = pvLimitEffect * self.__CalculateBassMigration(
             pvRatio,
-            self._CalculateRegular2ProsumerIRR(projectLife),
+            self.__CalculateRegular2ProsumerIRR(projectLife),
             self.regularConsumers.currentNumber,
             multiplier=3,
         )
@@ -178,14 +137,14 @@ class Environment:
         # from regular consumer to defector
         r2d = pvLimitEffect * self.__CalculateBassMigration(
             batteryRatio,
-            self._CalculateRegular2DefectorIRR(projectLife),
+            self.__CalculateRegular2DefectorIRR(projectLife),
             self.regularConsumers.currentNumber,
         )
 
         # from prosumer to defector
         p2d = self.__CalculateBassMigration(
             batteryRatio,
-            self._CalculateProsumer2DefectorIRR(projectLife),
+            self.__CalculateProsumer2DefectorIRR(projectLife),
             self.prosumers.currentNumber,
         )
 
@@ -209,6 +168,51 @@ class Environment:
             self.innovationFactor + multiplier * self.imitationFactor * penetration
         )
         return adaoptionrate * sourcePopulation
+    
+    def __CalculateRegular2ProsumerIRR(self, period: int) -> float:
+        proEx = self.prosumers.GetYearlyExpenditure(
+            consumptionTariff=self.tariff, productionTariff=self.tariff
+        )
+        regEx = self.regularConsumers.GetYearlyExpenditure(
+            consumptionTariff=self.tariff
+        )
+        saving = regEx - proEx
+        cost = self.prosumers.PVSystemSize * self.pv.currentPrice
+        irr = hlp.CalculateIRR(inflow=saving, outflow=cost, period=period)
+        return irr
+
+    def __CalculateRegular2DefectorIRR(self, period: int) -> float:
+        # calculate the saving
+        saving = self.regularConsumers.GetYearlyExpenditure(
+            consumptionTariff=self.tariff
+        )
+        # calculate the cost
+        pvsize, batterysize, cost = self.standAlone.OptimizeSystemSize(
+            self.regularConsumers.demandProfile
+        )
+        # print(f'optimal system size-> PV: {pvsize:.2f}, Battery:{batterysize:.2f}, Cost:{cost}')
+        irr = hlp.CalculateIRR(inflow=saving, outflow=cost, period=period)
+        return irr
+
+    def __CalculateProsumer2DefectorIRR(self, period: int) -> float:
+        # calculate the saving
+        saving = self.prosumers.GetYearlyExpenditure(
+            consumptionTariff=self.tariff, productionTariff=self.tariff
+        )
+        # calculate the cost
+        pvsize, batterysize, _ = self.standAlone.OptimizeSystemSize(
+            self.regularConsumers.demandProfile
+        )
+
+        pvsize -= self.prosumers.PVSystemSize
+        batterychanges = int(self.pv.effectiveLife / self.battery.effectiveLife)
+        cost = (
+            pvsize * self.pv.currentPrice
+            + batterysize * self.battery.currentPrice * batterychanges
+        )
+        irr = hlp.CalculateIRR(inflow=saving, outflow=cost, period=period)
+        return irr
+
 
     def __GrowPopulation(self) -> tuple:
         r = (
@@ -235,6 +239,6 @@ class Environment:
         )
         tariff_list=np.ones_like(time,dtype=float)
         for t in self.tariff.GetHistory():
-            tariff_list[t[0]:]=t[1]
+            tariff_list[t['time']:]=t['variable']
         result["Tariff"] = tariff_list
         return result

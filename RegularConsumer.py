@@ -19,4 +19,7 @@ class RegularConsumer(Consumer):
 
     def GetYearlyExpenditure(self, consumptionTariff: ElectricityTariff) -> float:
         demand = self.GetYearlyConsumption()
-        return demand * consumptionTariff.currentPrice
+        fixedEx= 12*consumptionTariff.currentFixedPrice
+        variableEx= demand * consumptionTariff.currentVariablePrice
+
+        return fixedEx+variableEx

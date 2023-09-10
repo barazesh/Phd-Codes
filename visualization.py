@@ -80,8 +80,8 @@ plt.xlim([0, 240])
 plt.xticks([r for r in range(0,241,24)])
 plt.xlabel('Time (Month)')
 plt.ylabel('Dollar/kWh') 
-plt.savefig('./Outputs/base_tariff.pdf', bbox_inches='tight')
-
+# plt.savefig('./Outputs/base_tariff.pdf', bbox_inches='tight')
+#%%
 
 (100*data[['Regular_Consumers','Prosumers','Defectors']].divide(data['Total_Housholds'],axis=0)).plot(markevery=markerinterval)
 plt.title('Fraction of consumers adopting each concept')
@@ -90,8 +90,8 @@ plt.xticks([r for r in range(0,241,24)])
 plt.legend(loc='center')
 plt.xlabel('Time (Month)')
 plt.ylabel('%')
-plt.savefig('./Outputs/base_Customers.pdf', bbox_inches='tight')
-
+# plt.savefig('./Outputs/base_Customers.pdf', bbox_inches='tight')
+#%%
 # plt.plot(data[['Regular_Consumers','Prosumers','Defectors']],markevery=markerinterval)
 data[['Regular_Consumers','Prosumers','Defectors']].plot(markevery=markerinterval)
 plt.title('Total number of consumers adopting each concept')

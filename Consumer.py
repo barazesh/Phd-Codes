@@ -21,7 +21,7 @@ class Consumer:
 
     def ChangeDemand(self, tariff: ElectricityTariff) -> None:
 
-        indicatedChange = self.__priceElasticity * tariff.GetPriceChangeRatio()
+        indicatedChange = self.__priceElasticity * tariff.GetPriceChangeRatio()['variable']
         limitEffect = self.__GetLimitEffect(indicatedChange)
         changeFactor = 1 + indicatedChange * limitEffect
         self.__demandChangeHistory.append(changeFactor)

@@ -12,9 +12,11 @@ time = range(0, duration + timeStep, timeStep)
 inputdata = {
     "generationPrice": 0.06,
     "fixedCosts": 1.4e8,
+    "fixed2VariableRatio":0,
     "permittedRoR": 0.15,
     "lossRate": 0.1,
-    "initialTariff": 0.14,
+    "initialFixedTariff": 0.14,
+    "initialVariableTariff": 0.14,
     "rateCorrectionFreq": 12,
     # "populationGrowthRate": 0.00,
     "populationGrowthRate": 0.004,
@@ -49,8 +51,8 @@ def AddProfilestoInputData():
 
 
 def main():
-    # RunBaseCae()
-    RunSensitivityAnalysis()
+    RunBaseCae()
+    # RunSensitivityAnalysis()
 
 def RunBaseCae():
     AddProfilestoInputData()

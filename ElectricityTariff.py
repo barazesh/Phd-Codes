@@ -1,18 +1,32 @@
 class ElectricityTariff:
-    def __init__(self, initialTariff: float) -> None:
-        # self.__initialTariff = initialTariff
-        self.__history = [(0, initialTariff)]
-        self.currentPrice = initialTariff
+    def __init__(self, initialFixedTariff: float,initialVariableTariff: float) -> None:
+        self.__history = [{'time':0, 'fixed':initialFixedTariff,'variable':initialVariableTariff}]
+        self.currentFixedPrice = initialFixedTariff
+        self.currentVariablePrice = initialVariableTariff
 
-    def SetNewTariff(self, time, newTariff: float) -> None:
-        self.__history.append((time, self.currentPrice))
-        self.currentPrice = newTariff
+    def SetNewTariff(self, time:int, variablePriceChange:float, fixedPriceChange:float) -> None:
+        temp={
+            'time':time,
+            'fixed':self.currentFixedPrice,
+            'variable':self.currentVariablePrice
+        }
+        self.__history.append(temp)
+        self.currentFixedPrice += fixedPriceChange
+        self.currentVariablePrice += variablePriceChange
 
-    def GetPriceChangeValue(self) -> float:
-        return self.currentPrice - self.__history[-1][1]
+    def GetPriceChangeValue(self) -> dict:
+        result={
+            'fixed':self.currentFixedPrice-self.__history[-1]['fixed'],
+            'variable':self.currentVariablePrice-self.__history[-1]['variable']
+        }
+        return result
 
-    def GetPriceChangeRatio(self) -> float:
-        return self.GetPriceChangeValue() / self.__history[-1][1]
+    def GetPriceChangeRatio(self) -> dict:
+        priceChange=self.GetPriceChangeValue()
+        result={}
+        for k in priceChange.keys():
+            result[k]=priceChange[k]/ self.__history[-1][k]
+        return result
 
     def GetHistory(self):
         return self.__history
