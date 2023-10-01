@@ -4,97 +4,83 @@ import numpy as np
 from PV import PV
 from Environment import Environment
 import pandas as pd
+import visualization
+import json
 
 duration = 240
 timeStep = 1
 time = range(0, duration + timeStep, timeStep)
 
-inputdata = {
-    "generationPrice": 0.06,
-    "fixedCosts": 1.4e8,
-    "fixed2VariableRatio":0,
-    "permittedRoR": 0.15,
-    "lossRate": 0.1,
-    "initialFixedTariff": 0.001,
-    "initialVariableTariff": 0.14,
-    "rateCorrectionFreq": 12,
-    # "populationGrowthRate": 0.00,
-    "populationGrowthRate": 0.004,
-    "innovationFactor": 0.01 / 12,
-    "imitationFactor": 0.02 / 12,
-    "initialRegularConsumerMonthlyDemand": 500,
-    "regularConsumerPriceElasticity": -0.1,
-    # "regularConsumerPriceElasticity": 0,
-    "regularConsumerDemandChangeLimit": 0.2,
-    "initialProsumerMonthlyDemand": 275,
-    # "prosumerPriceElasticity": 0,
-    "prosumerPriceElasticity": -0.2,
-    "prosumerDemandChangeLimit": 0.2,
-    "BatteryEffectiveLife": 7,
-    "initialBatteryPrice": 600,
-    "initialPVPrice": 4000,
-    "minimumBatteryPrice": 100,
-    "minimumPVPrice": 100,
-    "normalBatteryCostReductionRate": 0.06,
-    "normalPVCostReductionRate": 0.15,
-    "initialProsumerNumber": 0,
-    "initialRegularConsumerNumber": 4000000,
-    "PVEffectiveLife": 25,
-    "pvPotential": 0.3,
-    "PVSize": 5,
-    "PVHourlyEnergyOutput": [],
-    "ConsumptionProfile": [],
-}
 
-def AddProfilestoInputData():
-    hourlyData = pd.read_csv("./Data/LosAngles.csv", index_col=0)
+def AddProfilestoInputData(inputdata: dict, profilesPath: str):
+    hourlyData = pd.read_csv(profilesPath, index_col=0)
     inputdata["PVHourlyEnergyOutput"] = hourlyData["Solar Output"].to_numpy()
     inputdata["ConsumptionProfile"] = hourlyData["Demand"].to_numpy()
 
 
 def main():
-    # RunBaseCae()
-    RunSensitivityAnalysis()
+    # RunBaseCae("California")
 
-def RunBaseCae():
-    AddProfilestoInputData()
-    temp = {}
+    RunSensitivityAnalysis(
+        case="California",
+        parameter="fixed2VariableRatio",
+        evaluationRange=np.arange(0,0.4,0.1).tolist(),
+    )
+    # RunSensitivityAnalysis(
+    #     case="California",
+    #     parameter="rateCorrectionFreq",
+    #     evaluationRange=list(range(12, 40, 6)),
+    # )
+    # RunSensitivityAnalysis(
+    #     case="California",
+    #     parameter="fixed2VariableRatio",
+    #     evaluationRange=[0, 0.1, 0.2, 0.3],
+    # )
+
+
+def RunBaseCae(case: str):
+    inputData = json.load(open(f"./Data/{case}.json"))
+    AddProfilestoInputData(inputdata=inputData, profilesPath="./Data/LosAngles.csv")
     index = time
-    Env = Environment(inputData=inputdata)
+    Env = Environment(inputData=inputData)
     for t in time:
         if t == 0:
             continue
         print(t)
         Env.Iterate(t)
-    Env.GetResults(list(index)).to_csv('./Outputs/baseCaseResults.csv')
+    result=Env.GetResults(list(index))
+    # print(f"{result.loc[120,['Prosumers','Defectors']]}")
+    # print(f"total with PV: {result.loc[120,['Prosumers','Defectors']].sum()}")
+    # print(f"defector share: {result.loc[120,'Defectors']/result.loc[120,['Prosumers','Defectors']].sum()}")
+    result.to_csv("./Outputs/baseCaseResults.csv")
+    visualization.PlotBaseCase()
 
-def RunSensitivityAnalysis():
-    period = range(12, 40, 6)
-    ratio= np.linspace(0.6,1,5,endpoint=False)
+
+def RunSensitivityAnalysis(case: str, parameter: str, evaluationRange: list):
+    inputData = json.load(open(f"./Data/{case}.json"))
     temp = {}
     index = time
     # for p in period:
-    for p in ratio:
-        AddProfilestoInputData()
-        # print(f"###rate correction frequency:{p}###")
-        print(f"###fixed to variable price ratio:{p}###")
-        # inputdata["rateCorrectionFreq"] = p
-        inputdata["fixed2VariableRatio"] = p
-        Env = Environment(inputData=inputdata)
+    for s in evaluationRange:
+        AddProfilestoInputData(inputdata=inputData, profilesPath="./Data/LosAngles.csv")
+        print(f"###{parameter}:{s}###")
+        inputData[parameter] = s
+        Env = Environment(inputData)
         for t in time:
             if t != 0:
-                print(t)
+                print(t, end="\r")
                 Env.Iterate(t)
-        temp[str(p)] = Env.GetResults(list(index))
+        temp[str(s)] = Env.GetResults(list(index))
 
-    vars = temp[str(period[0])].columns
+    vars = temp[str(evaluationRange[0])].columns
     # result = {}
-    with pd.ExcelWriter("./Outputs/sensitivity_period.xlsx") as writer:
+    with pd.ExcelWriter(f"./Outputs/sensitivity_{parameter}.xlsx") as writer:
         for v in vars:
             df = pd.DataFrame(index=index)
-            for p in temp.keys():
-                df[p] = temp[p][v]
-            df.to_excel(writer, sheet_name=v) 
+            for s in temp.keys():
+                df[s] = temp[s][v]
+            df.to_excel(writer, sheet_name=v)
+    visualization.PlotSensitivity(parameter)
 
 
 def PlotResults(input):
