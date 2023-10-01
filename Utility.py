@@ -12,6 +12,7 @@ class Utility:
         fixed2VariableRatio:float,
         permittedRoR: float,
         lossRate: float,
+        residentialShare:float,
         rateCorrectionFreq: int,
         retailTariff: ElectricityTariff,
         buybackTariff: ElectricityTariff,
@@ -25,6 +26,7 @@ class Utility:
         self.__permittedRoR = permittedRoR
         self.__lossRate = lossRate
         self.__rateCorrectionFreq = rateCorrectionFreq
+        self.__residentialShare=residentialShare
         self.retailTariff = retailTariff
         self.buybackTariff = buybackTariff
         self.regularConsumer = regularConsumer
@@ -46,7 +48,7 @@ class Utility:
 
     def __CalculateCost(self, month: int) -> None:
         self.costs = (
-            self.__fixedCosts
+            self.__fixedCosts*self.__residentialShare
             + self.saleHistory[-1] * (1 + self.__lossRate) * self.__generationPrice
             + self.prosumers.GetMonthlyProduction(month)
             * (self.buybackTariff.currentVariablePrice - self.__generationPrice)

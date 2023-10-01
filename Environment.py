@@ -32,6 +32,7 @@ class Environment:
         self.totalHousholds = [
             inputData["initialRegularConsumerNumber"]
             + inputData["initialProsumerNumber"]
+            + inputData["initialDefectorNumber"]
         ]
 
         self.__CreateTariff(inputData)
@@ -44,6 +45,7 @@ class Environment:
             fixed2VariableRatio=inputData["fixed2VariableRatio"],
             permittedRoR=inputData["permittedRoR"],
             lossRate=inputData["lossRate"],
+            residentialShare=inputData["residentialShare"],
             rateCorrectionFreq=inputData["rateCorrectionFreq"],
             retailTariff=self.tariff,
             buybackTariff=self.tariff, # net metering: the price of buyback is equal to retail price
@@ -56,6 +58,8 @@ class Environment:
         self.populationGrowthRate = inputData["populationGrowthRate"]
         self.rateCorrectionFreq = inputData["rateCorrectionFreq"]
         self.pvPotential = inputData["pvPotential"]
+        self.BASSp2d=inputData["BASSp2d"]
+        self.BASSr2d=inputData["BASSr2d"]
 
     def __CreateTariff(self, data) -> None:
 
@@ -73,7 +77,7 @@ class Environment:
 
     def __CreateDefector(self, data) -> Defector:
         return Defector(
-            initialNumber=data["initialProsumerNumber"],
+            initialNumber=data["initialDefectorNumber"],
             initialDemandProfile=np.copy(data["ConsumptionProfile"]),
             priceElasticity=0,
             demandChangeLimit=0,
@@ -131,18 +135,18 @@ class Environment:
             pvRatio,
             self.__CalculateRegular2ProsumerIRR(projectLife),
             self.regularConsumers.currentNumber,
-            multiplier=3,
+            multiplier=4,
         )
 
         # from regular consumer to defector
-        r2d = pvLimitEffect * self.__CalculateBassMigration(
+        r2d = self.BASSr2d*pvLimitEffect * self.__CalculateBassMigration(
             batteryRatio,
             self.__CalculateRegular2DefectorIRR(projectLife),
             self.regularConsumers.currentNumber,
         )
 
         # from prosumer to defector
-        p2d = self.__CalculateBassMigration(
+        p2d = self.BASSp2d*self.__CalculateBassMigration(
             batteryRatio,
             self.__CalculateProsumer2DefectorIRR(projectLife),
             self.prosumers.currentNumber,

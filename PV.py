@@ -20,7 +20,7 @@ class PV:
 
     def DecreasePrice(self, penetrationRatio: float) -> None:
         penetrationEffect = hlp.Logistic(
-            b=1, L=0.5, k=15, x0=1 / 3, input=penetrationRatio
+            b=0.8, L=0.5, k=15, x0=1 / 3, input=penetrationRatio
         )
         indicatedReduction = (
             penetrationEffect * self.__normalReductionRate * self.currentPrice
@@ -29,7 +29,7 @@ class PV:
             self.currentPrice - indicatedReduction
         )
         self.__priceHistory.append(self.currentPrice)
-        self.currentPrice = self.currentPrice - indicatedReduction * limitEffect
+        self.currentPrice -= indicatedReduction * limitEffect
 
     def __CalculateLimitEffect(self, tempPrice: float) -> float:
         ratio = self.__minimumPrice / tempPrice
