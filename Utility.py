@@ -8,9 +8,10 @@ class Utility:
     def __init__(
         self,
         generationPrice: float,
-        fixedCosts: float,
+        fixedCosts: list,
+        rateBase: list,
         fixed2VariableRatio:float,
-        permittedRoR: float,
+        authorizedRoR: float,
         lossRate: float,
         residentialShare:float,
         rateCorrectionFreq: int,
@@ -22,8 +23,9 @@ class Utility:
         assert ((fixed2VariableRatio >= 0) & (fixed2VariableRatio <=1))
         self.__generationPrice = generationPrice
         self.__fixedCosts = fixedCosts
+        self.__rateBase = rateBase
         self.__fixed2VariableRatio=fixed2VariableRatio
-        self.__permittedRoR = permittedRoR
+        self.__authorizedRoR = authorizedRoR
         self.__lossRate = lossRate
         self.__rateCorrectionFreq = rateCorrectionFreq
         self.__residentialShare=residentialShare
@@ -48,29 +50,29 @@ class Utility:
 
     def __CalculateCost(self, month: int) -> None:
         self.costs = (
-            self.__fixedCosts*self.__residentialShare
+            self.__fixedCosts[month]*self.__residentialShare
             + self.saleHistory[-1] * (1 + self.__lossRate) * self.__generationPrice
             + self.prosumers.GetMonthlyProduction(month)
             * (self.buybackTariff.currentVariablePrice - self.__generationPrice)
         )
 
-    def __CalculateActualIncome(self) -> float:
-        variableIncome = self.saleHistory[-1] * self.retailTariff.currentVariablePrice
-        fixedIncome = (
+    def __CalculateActualRevenue(self) -> float:
+        variableRevenue = self.saleHistory[-1] * self.retailTariff.currentVariablePrice
+        fixedRevenue = (
             self.regularConsumer.currentNumber + self.prosumers.currentNumber
         ) * self.retailTariff.currentFixedPrice
-        return variableIncome + fixedIncome
+        return variableRevenue + fixedRevenue
 
-    def __CalculateExpectedIncome(self) -> float:
-        return self.costs * (1 + self.__permittedRoR)
+    def __CalculateRevenueRequirement (self,month) -> float:
+        return self.costs +self.__rateBase[month]* (1 + self.__authorizedRoR)
 
     def CalculateFinances(self, month: int) -> None:
         self.__CalculateSale(month)
         self.__CalculateCost(month)
         self.budgetDeficit.append(
             self.budgetDeficit[-1]
-            + self.__CalculateExpectedIncome()
-            - self.__CalculateActualIncome()
+            + self.__CalculateRevenueRequirement (month)
+            - self.__CalculateActualRevenue()
         )
 
     def CalculateNewTariff(self, time) -> None:

@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+from scipy.stats import linregress
 import numpy as np
 from PV import PV
 from Environment import Environment
@@ -17,15 +18,31 @@ def AddProfilestoInputData(inputdata: dict, profilesPath: str):
     inputdata["PVHourlyEnergyOutput"] = hourlyData["Solar Output"].to_numpy()
     inputdata["ConsumptionProfile"] = hourlyData["Demand"].to_numpy()
 
+def AddUtilityFinancialtoInputData(inputdata: dict, fielpath: str):
+    starting_year=2010
+    data=pd.read_csv(fielpath,index_col=0)
+    for c in data.columns:
+        res=linregress(data[c].dropna().index,data[c].dropna())
+        temp= [res.slope*y + res.intercept for y in range(2010,2050)]
+        result =[item/12 for item in temp for _ in range(12)]
+        if 'cost' in c.lower():
+            inputdata['fixedCosts']=result
+        elif 'ratebase' in c.lower():
+            inputdata['rateBase']=result
+
+
+
+        
+
 
 def main():
-    # RunBaseCae("California")
+    RunBaseCae("California")
 
-    RunSensitivityAnalysis(
-        case="California",
-        parameter="fixed2VariableRatio",
-        evaluationRange=np.arange(0,0.4,0.1).tolist(),
-    )
+    # RunSensitivityAnalysis(
+    #     case="California",
+    #     parameter="fixed2VariableRatio",
+    #     evaluationRange=np.arange(0,0.4,0.1).tolist(),
+    # )
     # RunSensitivityAnalysis(
     #     case="California",
     #     parameter="rateCorrectionFreq",
@@ -41,6 +58,7 @@ def main():
 def RunBaseCae(case: str):
     inputData = json.load(open(f"./Data/{case}.json"))
     AddProfilestoInputData(inputdata=inputData, profilesPath="./Data/LosAngles.csv")
+    AddUtilityFinancialtoInputData(inputdata=inputData, fielpath="/.Data/SCE_financial.csv")
     index = time
     Env = Environment(inputData=inputData)
     for t in time:

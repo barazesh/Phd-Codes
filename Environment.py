@@ -42,8 +42,9 @@ class Environment:
         self.utility = Utility(
             generationPrice=inputData["generationPrice"],
             fixedCosts=inputData["fixedCosts"],
+            rateBase=inputData["rateBase"],
             fixed2VariableRatio=inputData["fixed2VariableRatio"],
-            permittedRoR=inputData["permittedRoR"],
+            authorizedRoR=inputData["permittedRoR"],
             lossRate=inputData["lossRate"],
             residentialShare=inputData["residentialShare"],
             rateCorrectionFreq=inputData["rateCorrectionFreq"],
@@ -116,7 +117,7 @@ class Environment:
 
     def Iterate(self, time):
         self.utility.CalculateFinances(time)
-        if time % self.rateCorrectionFreq == 0:
+        if time % self.rateCorrectionFreq == 0.5:
             self.utility.CalculateNewTariff(time)
             self.regularConsumers.ChangeDemand(tariff=self.tariff)
             self.prosumers.ChangeDemand(tariff=self.tariff)
@@ -167,7 +168,8 @@ class Environment:
     def __CalculateBassMigration(
         self, penetration, irr, sourcePopulation, multiplier=1
     ) -> float:
-        financialEffect = hlp.Logistic(L=2, k=40, b=1, x0=0.2, input=irr)
+        financialEffect = hlp.Logistic(L=2.5, k=10, b=0.5, x0=0.3, input=irr)
+        # financialEffect = hlp.Logistic(L=2, k=40, b=1, x0=0.2, input=irr)
         adaoptionrate = financialEffect * (
             self.innovationFactor + multiplier * self.imitationFactor * penetration
         )
@@ -183,6 +185,7 @@ class Environment:
         saving = regEx - proEx
         cost = self.prosumers.PVSystemSize * self.pv.currentPrice
         irr = hlp.CalculateIRR(inflow=saving, outflow=cost, period=period)
+        print(f'Regular2Prosumer IRR: {irr}')
         return irr
 
     def __CalculateRegular2DefectorIRR(self, period: int) -> float:
@@ -196,6 +199,8 @@ class Environment:
         )
         # print(f'optimal system size-> PV: {pvsize:.2f}, Battery:{batterysize:.2f}, Cost:{cost}')
         irr = hlp.CalculateIRR(inflow=saving, outflow=cost, period=period)
+        print(f'Regular2Defector IRR: {irr}')
+
         return irr
 
     def __CalculateProsumer2DefectorIRR(self, period: int) -> float:
@@ -215,6 +220,8 @@ class Environment:
             + batterysize * self.battery.currentPrice * batterychanges
         )
         irr = hlp.CalculateIRR(inflow=saving, outflow=cost, period=period)
+        print(f'Prosumer2Defector IRR: {irr}')
+
         return irr
 
 
