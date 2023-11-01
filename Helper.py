@@ -1,6 +1,5 @@
 from datetime import datetime
 import numpy as np
-import numpy_financial as npf
 from numba import njit
 
 
@@ -17,21 +16,21 @@ def Logistic4RatioLimit(input) -> float:
     return result
 
 
-def __CalculateFirstHour(month) -> int:
+def _CalculateFirstHour(month) -> int:
     a = datetime(2017, 1, 1)
     b = datetime(2017, month, 1)
     diff = b - a
     return int(diff.total_seconds() / 3600)
 
 
-def CalculateFirstHour(month) -> int:
-    return __CalculateFirstHour(month)
+def CalculateFirstHour(month: int) -> int:
+    return _CalculateFirstHour(month)
 
 
-def CalculateLastHour(month) -> int:
+def CalculateLastHour(month: int) -> int:
     if month == 12:
         return -1
-    return __CalculateFirstHour(month + 1)
+    return _CalculateFirstHour(month + 1)
 
 
 def SliceMonth(array: np.ndarray, month) -> np.ndarray:
@@ -41,6 +40,13 @@ def SliceMonth(array: np.ndarray, month) -> np.ndarray:
         return array[first:]
     else:
         return array[first:last]
+
+
+def GetMonthofYear(month: int) -> int:
+    if (month % 12) > 0:
+        return int(month % 12)
+    else:
+        return 12
 
 
 @njit

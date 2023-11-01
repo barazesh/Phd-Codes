@@ -21,26 +21,28 @@ class Utility:
         prosumer: Prosumer,
     ) -> None:
         assert ((fixed2VariableRatio >= 0) & (fixed2VariableRatio <=1))
-        self.__generationPrice = generationPrice
-        self.__fixedCosts = fixedCosts
-        self.__rateBase = rateBase
-        self.__fixed2VariableRatio=fixed2VariableRatio
-        self.__authorizedRoR = authorizedRoR
-        self.__lossRate = lossRate
-        self.__rateCorrectionFreq = rateCorrectionFreq
-        self.__residentialShare=residentialShare
+        self._generationPrice = generationPrice
+        self._fixedCosts = fixedCosts
+        self._rateBase = rateBase
+        self._fixed2VariableRatio=fixed2VariableRatio
+        self._authorizedRoR = authorizedRoR
+        self._lossRate = lossRate
+        self._rateCorrectionFreq = rateCorrectionFreq
+        self._residentialShare=residentialShare
         self.retailTariff = retailTariff
         self.buybackTariff = buybackTariff
         self.regularConsumer = regularConsumer
         self.prosumers = prosumer
         self.saleHistory = []
+        self.revenueHistory = []
         self.budgetDeficit = [0.0]
-        self.__CalculateSale(0)
+        self._CalculateSale(0)
+        self._CalculateActualRevenue()
 
     def Iterate(self):
         pass
 
-    def __CalculateSale(self, month: int) -> None:
+    def _CalculateSale(self, month: int) -> None:
         sale = (
             self.regularConsumer.GetMonthlyConsumption(month)
             * self.regularConsumer.currentNumber
@@ -48,37 +50,38 @@ class Utility:
         )
         self.saleHistory.append(sale)
 
-    def __CalculateCost(self, month: int) -> None:
+    def _CalculateCost(self, month: int) -> None:
         self.costs = (
-            self.__fixedCosts[month]*self.__residentialShare
-            + self.saleHistory[-1] * (1 + self.__lossRate) * self.__generationPrice
+            self._fixedCosts[month]*self._residentialShare
+            + self.saleHistory[-1] * (1 + self._lossRate) * self._generationPrice
             + self.prosumers.GetMonthlyProduction(month)
-            * (self.buybackTariff.currentVariablePrice - self.__generationPrice)
+            * (self.buybackTariff.currentVariablePrice - self._generationPrice)
         )
 
-    def __CalculateActualRevenue(self) -> float:
+    def _CalculateActualRevenue(self) -> None:
         variableRevenue = self.saleHistory[-1] * self.retailTariff.currentVariablePrice
         fixedRevenue = (
             self.regularConsumer.currentNumber + self.prosumers.currentNumber
         ) * self.retailTariff.currentFixedPrice
-        return variableRevenue + fixedRevenue
+        self.revenueHistory.append(variableRevenue + fixedRevenue) 
 
-    def __CalculateRevenueRequirement (self,month) -> float:
-        return self.costs +self.__rateBase[month]* (1 + self.__authorizedRoR)
+    def _CalculateRevenueRequirement (self,month) -> float:
+        return self.costs +self._rateBase[month]* self._authorizedRoR
 
     def CalculateFinances(self, month: int) -> None:
-        self.__CalculateSale(month)
-        self.__CalculateCost(month)
+        self._CalculateSale(month)
+        self._CalculateActualRevenue()
+        self._CalculateCost(month)
         self.budgetDeficit.append(
             self.budgetDeficit[-1]
-            + self.__CalculateRevenueRequirement (month)
-            - self.__CalculateActualRevenue()
+            + self._CalculateRevenueRequirement (month)
+            - self.revenueHistory[-1]
         )
 
     def CalculateNewTariff(self, time) -> None:
-        totalSale = sum(self.saleHistory[-self.__rateCorrectionFreq :])
-        fixedPriceChange = self.__fixed2VariableRatio*self.budgetDeficit[-1] / (self.prosumers.currentNumber+self.regularConsumer.currentNumber)
-        variablePriceChange = (1-self.__fixed2VariableRatio)*self.budgetDeficit[-1] / totalSale
+        fixedPriceChange = self._fixed2VariableRatio*self.budgetDeficit[-1] / (self.prosumers.currentNumber+self.regularConsumer.currentNumber)
+        totalSale = sum(self.saleHistory[-self._rateCorrectionFreq :])
+        variablePriceChange = (1-self._fixed2VariableRatio)*self.budgetDeficit[-1] / totalSale
         self.retailTariff.SetNewTariff(
             time, fixedPriceChange=fixedPriceChange,variablePriceChange=variablePriceChange
         )

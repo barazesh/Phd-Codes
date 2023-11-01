@@ -35,10 +35,10 @@ class Environment:
             + inputData["initialDefectorNumber"]
         ]
 
-        self.__CreateTariff(inputData)
-        self.prosumers = self.__CreateProsumer(inputData)
-        self.regularConsumers = self.__CreateRegularConsumer(inputData)
-        self.defectors = self.__CreateDefector(inputData)
+        self._CreateTariff(inputData)
+        self.prosumers = self._CreateProsumer(inputData)
+        self.regularConsumers = self._CreateRegularConsumer(inputData)
+        self.defectors = self._CreateDefector(inputData)
         self.utility = Utility(
             generationPrice=inputData["generationPrice"],
             fixedCosts=inputData["fixedCosts"],
@@ -62,11 +62,11 @@ class Environment:
         self.BASSp2d=inputData["BASSp2d"]
         self.BASSr2d=inputData["BASSr2d"]
 
-    def __CreateTariff(self, data) -> None:
+    def _CreateTariff(self, data) -> None:
 
         self.tariff=ElectricityTariff(initialFixedTariff= data["initialFixedTariff"], initialVariableTariff=data["initialVariableTariff"])
 
-    def __CreateProsumer(self, data) -> Prosumer:
+    def _CreateProsumer(self, data) -> Prosumer:
         return Prosumer(
             initialNumber=data["initialProsumerNumber"],
             initialDemandProfile=np.copy(data["ConsumptionProfile"]),
@@ -76,7 +76,7 @@ class Environment:
             PVSize=data["PVSize"],
         )
 
-    def __CreateDefector(self, data) -> Defector:
+    def _CreateDefector(self, data) -> Defector:
         return Defector(
             initialNumber=data["initialDefectorNumber"],
             initialDemandProfile=np.copy(data["ConsumptionProfile"]),
@@ -86,7 +86,7 @@ class Environment:
             battery=self.battery,
         )
 
-    def __CreateRegularConsumer(self, data) -> RegularConsumer:
+    def _CreateRegularConsumer(self, data) -> RegularConsumer:
         return RegularConsumer(
             initialNumber=data["initialRegularConsumerNumber"],
             initialDemandProfile=np.copy(data["ConsumptionProfile"]),
@@ -94,7 +94,7 @@ class Environment:
             demandChangeLimit=data["regularConsumerDemandChangeLimit"],
         )
 
-    def __CalculatePVPenetrationRatio(self) -> float:
+    def _CalculatePVPenetrationRatio(self) -> float:
         totalPVHousholds = self.prosumers.currentNumber + self.defectors.currentNumber
         totalHousholds = (
             self.regularConsumers.currentNumber
@@ -105,7 +105,7 @@ class Environment:
 
         return result
 
-    def __CalculateBatteryPenetrationRatio(self) -> float:
+    def _CalculateBatteryPenetrationRatio(self) -> float:
         totalHousholds = (
             self.regularConsumers.currentNumber
             + self.prosumers.currentNumber
@@ -117,43 +117,43 @@ class Environment:
 
     def Iterate(self, time):
         self.utility.CalculateFinances(time)
-        if time % self.rateCorrectionFreq == 0.5:
+        if time % self.rateCorrectionFreq == 0:
             self.utility.CalculateNewTariff(time)
             self.regularConsumers.ChangeDemand(tariff=self.tariff)
             self.prosumers.ChangeDemand(tariff=self.tariff)
 
-        pvRatio = self.__CalculatePVPenetrationRatio()
+        pvRatio = self._CalculatePVPenetrationRatio()
         self.pv.DecreasePrice(pvRatio)
-        batteryRatio = self.__CalculateBatteryPenetrationRatio()
+        batteryRatio = self._CalculateBatteryPenetrationRatio()
         self.battery.DecreasePrice(batteryRatio)
-        self.__MigrateHouseholds(pvRatio, batteryRatio)
+        self._MigrateHouseholds(pvRatio, batteryRatio)
 
-    def __MigrateHouseholds(self, pvRatio, batteryRatio):
+    def _MigrateHouseholds(self, pvRatio, batteryRatio):
         pvLimitEffect = hlp.Logistic4RatioLimit(pvRatio / self.pvPotential)
         projectLife = 25
         # from regular consumer to prosumer
-        r2p = pvLimitEffect * self.__CalculateBassMigration(
+        r2p = pvLimitEffect * self._CalculateBassMigration(
             pvRatio,
-            self.__CalculateRegular2ProsumerIRR(projectLife),
+            self._CalculateRegular2ProsumerIRR(projectLife),
             self.regularConsumers.currentNumber,
             multiplier=4,
         )
 
         # from regular consumer to defector
-        r2d = self.BASSr2d*pvLimitEffect * self.__CalculateBassMigration(
+        r2d = self.BASSr2d*pvLimitEffect * self._CalculateBassMigration(
             batteryRatio,
-            self.__CalculateRegular2DefectorIRR(projectLife),
+            self._CalculateRegular2DefectorIRR(projectLife),
             self.regularConsumers.currentNumber,
         )
 
         # from prosumer to defector
-        p2d = self.BASSp2d*self.__CalculateBassMigration(
+        p2d = self.BASSp2d*self._CalculateBassMigration(
             batteryRatio,
-            self.__CalculateProsumer2DefectorIRR(projectLife),
+            self._CalculateProsumer2DefectorIRR(projectLife),
             self.prosumers.currentNumber,
         )
 
-        r, p, d = self.__GrowPopulation()
+        r, p, d = self._GrowPopulation()
         self.regularConsumers.ChangeNumber(r - (r2d + r2p))
         self.prosumers.ChangeNumber(p + r2p - p2d)
         self.defectors.ChangeNumber(d + r2d + p2d)
@@ -165,7 +165,7 @@ class Environment:
         # print(
         #     f"Electricity Price:{self.tariff.currentPrice:.3f}--PV Price:{self.pv.currentPrice:.2f}--NPV:{NPVRatio}")
 
-    def __CalculateBassMigration(
+    def _CalculateBassMigration(
         self, penetration, irr, sourcePopulation, multiplier=1
     ) -> float:
         financialEffect = hlp.Logistic(L=2.5, k=10, b=0.5, x0=0.3, input=irr)
@@ -175,7 +175,7 @@ class Environment:
         )
         return adaoptionrate * sourcePopulation
     
-    def __CalculateRegular2ProsumerIRR(self, period: int) -> float:
+    def _CalculateRegular2ProsumerIRR(self, period: int) -> float:
         proEx = self.prosumers.GetYearlyExpenditure(
             consumptionTariff=self.tariff, productionTariff=self.tariff
         )
@@ -185,10 +185,10 @@ class Environment:
         saving = regEx - proEx
         cost = self.prosumers.PVSystemSize * self.pv.currentPrice
         irr = hlp.CalculateIRR(inflow=saving, outflow=cost, period=period)
-        print(f'Regular2Prosumer IRR: {irr}')
+        # print(f'Regular2Prosumer IRR: {irr}')
         return irr
 
-    def __CalculateRegular2DefectorIRR(self, period: int) -> float:
+    def _CalculateRegular2DefectorIRR(self, period: int) -> float:
         # calculate the saving
         saving = self.regularConsumers.GetYearlyExpenditure(
             consumptionTariff=self.tariff
@@ -199,11 +199,11 @@ class Environment:
         )
         # print(f'optimal system size-> PV: {pvsize:.2f}, Battery:{batterysize:.2f}, Cost:{cost}')
         irr = hlp.CalculateIRR(inflow=saving, outflow=cost, period=period)
-        print(f'Regular2Defector IRR: {irr}')
+        # print(f'Regular2Defector IRR: {irr}')
 
         return irr
 
-    def __CalculateProsumer2DefectorIRR(self, period: int) -> float:
+    def _CalculateProsumer2DefectorIRR(self, period: int) -> float:
         # calculate the saving
         saving = self.prosumers.GetYearlyExpenditure(
             consumptionTariff=self.tariff, productionTariff=self.tariff
@@ -220,12 +220,12 @@ class Environment:
             + batterysize * self.battery.currentPrice * batterychanges
         )
         irr = hlp.CalculateIRR(inflow=saving, outflow=cost, period=period)
-        print(f'Prosumer2Defector IRR: {irr}')
+        # print(f'Prosumer2Defector IRR: {irr}')
 
         return irr
 
 
-    def __GrowPopulation(self) -> tuple:
+    def _GrowPopulation(self) -> tuple:
         r = (
             hlp.ConvertYearly2MonthlyRate(self.populationGrowthRate)
         ) * self.regularConsumers.currentNumber
@@ -246,7 +246,7 @@ class Environment:
         result["Utility_Sales"] = self.utility.saleHistory
         result["Utility_Deficit"] = self.utility.budgetDeficit
         result["Utility_Deficit_Fraction"] = (
-            result["Utility_Deficit"] / result["Utility_Sales"]
+            result["Utility_Deficit"] / self.utility.revenueHistory
         )
         tariff_list=np.ones_like(time,dtype=float)
         for t in self.tariff.GetHistory():

@@ -7,23 +7,24 @@ from Environment import Environment
 import pandas as pd
 import visualization
 import json
+import time
 
-duration = 240
+duration = 360
 timeStep = 1
-time = range(0, duration + timeStep, timeStep)
+months = range(0, duration + timeStep, timeStep)
 
 
 def AddProfilestoInputData(inputdata: dict, profilesPath: str):
     hourlyData = pd.read_csv(profilesPath, index_col=0)
     inputdata["PVHourlyEnergyOutput"] = hourlyData["Solar Output"].to_numpy()
-    inputdata["ConsumptionProfile"] = hourlyData["Demand"].to_numpy()
+    inputdata["ConsumptionProfile"] = (inputdata["AvgAnualResidentialConsumption"]*hourlyData["Demand"]/hourlyData["Demand"].sum()).to_numpy()
 
 def AddUtilityFinancialtoInputData(inputdata: dict, fielpath: str):
     starting_year=2010
     data=pd.read_csv(fielpath,index_col=0)
     for c in data.columns:
         res=linregress(data[c].dropna().index,data[c].dropna())
-        temp= [res.slope*y + res.intercept for y in range(2010,2050)]
+        temp= [1e6*(res.slope*y + res.intercept) for y in range(starting_year,2050)]
         result =[item/12 for item in temp for _ in range(12)]
         if 'cost' in c.lower():
             inputdata['fixedCosts']=result
@@ -31,37 +32,41 @@ def AddUtilityFinancialtoInputData(inputdata: dict, fielpath: str):
             inputdata['rateBase']=result
 
 
-
-        
+      
 
 
 def main():
     RunBaseCae("California")
 
-    # RunSensitivityAnalysis(
-    #     case="California",
-    #     parameter="fixed2VariableRatio",
-    #     evaluationRange=np.arange(0,0.4,0.1).tolist(),
-    # )
-    # RunSensitivityAnalysis(
-    #     case="California",
-    #     parameter="rateCorrectionFreq",
-    #     evaluationRange=list(range(12, 40, 6)),
-    # )
-    # RunSensitivityAnalysis(
-    #     case="California",
-    #     parameter="fixed2VariableRatio",
-    #     evaluationRange=[0, 0.1, 0.2, 0.3],
-    # )
+    RunSensitivityAnalysis(
+        case="California",
+        parameter="populationGrowthRate",
+        evaluationRange=[0.002,0.005,0.015],
+    )
+    RunSensitivityAnalysis(
+        case="California",
+        parameter="rateCorrectionFreq",
+        evaluationRange=list(range(12, 40, 12)),
+    )
+    RunSensitivityAnalysis(
+        case="California",
+        parameter="pvPotential",
+        evaluationRange=[0.2,0.4,0.7],
+    )
+    RunSensitivityAnalysis(
+        case="California",
+        parameter="fixed2VariableRatio",
+        evaluationRange=[0, 0.1, 0.2],
+    )
 
 
 def RunBaseCae(case: str):
     inputData = json.load(open(f"./Data/{case}.json"))
     AddProfilestoInputData(inputdata=inputData, profilesPath="./Data/LosAngles.csv")
-    AddUtilityFinancialtoInputData(inputdata=inputData, fielpath="/.Data/SCE_financial.csv")
-    index = time
+    AddUtilityFinancialtoInputData(inputdata=inputData, fielpath="./Data/SCE_financial.csv")
+    index = months
     Env = Environment(inputData=inputData)
-    for t in time:
+    for t in months:
         if t == 0:
             continue
         print(t)
@@ -77,14 +82,15 @@ def RunBaseCae(case: str):
 def RunSensitivityAnalysis(case: str, parameter: str, evaluationRange: list):
     inputData = json.load(open(f"./Data/{case}.json"))
     temp = {}
-    index = time
+    index = months
     # for p in period:
     for s in evaluationRange:
         AddProfilestoInputData(inputdata=inputData, profilesPath="./Data/LosAngles.csv")
+        AddUtilityFinancialtoInputData(inputdata=inputData, fielpath="./Data/SCE_financial.csv")
         print(f"###{parameter}:{s}###")
         inputData[parameter] = s
         Env = Environment(inputData)
-        for t in time:
+        for t in months:
             if t != 0:
                 print(t, end="\r")
                 Env.Iterate(t)
@@ -118,4 +124,8 @@ def PlotResults(input):
 
 
 if __name__ == "__main__":
+    st = time.time()
     main()
+    et = time.time()
+    elapsed_time = et - st
+    print('Execution time:', elapsed_time, 'seconds')

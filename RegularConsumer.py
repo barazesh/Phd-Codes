@@ -8,9 +8,9 @@ class RegularConsumer(Consumer):
     pass
 
     def GetMonthlyConsumption(self, month: int) -> float:
-        month = int(np.ceil(month % 12)) if (month % 12) > 0 else 12
+        moy = hlp.GetMonthofYear(month)
         result = np.sum(
-            hlp.SliceMonth(array=self.DemandProfile, month=month), dtype=float
+            hlp.SliceMonth(array=self.DemandProfile, month=moy), dtype=float
         )
         return result
 

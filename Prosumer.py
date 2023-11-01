@@ -22,31 +22,31 @@ class Prosumer(Consumer):
         self.PVSystem = PVSystem
         self.PVSystemSize = PVSize
 
-    def __CalculateNetDemand(self) -> np.ndarray:
+    def _CalculateNetDemand(self) -> np.ndarray:
         return self.DemandProfile - self.PVSystem.hourlyEnergyOutput * self.PVSystemSize
 
     def GetMonthlyConsumption(self, month: int) -> float:
-        month = int(np.ceil(month % 12)) if (month % 12) > 0 else 12
-        net = self.__CalculateNetDemand()
+        moy = hlp.GetMonthofYear(month)
+        net = self._CalculateNetDemand()
         consumptionOnly = [0 if i < 0 else i for i in net]
         result = np.sum(
-            hlp.SliceMonth(array=np.array(consumptionOnly), month=month), dtype=float
+            hlp.SliceMonth(array=np.array(consumptionOnly), month=moy), dtype=float
         )
         return result
 
     def GetMonthlyProduction(self, month: int) -> float:
-        month = int(np.ceil(month % 12)) if (month % 12) > 0 else 12
-        net = self.__CalculateNetDemand()
+        moy = hlp.GetMonthofYear(month)
+        net = self._CalculateNetDemand()
         productionOnly = [0 if i > 0 else -i for i in net]
         result = np.sum(
-            hlp.SliceMonth(array=np.array(productionOnly), month=month), dtype=float
+            hlp.SliceMonth(array=np.array(productionOnly), month=moy), dtype=float
         )
         return result
 
     def GetYearlyExpenditure(
         self, consumptionTariff: ElectricityTariff, productionTariff: ElectricityTariff
     ) -> float:
-        net = self.__CalculateNetDemand()
+        net = self._CalculateNetDemand()
         result = [
             i * consumptionTariff.currentVariablePrice
             if i > 0
