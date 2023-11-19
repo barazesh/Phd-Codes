@@ -1,5 +1,7 @@
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib as mpl
 from Defector import Defector
 from ElectricityTariff import ElectricityTariff
 import Helper as hlp
@@ -9,8 +11,6 @@ from Prosumer import Prosumer
 from RegularConsumer import RegularConsumer
 from StandAlone import StandAloneSystem
 from Utility import Utility
-import matplotlib.pyplot as plt
-import matplotlib as mpl
 
 
 class Environment:
@@ -61,6 +61,9 @@ class Environment:
         self.pvPotential = inputData["pvPotential"]
         self.BASSp2d=inputData["BASSp2d"]
         self.BASSr2d=inputData["BASSr2d"]
+        self.r2pIRR:list[float]=[0]
+        self.r2dIRR:list[float]=[0]
+        self.p2dIRR:list[float]=[0]
 
     def _CreateTariff(self, data) -> None:
 
@@ -186,6 +189,7 @@ class Environment:
         cost = self.prosumers.PVSystemSize * self.pv.currentPrice
         irr = hlp.CalculateIRR(inflow=saving, outflow=cost, period=period)
         # print(f'Regular2Prosumer IRR: {irr}')
+        self.r2pIRR.append(irr)
         return irr
 
     def _CalculateRegular2DefectorIRR(self, period: int) -> float:
@@ -200,6 +204,7 @@ class Environment:
         # print(f'optimal system size-> PV: {pvsize:.2f}, Battery:{batterysize:.2f}, Cost:{cost}')
         irr = hlp.CalculateIRR(inflow=saving, outflow=cost, period=period)
         # print(f'Regular2Defector IRR: {irr}')
+        self.r2dIRR.append(irr)
 
         return irr
 
@@ -221,7 +226,7 @@ class Environment:
         )
         irr = hlp.CalculateIRR(inflow=saving, outflow=cost, period=period)
         # print(f'Prosumer2Defector IRR: {irr}')
-
+        self.p2dIRR.append(irr)
         return irr
 
 
@@ -248,8 +253,14 @@ class Environment:
         result["Utility_Deficit_Fraction"] = (
             result["Utility_Deficit"] / self.utility.revenueHistory
         )
-        tariff_list=np.ones_like(time,dtype=float)
+        result["Regular2ProsumerIRR"]=self.r2pIRR
+        result["Regular2DefectorIRR"]=self.r2dIRR
+        result["Prosumer2DefectorIRR"]=self.p2dIRR
+        tariff_list_var=np.ones_like(time,dtype=float)
+        tariff_list_fix=np.ones_like(time,dtype=float)
         for t in self.tariff.GetHistory():
-            tariff_list[t['time']:]=t['variable']
-        result["Tariff"] = tariff_list
+            tariff_list_var[t['time']:]=t['variable']
+            tariff_list_fix[t['time']:]=t['fixed']
+        result["Tariff_var"] = tariff_list_var
+        result["Tariff_fix"] = tariff_list_fix
         return result

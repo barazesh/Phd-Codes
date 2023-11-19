@@ -36,27 +36,27 @@ def AddUtilityFinancialtoInputData(inputdata: dict, fielpath: str):
 
 
 def main():
-    RunBaseCae("California")
+    # RunBaseCae("California")
 
-    RunSensitivityAnalysis(
-        case="California",
-        parameter="populationGrowthRate",
-        evaluationRange=[0.002,0.005,0.015],
-    )
-    RunSensitivityAnalysis(
-        case="California",
-        parameter="rateCorrectionFreq",
-        evaluationRange=list(range(12, 40, 12)),
-    )
-    RunSensitivityAnalysis(
-        case="California",
-        parameter="pvPotential",
-        evaluationRange=[0.2,0.4,0.7],
-    )
+    # RunSensitivityAnalysis(
+    #     case="California",
+    #     parameter="populationGrowthRate",
+    #     evaluationRange=[0.002,0.005,0.015],
+    # )
+    # RunSensitivityAnalysis(
+    #     case="California",
+    #     parameter="rateCorrectionFreq",
+    #     evaluationRange=list(range(12, 40, 12)),
+    # )
+    # RunSensitivityAnalysis(
+    #     case="California",
+    #     parameter="pvPotential",
+    #     evaluationRange=[0.2,0.4,0.7],
+    # )
     RunSensitivityAnalysis(
         case="California",
         parameter="fixed2VariableRatio",
-        evaluationRange=[0, 0.1, 0.2],
+        evaluationRange=[0,0.2, 0.3],
     )
 
 

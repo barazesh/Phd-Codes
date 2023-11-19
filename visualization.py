@@ -25,15 +25,26 @@ def PlotSensitivity(parameter: str):
     ConfigureMatplotlib()
     markerinterval = 12
     dataPath = f"./Outputs/sensitivity_{parameter}.xlsx"
-    data = pd.read_excel(dataPath, sheet_name="Tariff", index_col=0)
+    data = pd.read_excel(dataPath, sheet_name="Tariff_var", index_col=0)
     data.plot(markevery=markerinterval)
-    plt.title(f"Electricity Tariff")
+    plt.title(f"Electricity Tariff (Volumetric)")
     plt.legend(loc="upper left")
     plt.xlim([0, 360])
     plt.xticks([r for r in range(0, 361, 24)])
     plt.xlabel("Time (Month)")
     plt.ylabel("Dollar/kWh")
-    plt.savefig(f"./Outputs/{parameter}_tariff.pdf", bbox_inches="tight")
+    plt.savefig(f"./Outputs/{parameter}_tariff_var.pdf", bbox_inches="tight")
+    plt.clf()
+ 
+    data = pd.read_excel(dataPath, sheet_name="Tariff_fix", index_col=0)
+    data.plot(markevery=markerinterval)
+    plt.title(f"Fixed Electricity Tariff")
+    plt.legend(loc="upper left")
+    plt.xlim([0, 360])
+    plt.xticks([r for r in range(0, 361, 24)])
+    plt.xlabel("Time (Month)")
+    plt.ylabel("Dollar/Month")
+    plt.savefig(f"./Outputs/{parameter}_tariff_fix.pdf", bbox_inches="tight")
     plt.clf()
 
     data = pd.read_excel(dataPath, sheet_name="Utility_Deficit", index_col=0)
@@ -88,7 +99,7 @@ def PlotBaseCase():
     markerinterval = 12
 
     plt.plot(data["Tariff"])
-    plt.title(f"Electricity Tariff")
+    plt.title("Electricity Tariff")
     plt.xlim([0, 360])
     plt.xticks([r for r in range(0, 361, 24)])
     plt.xlabel("Time (Month)")

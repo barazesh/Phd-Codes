@@ -1,5 +1,6 @@
 # ignore outputs directory because it contains large raw data files
 /Outputs/
+/Data/
 
 #ignore vensim simulation result files
 *.vdfx
@@ -69,3 +70,4 @@ target/
 
 # profiler files
 *.stats
+
