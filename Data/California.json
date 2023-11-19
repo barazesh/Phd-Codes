@@ -2,7 +2,7 @@
     "generationPrice": 0.04,
     "fixedCosts": [],
     "rateBase":[],
-    "fixed2VariableRatio": 0,
+    "fixed2VariableRatio": 0.3,
     "permittedRoR": 0.075,
     "lossRate": 0.1,
     "residentialShare":0.4,

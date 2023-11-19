@@ -4,7 +4,7 @@ class ElectricityTariff:
         self.currentFixedPrice = initialFixedTariff
         self.currentVariablePrice = initialVariableTariff
 
-    def SetNewTariff(self, time:int, variablePriceChange:float, fixedPriceChange:float) -> None:
+    def ChangeTariff(self, time:int, variablePriceChange:float, fixedPriceChange:float) -> None:
         temp={
             'time':time,
             'fixed':self.currentFixedPrice,
@@ -12,7 +12,25 @@ class ElectricityTariff:
         }
         self.__history.append(temp)
         self.currentFixedPrice += fixedPriceChange
+        if self.currentFixedPrice < 0:
+            self.currentFixedPrice=0
         self.currentVariablePrice += variablePriceChange
+        if self.currentVariablePrice < 0:
+            self.currentVariablePrice=0
+
+    def SetNewTariff(self, time:int, new_variablePrice:float, new_fixedPrice:float) -> None:
+        temp={
+            'time':time,
+            'fixed':self.currentFixedPrice,
+            'variable':self.currentVariablePrice
+        }
+        self.__history.append(temp)
+        self.currentFixedPrice = new_fixedPrice
+        if self.currentFixedPrice < 0:
+            self.currentFixedPrice=0
+        self.currentVariablePrice = new_variablePrice
+        if self.currentVariablePrice < 0:
+            self.currentVariablePrice=0
 
     def GetPriceChangeValue(self) -> dict:
         result={
