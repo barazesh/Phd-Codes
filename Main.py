@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+import plotly.express as px
 from scipy.stats import linregress
+from scipy.optimize import curve_fit
 import numpy as np
 from PV import PV
 from Environment import Environment
@@ -17,22 +19,73 @@ months = range(0, duration + timeStep, timeStep)
 def AddProfilestoInputData(inputdata: dict, profilesPath: str):
     hourlyData = pd.read_csv(profilesPath, index_col=0)
     inputdata["PVHourlyEnergyOutput"] = hourlyData["Solar Output"].to_numpy()
-    inputdata["ConsumptionProfile"] = (inputdata["AvgAnualResidentialConsumption"]*hourlyData["Demand"]/hourlyData["Demand"].sum()).to_numpy()
+    inputdata["ConsumptionProfile"] = (
+        inputdata["AvgAnualResidentialConsumption"]
+        * hourlyData["Demand"]
+        / hourlyData["Demand"].sum()
+    ).to_numpy()
+
 
 def AddUtilityFinancialtoInputData(inputdata: dict, fielpath: str):
-    starting_year=2010
-    data=pd.read_csv(fielpath,index_col=0)
+    starting_year = 2010
+    end_year = 2050
+    data = pd.read_csv(fielpath, index_col=0)
     for c in data.columns:
-        res=linregress(data[c].dropna().index,data[c].dropna())
-        temp= [1e6*(res.slope*y + res.intercept) for y in range(starting_year,2050)]
-        result =[item/12 for item in temp for _ in range(12)]
-        if 'cost' in c.lower():
-            inputdata['fixedCosts']=result
-        elif 'ratebase' in c.lower():
-            inputdata['rateBase']=result
+        if "ror" in c.lower():
+            # result = [item for item in EstimateRoR_exp(data, starting_year, end_year) for _ in range(12)]
+            # result = [item for item in EstimateRoR_line(data, starting_year, end_year) for _ in range(12)]
+            result = [item for item in EstimateRoR_constant(data, starting_year, end_year) for _ in range(12)]
+        else:
+            res = linregress(data[c].dropna().index, data[c].dropna())
+            temp = [
+                1e6 * (res.slope * y + res.intercept) for y in range(starting_year, end_year)
+            ]
+            result = [item / 12 for item in temp for _ in range(12)]
+
+        if "cost" in c.lower():
+            inputdata["fixedCosts"] = result
+        elif "ratebase" in c.lower():
+            inputdata["rateBase"] = result
+        elif "ror" in c.lower():
+            inputdata["authorizedRoR"] = result
 
 
-      
+def EstimateRoR_exp(data: pd.DataFrame, starting_year: int, end_year: int):
+    def exponential_curve(x, A, B, x_0):
+        return A * B ** (x - x_0)
+
+    x_data = data["RoR_permitted"].dropna().index
+    y_data = data["RoR_permitted"].dropna()
+    params, covariance = curve_fit(exponential_curve, x_data, y_data)
+    est_A, est_B, est_x_0 = params
+
+    starting_year = 2010
+    fitted_curve = 1e-2*exponential_curve(
+        range(starting_year, end_year), est_A, est_B, est_x_0
+    )
+    return fitted_curve
+
+
+def EstimateRoR_line(data: pd.DataFrame, starting_year: int, end_year: int):
+    x_data = data["RoR_permitted"].dropna().index
+    y_data = data["RoR_permitted"].dropna()
+    regression = linregress(x_data, y_data)
+    result = [
+        (regression.slope * y + regression.intercept) * 1e-2
+        for y in range(starting_year, end_year)
+    ]
+    return result
+
+
+def EstimateRoR_constant(data: pd.DataFrame, starting_year: int, end_year: int):
+    result=[]
+    for y in range(starting_year, end_year):
+        if y in data["RoR_permitted"].dropna().index:
+            result.append(float(data.loc[y,"RoR_permitted"])*1e-2)
+        else:
+            result.append(result[-1])
+
+    return result
 
 
 def main():
@@ -56,14 +109,16 @@ def main():
     RunSensitivityAnalysis(
         case="California",
         parameter="fixed2VariableRatio",
-        evaluationRange=[0,0.2, 0.3],
+        evaluationRange=[0, 0.2, 0.3],
     )
 
 
 def RunBaseCae(case: str):
     inputData = json.load(open(f"./Data/{case}.json"))
     AddProfilestoInputData(inputdata=inputData, profilesPath="./Data/LosAngles.csv")
-    AddUtilityFinancialtoInputData(inputdata=inputData, fielpath="./Data/SCE_financial.csv")
+    AddUtilityFinancialtoInputData(
+        inputdata=inputData, fielpath="./Data/SCE_financial.csv"
+    )
     index = months
     Env = Environment(inputData=inputData)
     for t in months:
@@ -71,7 +126,7 @@ def RunBaseCae(case: str):
             continue
         print(t)
         Env.Iterate(t)
-    result=Env.GetResults(list(index))
+    result = Env.GetResults(list(index))
     # print(f"{result.loc[120,['Prosumers','Defectors']]}")
     # print(f"total with PV: {result.loc[120,['Prosumers','Defectors']].sum()}")
     # print(f"defector share: {result.loc[120,'Defectors']/result.loc[120,['Prosumers','Defectors']].sum()}")
@@ -86,7 +141,9 @@ def RunSensitivityAnalysis(case: str, parameter: str, evaluationRange: list):
     # for p in period:
     for s in evaluationRange:
         AddProfilestoInputData(inputdata=inputData, profilesPath="./Data/LosAngles.csv")
-        AddUtilityFinancialtoInputData(inputdata=inputData, fielpath="./Data/SCE_financial.csv")
+        AddUtilityFinancialtoInputData(
+            inputdata=inputData, fielpath="./Data/SCE_financial.csv"
+        )
         print(f"###{parameter}:{s}###")
         inputData[parameter] = s
         Env = Environment(inputData)
@@ -128,4 +185,4 @@ if __name__ == "__main__":
     main()
     et = time.time()
     elapsed_time = et - st
-    print('Execution time:', elapsed_time, 'seconds')
+    print("Execution time:", elapsed_time, "seconds")

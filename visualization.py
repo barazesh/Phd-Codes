@@ -1,3 +1,4 @@
+#%%
 from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -6,7 +7,8 @@ from cycler import cycler
 
 # import openpyxl as xl
 import numpy as np
-
+import plotly.express as px
+#%%
 
 def ConfigureMatplotlib():
     mpl.rc("lines", linewidth=1.5, markersize=4)
@@ -98,13 +100,23 @@ def PlotBaseCase():
     ConfigureMatplotlib()
     markerinterval = 12
 
-    plt.plot(data["Tariff"])
-    plt.title("Electricity Tariff")
+    plt.plot(data["Tariff_var"])
+    plt.title("Electricity Tariff - Variable part")
     plt.xlim([0, 360])
     plt.xticks([r for r in range(0, 361, 24)])
     plt.xlabel("Time (Month)")
     plt.ylabel("Dollar/kWh")
-    plt.savefig("./Outputs/base_tariff.pdf", bbox_inches="tight")
+    plt.savefig("./Outputs/base_tariff_var.pdf", bbox_inches="tight")
+    plt.clf()
+
+    plt.plot(data["Tariff_fix"])
+    plt.title("Electricity Tariff - fixed part")
+    plt.xlim([0, 360])
+    plt.xticks([r for r in range(0, 361, 24)])
+    plt.xlabel("Time (Month)")
+    plt.ylabel("Dollar/Month")
+    plt.savefig("./Outputs/base_tariff_fix.pdf", bbox_inches="tight")
+    plt.clf()
 
     (
         100
@@ -158,3 +170,16 @@ def PlotBaseCase():
     plt.ylabel("%")
     plt.savefig("./Outputs/base_deficit_fraction.pdf", bbox_inches="tight")
     plt.clf()
+
+#%%
+# parameter="fixed2VariableRatio"
+# dataPath = f"C:/Users/baraz/Documents/Phd-Codes/Outputs/sensitivity_{parameter}.xlsx"
+# data_file=pd.ExcelFile(dataPath)
+# #%%
+# results={}
+# for sheet in data_file.sheet_names:
+#     results[sheet]= pd.read_excel(data_file, sheet_name=sheet, index_col=0)
+#     print(sheet)
+
+# #%%
+# px.line(results['Tariff_var'])

@@ -10,8 +10,8 @@ class Utility:
         generationPrice: float,
         fixedCosts: list,
         rateBase: list,
+        authorizedRoR: list,
         fixed2VariableRatio: float,
-        authorizedRoR: float,
         lossRate: float,
         residentialShare: float,
         rateCorrectionFreq: int,
@@ -24,8 +24,8 @@ class Utility:
         self._generationPrice = generationPrice
         self._fixedCosts = fixedCosts
         self._rateBase = rateBase
-        self._fixed2VariableRatio = fixed2VariableRatio
         self._authorizedRoR = authorizedRoR
+        self._fixed2VariableRatio = fixed2VariableRatio
         self._lossRate = lossRate
         self._rateCorrectionFreq = rateCorrectionFreq
         self._residentialShare = residentialShare
@@ -68,7 +68,7 @@ class Utility:
     def _CalculateRevenueRequirement(self, month: int) -> float:
         return (
             self.costs
-            + self._rateBase[month] * self._authorizedRoR * self._residentialShare
+            + self._rateBase[month] * self._authorizedRoR[month] * self._residentialShare
         )
 
     def CalculateFinances(self, month: int) -> None:
@@ -106,7 +106,7 @@ class Utility:
         # this method calculates the new tariff based on costs and rate base of the testyear
         fixedCost_testYear = sum(self._fixedCosts[time - 12 : time])
         revenueRequirement_testYear = (
-            sum(self._rateBase[time - 12 : time]) * self._authorizedRoR
+            sum(self._rateBase[time - 12 : time]) * self._authorizedRoR[time-12]
         )
         total_fixedCost = (
             fixedCost_testYear + revenueRequirement_testYear + self.budgetDeficit[-1]

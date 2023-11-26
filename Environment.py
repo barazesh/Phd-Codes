@@ -44,7 +44,7 @@ class Environment:
             fixedCosts=inputData["fixedCosts"],
             rateBase=inputData["rateBase"],
             fixed2VariableRatio=inputData["fixed2VariableRatio"],
-            authorizedRoR=inputData["permittedRoR"],
+            authorizedRoR=inputData["authorizedRoR"],
             lossRate=inputData["lossRate"],
             residentialShare=inputData["residentialShare"],
             rateCorrectionFreq=inputData["rateCorrectionFreq"],
