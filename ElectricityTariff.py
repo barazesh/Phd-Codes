@@ -43,7 +43,10 @@ class ElectricityTariff:
         priceChange=self.GetPriceChangeValue()
         result={}
         for k in priceChange.keys():
-            result[k]=priceChange[k]/ self.__history[-1][k]
+            if self.__history[-1][k] == 0:
+                result[k]=priceChange[k]/ 1e-5
+            else:
+                result[k]=priceChange[k]/ self.__history[-1][k]
         return result
 
     def GetHistory(self):

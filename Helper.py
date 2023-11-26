@@ -72,5 +72,8 @@ def CalculateIRR(outflow: float, inflow: float, period: int) -> float:
     roots = np.roots(coefficients)
     mask = roots.imag == 0
     rates = 1 / roots[mask].real - 1
-    result = rates.item(np.argmin(np.abs(rates)))
+    if len(rates)>0:
+        result = rates.item(np.argmin(np.abs(rates)))
+    else:
+        result=-1
     return result

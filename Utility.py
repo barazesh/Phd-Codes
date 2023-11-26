@@ -82,7 +82,8 @@ class Utility:
         )
 
     def CalculateNewTariff(self, time: int) -> None:
-        self._CalculateNewTariff_deficit(time)
+        # self._CalculateNewTariff_deficit(time)
+        self._CalculateNewTariff_cost(time)
 
     def _CalculateNewTariff_deficit(self, time: int) -> None:
         # this method calculates the price change based on distributing the budget deficit
