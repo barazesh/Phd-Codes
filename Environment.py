@@ -49,7 +49,7 @@ class Environment:
             residentialShare=inputData["residentialShare"],
             rateCorrectionFreq=inputData["rateCorrectionFreq"],
             retailTariff=self.tariff,
-            buybackTariff=self.tariff, # net metering: the price of buyback is equal to retail price
+            buybackTariff=self.tariff,  # net metering: the price of buyback is equal to retail price
             regularConsumer=self.regularConsumers,
             prosumer=self.prosumers,
         )
@@ -59,15 +59,17 @@ class Environment:
         self.populationGrowthRate = inputData["populationGrowthRate"]
         self.rateCorrectionFreq = inputData["rateCorrectionFreq"]
         self.pvPotential = inputData["pvPotential"]
-        self.BASSp2d=inputData["BASSp2d"]
-        self.BASSr2d=inputData["BASSr2d"]
-        self.r2pIRR:list[float]=[0]
-        self.r2dIRR:list[float]=[0]
-        self.p2dIRR:list[float]=[0]
+        self.BASSp2d = inputData["BASSp2d"]
+        self.BASSr2d = inputData["BASSr2d"]
+        self.r2pIRR: list[float] = [0]
+        self.r2dIRR: list[float] = [0]
+        self.p2dIRR: list[float] = [0]
 
     def _CreateTariff(self, data) -> None:
-
-        self.tariff=ElectricityTariff(initialFixedTariff= data["initialFixedTariff"], initialVariableTariff=data["initialVariableTariff"])
+        self.tariff = ElectricityTariff(
+            initialFixedTariff=data["initialFixedTariff"],
+            initialVariableTariff=data["initialVariableTariff"],
+        )
 
     def _CreateProsumer(self, data) -> Prosumer:
         return Prosumer(
@@ -143,14 +145,18 @@ class Environment:
         )
 
         # from regular consumer to defector
-        r2d = self.BASSr2d*pvLimitEffect * self._CalculateBassMigration(
-            batteryRatio,
-            self._CalculateRegular2DefectorIRR(projectLife),
-            self.regularConsumers.currentNumber,
+        r2d = (
+            self.BASSr2d
+            * pvLimitEffect
+            * self._CalculateBassMigration(
+                batteryRatio,
+                self._CalculateRegular2DefectorIRR(projectLife),
+                self.regularConsumers.currentNumber,
+            )
         )
 
         # from prosumer to defector
-        p2d = self.BASSp2d*self._CalculateBassMigration(
+        p2d = self.BASSp2d * self._CalculateBassMigration(
             batteryRatio,
             self._CalculateProsumer2DefectorIRR(projectLife),
             self.prosumers.currentNumber,
@@ -177,7 +183,7 @@ class Environment:
             self.innovationFactor + multiplier * self.imitationFactor * penetration
         )
         return adaoptionrate * sourcePopulation
-    
+
     def _CalculateRegular2ProsumerIRR(self, period: int) -> float:
         proEx = self.prosumers.GetYearlyExpenditure(
             consumptionTariff=self.tariff, productionTariff=self.tariff
@@ -229,7 +235,6 @@ class Environment:
         self.p2dIRR.append(irr)
         return irr
 
-
     def _GrowPopulation(self) -> tuple:
         r = (
             hlp.ConvertYearly2MonthlyRate(self.populationGrowthRate)
@@ -253,14 +258,27 @@ class Environment:
         result["Utility_Deficit_Fraction"] = (
             result["Utility_Deficit"] / self.utility.revenueHistory
         )
-        result["Regular2ProsumerIRR"]=self.r2pIRR
-        result["Regular2DefectorIRR"]=self.r2dIRR
-        result["Prosumer2DefectorIRR"]=self.p2dIRR
-        tariff_list_var=np.ones_like(time,dtype=float)
-        tariff_list_fix=np.ones_like(time,dtype=float)
+        result["Regular2ProsumerIRR"] = self.r2pIRR
+        result["Regular2DefectorIRR"] = self.r2dIRR
+        result["Prosumer2DefectorIRR"] = self.p2dIRR
+        tariff_list_var = np.ones_like(time, dtype=float)
+        tariff_list_fix = np.ones_like(time, dtype=float)
         for t in self.tariff.GetHistory():
-            tariff_list_var[t['time']:]=t['variable']
-            tariff_list_fix[t['time']:]=t['fixed']
+            tariff_list_var[t["time"] :] = t["variable"]
+            tariff_list_fix[t["time"] :] = t["fixed"]
         result["Tariff_var"] = tariff_list_var
         result["Tariff_fix"] = tariff_list_fix
+        result["Prosumers_Demand_Change"] = self.GetDemandChangeHistory(
+            self.prosumers._demandChangeHistory
+        )
+        result["Regular_Consumers_Demand_Change"] = self.GetDemandChangeHistory(
+            self.regularConsumers._demandChangeHistory
+        )
+        return result
+
+    def GetDemandChangeHistory(self, history):
+        temp = np.cumprod(history)
+        result = [item for item in temp[:-1] for _ in range(self.rateCorrectionFreq)] + [
+            temp[-1]
+        ]
         return result

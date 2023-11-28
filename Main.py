@@ -144,6 +144,10 @@ def RunSensitivityAnalysis(case: str, parameter: str, evaluationRange: list):
         AddUtilityFinancialtoInputData(
             inputdata=inputData, fielpath="./Data/SCE_financial.csv"
         )
+        # for e in inputData.keys():
+        #     if 'elasticity' in e.lower():
+        #         inputData[e]=0
+                
         print(f"###{parameter}:{s}###")
         inputData[parameter] = s
         Env = Environment(inputData)

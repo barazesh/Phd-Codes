@@ -172,14 +172,26 @@ def PlotBaseCase():
     plt.clf()
 
 #%%
-# parameter="fixed2VariableRatio"
-# dataPath = f"C:/Users/baraz/Documents/Phd-Codes/Outputs/sensitivity_{parameter}.xlsx"
-# data_file=pd.ExcelFile(dataPath)
-# #%%
-# results={}
-# for sheet in data_file.sheet_names:
-#     results[sheet]= pd.read_excel(data_file, sheet_name=sheet, index_col=0)
-#     print(sheet)
+parameter="fixed2VariableRatio"
+dataPath = f"C:/Users/baraz/Documents/Phd-Codes/Outputs/sensitivity_{parameter}.xlsx"
+data_file=pd.ExcelFile(dataPath)
+#%%
+results={}
+for sheet in data_file.sheet_names:
+    results[sheet]= pd.read_excel(data_file, sheet_name=sheet, index_col=0)
+    print(sheet)
 
-# #%%
-# px.line(results['Tariff_var'])
+#%%
+px.line(results['Prosumers_Demand_Change'])
+# %%
+parameter="fixed2VariableRatio"
+dataPath = f"C:/Users/baraz/Documents/Phd-Codes/Outputs/sensitivity_{parameter}_0elas.xlsx"
+data_file=pd.ExcelFile(dataPath)
+#%%
+results={}
+for sheet in data_file.sheet_names:
+    results[sheet]= pd.read_excel(data_file, sheet_name=sheet, index_col=0)
+
+#%%
+px.line(results['Utility_Sales'])
+# %%

@@ -13,7 +13,7 @@ class Consumer:
         demandChangeLimit: float,
     ) -> None:
         self._numberHistory = [float(initialNumber)]
-        self._demandChangeHistory = []
+        self._demandChangeHistory = [1]
         self._priceElasticity = priceElasticity
         self._demandChangeLimit = demandChangeLimit
         self.currentNumber = initialNumber
