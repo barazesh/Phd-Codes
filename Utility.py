@@ -104,6 +104,7 @@ class Utility:
 
     def _CalculateNewTariff_cost(self, time: int) -> None:
         # this method calculates the new tariff based on costs and rate base of the testyear
+        # I assume that the test year is the last year
         fixedCost_testYear = sum(self._fixedCosts[time - 12 : time])
         revenueRequirement_testYear = (
             sum(self._rateBase[time - 12 : time]) * self._authorizedRoR[time-12]
@@ -111,6 +112,8 @@ class Utility:
         total_fixedCost = (
             fixedCost_testYear + revenueRequirement_testYear + self.budgetDeficit[-1]
         ) * self._residentialShare
+
+        total_fixedCost += self.budgetDeficit[-1]
 
         fixedPrice = (self._fixed2VariableRatio * total_fixedCost) / (
             self.prosumers.currentNumber + self.regularConsumer.currentNumber
