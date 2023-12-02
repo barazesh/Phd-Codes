@@ -94,6 +94,18 @@ def PlotSensitivity(parameter: str):
         plt.savefig(f"./Outputs/{parameter}_{c}.pdf", bbox_inches="tight")
         plt.clf()
 
+    for c in ["Regular2ProsumerIRR","Regular2DefectorIRR","Prosumer2DefectorIRR"]:
+        data = pd.read_excel(dataPath, sheet_name=c, index_col=0)
+        data.plot(markevery=markerinterval)
+        temp=c[:-3].split('2')
+        plt.title(f"Internal Rate of Return for the transition from {temp[0]} to {temp[1]}")
+        plt.xlim([0, 360])
+        plt.xticks([r for r in range(0, 361, 24)])
+        plt.xlabel("Time (Month)")
+        plt.ylabel("%")
+        plt.savefig(f"./Outputs/{parameter}_{c}.pdf", bbox_inches="tight")
+        plt.clf()
+
 
 def PlotBaseCase():
     data = pd.read_csv("./Outputs/baseCaseResults.csv", index_col=0)
@@ -144,6 +156,16 @@ def PlotBaseCase():
     plt.savefig("./Outputs/base_CustomersNo.pdf", bbox_inches="tight")
     plt.clf()
 
+    data[["Regular2ProsumerIRR","Regular2DefectorIRR","Prosumer2DefectorIRR"]].plot(markevery=markerinterval)
+    plt.title("Internal Rate of Return for each transition")
+    plt.xlim([0, 360])
+    plt.legend(loc="center")
+    plt.xticks([r for r in range(0, 361, 24)])
+    plt.xlabel("Time (Month)")
+    plt.ylabel("%")
+    plt.savefig("./Outputs/base_IRR.pdf", bbox_inches="tight")
+    plt.clf()
+
     plt.plot(data.rolling(12, on="Utility_Sales", step=12)["Utility_Sales"].sum())
     plt.title("Total Utility Energy Sale")
     plt.xlim([0, 360])
@@ -172,26 +194,26 @@ def PlotBaseCase():
     plt.clf()
 
 #%%
-parameter="fixed2VariableRatio"
-dataPath = f"C:/Users/baraz/Documents/Phd-Codes/Outputs/sensitivity_{parameter}.xlsx"
-data_file=pd.ExcelFile(dataPath)
+# parameter="fixed2VariableRatio"
+# dataPath = f"C:/Users/baraz/Documents/Phd-Codes/Outputs/sensitivity_{parameter}.xlsx"
+# data_file=pd.ExcelFile(dataPath)
 #%%
-results={}
-for sheet in data_file.sheet_names:
-    results[sheet]= pd.read_excel(data_file, sheet_name=sheet, index_col=0)
-    print(sheet)
+# results={}
+# for sheet in data_file.sheet_names:
+#     results[sheet]= pd.read_excel(data_file, sheet_name=sheet, index_col=0)
+#     print(sheet)
 
-#%%
-px.line(results['Prosumers_Demand_Change'])
-# %%
-parameter="fixed2VariableRatio"
-dataPath = f"C:/Users/baraz/Documents/Phd-Codes/Outputs/sensitivity_{parameter}_0elas.xlsx"
-data_file=pd.ExcelFile(dataPath)
-#%%
-results={}
-for sheet in data_file.sheet_names:
-    results[sheet]= pd.read_excel(data_file, sheet_name=sheet, index_col=0)
+# #%%
+# px.line(results['Prosumers_Demand_Change'])
+# # %%
+# parameter="fixed2VariableRatio"
+# dataPath = f"C:/Users/baraz/Documents/Phd-Codes/Outputs/sensitivity_{parameter}_0elas.xlsx"
+# data_file=pd.ExcelFile(dataPath)
+# #%%
+# results={}
+# for sheet in data_file.sheet_names:
+#     results[sheet]= pd.read_excel(data_file, sheet_name=sheet, index_col=0)
 
-#%%
-px.line(results['Utility_Sales'])
-# %%
+# #%%
+# px.line(results['Utility_Sales'])
+# # %%

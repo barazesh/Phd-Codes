@@ -15,6 +15,7 @@ class Utility:
         lossRate: float,
         residentialShare: float,
         rateCorrectionFreq: int,
+        rateCorrectionMethod:str,
         retailTariff: ElectricityTariff,
         buybackTariff: ElectricityTariff,
         regularConsumer: RegularConsumer,
@@ -28,6 +29,7 @@ class Utility:
         self._fixed2VariableRatio = fixed2VariableRatio
         self._lossRate = lossRate
         self._rateCorrectionFreq = rateCorrectionFreq
+        self._rateCorrectionMethod=rateCorrectionMethod
         self._residentialShare = residentialShare
         self.retailTariff = retailTariff
         self.buybackTariff = buybackTariff
@@ -82,8 +84,10 @@ class Utility:
         )
 
     def CalculateNewTariff(self, time: int) -> None:
-        # self._CalculateNewTariff_deficit(time)
-        self._CalculateNewTariff_cost(time)
+        if self._rateCorrectionMethod=='deficit':
+            self._CalculateNewTariff_deficit(time)
+        if self._rateCorrectionMethod=='test_year':
+            self._CalculateNewTariff_cost(time)
 
     def _CalculateNewTariff_deficit(self, time: int) -> None:
         # this method calculates the price change based on distributing the budget deficit
@@ -113,7 +117,7 @@ class Utility:
             fixedCost_testYear + revenueRequirement_testYear + self.budgetDeficit[-1]
         ) * self._residentialShare
 
-        total_fixedCost += self.budgetDeficit[-1]
+        total_fixedCost += self.budgetDeficit[-13]
 
         fixedPrice = (self._fixed2VariableRatio * total_fixedCost) / (
             self.prosumers.currentNumber + self.regularConsumer.currentNumber

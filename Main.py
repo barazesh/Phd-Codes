@@ -109,7 +109,7 @@ def main():
     RunSensitivityAnalysis(
         case="California",
         parameter="fixed2VariableRatio",
-        evaluationRange=[0, 0.2, 0.3],
+        evaluationRange=[0, 0.1, 0.2],
     )
 
 

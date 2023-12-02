@@ -39,20 +39,7 @@ class Environment:
         self.prosumers = self._CreateProsumer(inputData)
         self.regularConsumers = self._CreateRegularConsumer(inputData)
         self.defectors = self._CreateDefector(inputData)
-        self.utility = Utility(
-            generationPrice=inputData["generationPrice"],
-            fixedCosts=inputData["fixedCosts"],
-            rateBase=inputData["rateBase"],
-            fixed2VariableRatio=inputData["fixed2VariableRatio"],
-            authorizedRoR=inputData["authorizedRoR"],
-            lossRate=inputData["lossRate"],
-            residentialShare=inputData["residentialShare"],
-            rateCorrectionFreq=inputData["rateCorrectionFreq"],
-            retailTariff=self.tariff,
-            buybackTariff=self.tariff,  # net metering: the price of buyback is equal to retail price
-            regularConsumer=self.regularConsumers,
-            prosumer=self.prosumers,
-        )
+        self.utility = self.CreateUtility(inputData)
         self.standAlone = StandAloneSystem(battery=self.battery, pv=self.pv)
         self.imitationFactor = inputData["imitationFactor"]
         self.innovationFactor = inputData["innovationFactor"]
@@ -64,6 +51,23 @@ class Environment:
         self.r2pIRR: list[float] = [0]
         self.r2dIRR: list[float] = [0]
         self.p2dIRR: list[float] = [0]
+
+    def CreateUtility(self, inputData):
+        return Utility(
+            generationPrice=inputData["generationPrice"],
+            fixedCosts=inputData["fixedCosts"],
+            rateBase=inputData["rateBase"],
+            fixed2VariableRatio=inputData["fixed2VariableRatio"],
+            authorizedRoR=inputData["authorizedRoR"],
+            lossRate=inputData["lossRate"],
+            residentialShare=inputData["residentialShare"],
+            rateCorrectionFreq=inputData["rateCorrectionFreq"],
+            rateCorrectionMethod=inputData["rateCorrectionMethod"],
+            retailTariff=self.tariff,
+            buybackTariff=self.tariff,  # net metering: the price of buyback is equal to retail price
+            regularConsumer=self.regularConsumers,
+            prosumer=self.prosumers,
+        )
 
     def _CreateTariff(self, data) -> None:
         self.tariff = ElectricityTariff(
@@ -278,7 +282,7 @@ class Environment:
 
     def GetDemandChangeHistory(self, history):
         temp = np.cumprod(history)
-        result = [item for item in temp[:-1] for _ in range(self.rateCorrectionFreq)] + [
-            temp[-1]
-        ]
+        result = [
+            item for item in temp[:-1] for _ in range(self.rateCorrectionFreq)
+        ] + [temp[-1]]
         return result
