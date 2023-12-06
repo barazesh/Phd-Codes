@@ -85,8 +85,11 @@ class Utility:
 
     def CalculateNewTariff(self, time: int) -> None:
         if self._rateCorrectionMethod=='deficit':
-            self._CalculateNewTariff_deficit(time)
-        if self._rateCorrectionMethod=='test_year':
+            if (time==self._rateCorrectionFreq) and (self._fixed2VariableRatio>0):
+                self._CalculateNewTariff_cost(time)
+            else:
+                self._CalculateNewTariff_deficit(time)
+        elif self._rateCorrectionMethod=='test_year':
             self._CalculateNewTariff_cost(time)
 
     def _CalculateNewTariff_deficit(self, time: int) -> None:
@@ -100,7 +103,7 @@ class Utility:
         variablePriceChange = (
             (1 - self._fixed2VariableRatio) * self.budgetDeficit[-1] / totalSale
         )
-        self.retailTariff.ChangeTariff(
+        self.retailTariff.SetTariffbyChange(
             time,
             fixedPriceChange=fixedPriceChange,
             variablePriceChange=variablePriceChange,
@@ -117,7 +120,7 @@ class Utility:
             fixedCost_testYear + revenueRequirement_testYear + self.budgetDeficit[-1]
         ) * self._residentialShare
 
-        total_fixedCost += self.budgetDeficit[-13]
+        # total_fixedCost += self.budgetDeficit[-13]
 
         fixedPrice = (self._fixed2VariableRatio * total_fixedCost) / (
             self.prosumers.currentNumber + self.regularConsumer.currentNumber
@@ -128,7 +131,7 @@ class Utility:
             1 - self._fixed2VariableRatio
         ) * total_fixedCost / totalSale
 
-        self.retailTariff.SetNewTariff(
+        self.retailTariff.SetTariffbvNewValue(
             time, new_fixedPrice=fixedPrice, new_variablePrice=variablePrice
         )
 

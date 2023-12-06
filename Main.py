@@ -34,11 +34,16 @@ def AddUtilityFinancialtoInputData(inputdata: dict, fielpath: str):
         if "ror" in c.lower():
             # result = [item for item in EstimateRoR_exp(data, starting_year, end_year) for _ in range(12)]
             # result = [item for item in EstimateRoR_line(data, starting_year, end_year) for _ in range(12)]
-            result = [item for item in EstimateRoR_constant(data, starting_year, end_year) for _ in range(12)]
+            result = [
+                item
+                for item in EstimateRoR_constant(data, starting_year, end_year)
+                for _ in range(12)
+            ]
         else:
             res = linregress(data[c].dropna().index, data[c].dropna())
             temp = [
-                1e6 * (res.slope * y + res.intercept) for y in range(starting_year, end_year)
+                1e6 * (res.slope * y + res.intercept)
+                for y in range(starting_year, end_year)
             ]
             result = [item / 12 for item in temp for _ in range(12)]
 
@@ -60,7 +65,7 @@ def EstimateRoR_exp(data: pd.DataFrame, starting_year: int, end_year: int):
     est_A, est_B, est_x_0 = params
 
     starting_year = 2010
-    fitted_curve = 1e-2*exponential_curve(
+    fitted_curve = 1e-2 * exponential_curve(
         range(starting_year, end_year), est_A, est_B, est_x_0
     )
     return fitted_curve
@@ -78,10 +83,10 @@ def EstimateRoR_line(data: pd.DataFrame, starting_year: int, end_year: int):
 
 
 def EstimateRoR_constant(data: pd.DataFrame, starting_year: int, end_year: int):
-    result=[]
+    result = []
     for y in range(starting_year, end_year):
         if y in data["RoR_permitted"].dropna().index:
-            result.append(float(data.loc[y,"RoR_permitted"])*1e-2)
+            result.append(float(data.loc[y, "RoR_permitted"]) * 1e-2)
         else:
             result.append(result[-1])
 
@@ -94,7 +99,7 @@ def main():
     # RunSensitivityAnalysis(
     #     case="California",
     #     parameter="populationGrowthRate",
-    #     evaluationRange=[0.002,0.005,0.015],
+    #     evaluationRange=[0.002, 0.005, 0.015],
     # )
     # RunSensitivityAnalysis(
     #     case="California",
@@ -104,13 +109,34 @@ def main():
     # RunSensitivityAnalysis(
     #     case="California",
     #     parameter="pvPotential",
-    #     evaluationRange=[0.2,0.4,0.7],
+    #     evaluationRange=[0.2, 0.4, 0.7],
     # )
     RunSensitivityAnalysis(
         case="California",
         parameter="fixed2VariableRatio",
-        evaluationRange=[0, 0.1, 0.2],
+        evaluationRange=[0,0.3, 0.6,1],
+        # evaluationRange=[0,0.1,0.3],
     )
+    # RunSensitivityAnalysis(
+    #     case="California",
+    #     parameter="rateCorrectionMethod",
+    #     evaluationRange=["deficit", "test_year"],
+    # )
+    # RunSensitivityAnalysis(
+    #     case="California",
+    #     parameter="basePriceElasticity",
+    #     evaluationRange=[0,-0.1,-0.2],
+    # )
+
+    # for p in [
+    #     "base",
+    #     "populationGrowthRate",
+    #     "rateCorrectionFreq",
+    #     "pvPotential",
+    #     "fixed2VariableRatio",
+    #     "rateCorrectionMethod",
+    # ]:
+    #     PlotResults(p)
 
 
 def RunBaseCae(case: str):
@@ -127,9 +153,6 @@ def RunBaseCae(case: str):
         print(t)
         Env.Iterate(t)
     result = Env.GetResults(list(index))
-    # print(f"{result.loc[120,['Prosumers','Defectors']]}")
-    # print(f"total with PV: {result.loc[120,['Prosumers','Defectors']].sum()}")
-    # print(f"defector share: {result.loc[120,'Defectors']/result.loc[120,['Prosumers','Defectors']].sum()}")
     result.to_csv("./Outputs/baseCaseResults.csv")
     visualization.PlotBaseCase()
 
@@ -138,16 +161,11 @@ def RunSensitivityAnalysis(case: str, parameter: str, evaluationRange: list):
     inputData = json.load(open(f"./Data/{case}.json"))
     temp = {}
     index = months
-    # for p in period:
     for s in evaluationRange:
         AddProfilestoInputData(inputdata=inputData, profilesPath="./Data/LosAngles.csv")
         AddUtilityFinancialtoInputData(
             inputdata=inputData, fielpath="./Data/SCE_financial.csv"
         )
-        # for e in inputData.keys():
-        #     if 'elasticity' in e.lower():
-        #         inputData[e]=0
-                
         print(f"###{parameter}:{s}###")
         inputData[parameter] = s
         Env = Environment(inputData)
@@ -158,7 +176,6 @@ def RunSensitivityAnalysis(case: str, parameter: str, evaluationRange: list):
         temp[str(s)] = Env.GetResults(list(index))
 
     vars = temp[str(evaluationRange[0])].columns
-    # result = {}
     with pd.ExcelWriter(f"./Outputs/sensitivity_{parameter}.xlsx") as writer:
         for v in vars:
             df = pd.DataFrame(index=index)
@@ -168,20 +185,11 @@ def RunSensitivityAnalysis(case: str, parameter: str, evaluationRange: list):
     visualization.PlotSensitivity(parameter)
 
 
-def PlotResults(input):
-    mpl.rc("lines", linewidth=1, markersize=4)
-    mpl.rc("grid", linewidth=0.5, linestyle="--")
-    plt.rcParams["axes.grid"] = True
-    mpl.rc("font", size=8, family="Times New Roman")
-    vars = ["Tariff"]
-    for v in vars:
-        fig, ax = plt.subplots(figsize=(6, 3.7))
-        input[v].plot(ax=ax)
-        ax.set_xlabel("Time (Month)")
-        ax.set_xlim(-5, 245)
-        ax.set_title("Electricity tariff")
-        ax.set_ylabel("Price (dollar)")
-        fig.savefig(f"{v}_period.pdf", bbox_inches="tight")
+def PlotResults(parameter: str = "base"):
+    if parameter == "base":
+        visualization.PlotBaseCase()
+    else:
+        visualization.PlotSensitivity(parameter)
 
 
 if __name__ == "__main__":

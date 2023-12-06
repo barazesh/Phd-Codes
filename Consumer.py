@@ -30,10 +30,15 @@ class Consumer:
         self._demandProfile *= changeFactor
 
     def __GetLimitEffect(self, input: float) -> float:
+        if np.abs(input) < self._demandChangeLimit:
+            return 1
+        else:
+            return self._demandChangeLimit/np.abs(input)
+
         ratio = np.abs(input) / self._demandChangeLimit
-        result = Logistic(b=1, L=-1, k=15, x0=1 / 3, input=ratio)
+        result = Logistic(b=1, L=-1, k=60, x0=0.9, input=ratio)
         if result < 1e-6:
-            result = 0.2/input
+            result = 0.1/input
         return result
 
     def ChangeNumber(self, value: float) -> None:

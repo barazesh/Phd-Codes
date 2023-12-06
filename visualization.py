@@ -29,7 +29,7 @@ def PlotSensitivity(parameter: str):
     dataPath = f"./Outputs/sensitivity_{parameter}.xlsx"
     data = pd.read_excel(dataPath, sheet_name="Tariff_var", index_col=0)
     data.plot(markevery=markerinterval)
-    plt.title(f"Electricity Tariff (Volumetric)")
+    plt.title(f"Electricity Tariff")
     plt.legend(loc="upper left")
     plt.xlim([0, 360])
     plt.xticks([r for r in range(0, 361, 24)])
@@ -40,7 +40,7 @@ def PlotSensitivity(parameter: str):
  
     data = pd.read_excel(dataPath, sheet_name="Tariff_fix", index_col=0)
     data.plot(markevery=markerinterval)
-    plt.title(f"Fixed Electricity Tariff")
+    plt.title(f"Connection Charge")
     plt.legend(loc="upper left")
     plt.xlim([0, 360])
     plt.xticks([r for r in range(0, 361, 24)])
@@ -105,6 +105,17 @@ def PlotSensitivity(parameter: str):
         plt.ylabel("%")
         plt.savefig(f"./Outputs/{parameter}_{c}.pdf", bbox_inches="tight")
         plt.clf()
+    if parameter=='fixed2VariableRatio':
+        for p in ['Prosumers_Demand_Change','Regular_Consumers_Demand_Change']:
+            data=pd.read_excel(dataPath, sheet_name=p, index_col=0)
+            (100*data).plot(markevery=markerinterval)
+            plt.title(p.replace('_',' '))
+            plt.xlim([0, 360])
+            plt.xticks([r for r in range(0, 361, 24)])
+            plt.xlabel("Time (Month)")
+            plt.ylabel("Demand relative to initial value (%)")
+            plt.savefig(f"./Outputs/{parameter}_{p}.pdf", bbox_inches="tight")
+            plt.clf()
 
 
 def PlotBaseCase():
@@ -113,7 +124,7 @@ def PlotBaseCase():
     markerinterval = 12
 
     plt.plot(data["Tariff_var"])
-    plt.title("Electricity Tariff - Variable part")
+    plt.title("Electricity Tariff")
     plt.xlim([0, 360])
     plt.xticks([r for r in range(0, 361, 24)])
     plt.xlabel("Time (Month)")
@@ -122,7 +133,7 @@ def PlotBaseCase():
     plt.clf()
 
     plt.plot(data["Tariff_fix"])
-    plt.title("Electricity Tariff - fixed part")
+    plt.title("Connection Charge")
     plt.xlim([0, 360])
     plt.xticks([r for r in range(0, 361, 24)])
     plt.xlabel("Time (Month)")
@@ -197,15 +208,30 @@ def PlotBaseCase():
 # parameter="fixed2VariableRatio"
 # dataPath = f"C:/Users/baraz/Documents/Phd-Codes/Outputs/sensitivity_{parameter}.xlsx"
 # data_file=pd.ExcelFile(dataPath)
-#%%
+# #%%
 # results={}
 # for sheet in data_file.sheet_names:
 #     results[sheet]= pd.read_excel(data_file, sheet_name=sheet, index_col=0)
 #     print(sheet)
+# #%%
+# ConfigureMatplotlib()
+# markerinterval = 12
+# for p in ['Prosumers_Demand_Change','Regular_Consumers_Demand_Change']:
+#     (100*results[p]).plot(markevery=markerinterval)
+#     plt.title(p.replace('_',' '))
+#     plt.xlim([0, 360])
+#     plt.xticks([r for r in range(0, 361, 24)])
+#     plt.xlabel("Time (Month)")
+#     plt.ylabel("Demand relative to initial value (%)")
+#     plt.savefig(f"./Outputs/{parameter}_{p}.pdf", bbox_inches="tight")
+#     plt.clf()
+# #%%
+# px.line(results['Regular_Consumers']/results['Total_Housholds'])
 
 # #%%
-# px.line(results['Prosumers_Demand_Change'])
-# # %%
+
+# px.line(results['Total_Housholds'])
+# %%
 # parameter="fixed2VariableRatio"
 # dataPath = f"C:/Users/baraz/Documents/Phd-Codes/Outputs/sensitivity_{parameter}_0elas.xlsx"
 # data_file=pd.ExcelFile(dataPath)

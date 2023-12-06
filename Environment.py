@@ -79,7 +79,7 @@ class Environment:
         return Prosumer(
             initialNumber=data["initialProsumerNumber"],
             initialDemandProfile=np.copy(data["ConsumptionProfile"]),
-            priceElasticity=data["prosumerPriceElasticity"],
+            priceElasticity=data["prosumerPriceElasticity"]*data["basePriceElasticity"],
             demandChangeLimit=data["prosumerDemandChangeLimit"],
             PVSystem=self.pv,
             PVSize=data["PVSize"],
@@ -99,7 +99,7 @@ class Environment:
         return RegularConsumer(
             initialNumber=data["initialRegularConsumerNumber"],
             initialDemandProfile=np.copy(data["ConsumptionProfile"]),
-            priceElasticity=data["regularConsumerPriceElasticity"],
+            priceElasticity=data["regularConsumerPriceElasticity"]*data["basePriceElasticity"],
             demandChangeLimit=data["regularConsumerDemandChangeLimit"],
         )
 
