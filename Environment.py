@@ -48,6 +48,7 @@ class Environment:
         self.pvPotential = inputData["pvPotential"]
         self.BASSp2d = inputData["BASSp2d"]
         self.BASSr2d = inputData["BASSr2d"]
+        self.buybackRatio = inputData["buybackRatio"]
         self.r2pIRR: list[float] = [0]
         self.r2dIRR: list[float] = [0]
         self.p2dIRR: list[float] = [0]
@@ -64,7 +65,7 @@ class Environment:
             rateCorrectionFreq=inputData["rateCorrectionFreq"],
             rateCorrectionMethod=inputData["rateCorrectionMethod"],
             retailTariff=self.tariff,
-            buybackTariff=self.tariff,  # net metering: the price of buyback is equal to retail price
+            buybackTariff=self.buybacktariff,
             regularConsumer=self.regularConsumers,
             prosumer=self.prosumers,
         )
@@ -74,12 +75,17 @@ class Environment:
             initialFixedTariff=data["initialFixedTariff"],
             initialVariableTariff=data["initialVariableTariff"],
         )
+        self.buybacktariff = ElectricityTariff(
+            initialFixedTariff=data["initialFixedTariff"],
+            initialVariableTariff=data["initialVariableTariff"],
+        )
 
     def _CreateProsumer(self, data) -> Prosumer:
         return Prosumer(
             initialNumber=data["initialProsumerNumber"],
             initialDemandProfile=np.copy(data["ConsumptionProfile"]),
-            priceElasticity=data["prosumerPriceElasticity"]*data["basePriceElasticity"],
+            priceElasticity=data["prosumerPriceElasticity"]
+            * data["basePriceElasticity"],
             demandChangeLimit=data["prosumerDemandChangeLimit"],
             PVSystem=self.pv,
             PVSize=data["PVSize"],
@@ -99,7 +105,8 @@ class Environment:
         return RegularConsumer(
             initialNumber=data["initialRegularConsumerNumber"],
             initialDemandProfile=np.copy(data["ConsumptionProfile"]),
-            priceElasticity=data["regularConsumerPriceElasticity"]*data["basePriceElasticity"],
+            priceElasticity=data["regularConsumerPriceElasticity"]
+            * data["basePriceElasticity"],
             demandChangeLimit=data["regularConsumerDemandChangeLimit"],
         )
 
@@ -128,6 +135,7 @@ class Environment:
         self.utility.CalculateFinances(time)
         if time % self.rateCorrectionFreq == 0:
             self.utility.CalculateNewTariff(time)
+            self.CalculateBuybackTariff(time)
             self.regularConsumers.ChangeDemand(tariff=self.tariff)
             self.prosumers.ChangeDemand(tariff=self.tariff)
 
@@ -136,6 +144,16 @@ class Environment:
         batteryRatio = self._CalculateBatteryPenetrationRatio()
         self.battery.DecreasePrice(batteryRatio)
         self._MigrateHouseholds(pvRatio, batteryRatio)
+
+    def CalculateBuybackTariff(self, time):
+        new_price = self.utility._generationPrice + self.buybackRatio * (
+            self.tariff.currentVariablePrice - self.utility._generationPrice
+        )
+        self.buybacktariff.SetTariffbvNewValue(
+            time=time,
+            new_variablePrice=new_price,
+            new_fixedPrice=self.tariff.currentFixedPrice,
+        )
 
     def _MigrateHouseholds(self, pvRatio, batteryRatio):
         pvLimitEffect = hlp.Logistic4RatioLimit(pvRatio / self.pvPotential)
@@ -190,7 +208,7 @@ class Environment:
 
     def _CalculateRegular2ProsumerIRR(self, period: int) -> float:
         proEx = self.prosumers.GetYearlyExpenditure(
-            consumptionTariff=self.tariff, productionTariff=self.tariff
+            consumptionTariff=self.tariff, productionTariff=self.buybacktariff
         )
         regEx = self.regularConsumers.GetYearlyExpenditure(
             consumptionTariff=self.tariff
@@ -221,7 +239,7 @@ class Environment:
     def _CalculateProsumer2DefectorIRR(self, period: int) -> float:
         # calculate the saving
         saving = self.prosumers.GetYearlyExpenditure(
-            consumptionTariff=self.tariff, productionTariff=self.tariff
+            consumptionTariff=self.tariff, productionTariff=self.buybacktariff
         )
         # calculate the cost
         pvsize, batterysize, _ = self.standAlone.OptimizeSystemSize(

@@ -205,41 +205,48 @@ def PlotBaseCase():
     plt.clf()
 
 #%%
-# parameter="fixed2VariableRatio"
-# dataPath = f"C:/Users/baraz/Documents/Phd-Codes/Outputs/sensitivity_{parameter}.xlsx"
-# data_file=pd.ExcelFile(dataPath)
-# #%%
-# results={}
-# for sheet in data_file.sheet_names:
-#     results[sheet]= pd.read_excel(data_file, sheet_name=sheet, index_col=0)
-#     print(sheet)
-# #%%
-# ConfigureMatplotlib()
-# markerinterval = 12
-# for p in ['Prosumers_Demand_Change','Regular_Consumers_Demand_Change']:
-#     (100*results[p]).plot(markevery=markerinterval)
-#     plt.title(p.replace('_',' '))
-#     plt.xlim([0, 360])
-#     plt.xticks([r for r in range(0, 361, 24)])
-#     plt.xlabel("Time (Month)")
-#     plt.ylabel("Demand relative to initial value (%)")
-#     plt.savefig(f"./Outputs/{parameter}_{p}.pdf", bbox_inches="tight")
-#     plt.clf()
-# #%%
-# px.line(results['Regular_Consumers']/results['Total_Housholds'])
+ConfigureMatplotlib()
+
+parameter="buybackRatio"
+coeff="beta"
+dataPath = f"C:/Users/baraz/Documents/Phd-Codes/Outputs/sensitivity_{parameter}.xlsx"
+data_file=pd.ExcelFile(dataPath)
+#%%
+results={}
+for sheet in data_file.sheet_names:
+    results[sheet]= pd.read_excel(data_file, sheet_name=sheet, index_col=0)
+    print(sheet)
+#%%
+results['Tariff_var'].rename( lambda x: x[:3],axis=1).boxplot()
+plt.title(rf'Distribution of Volumetric Electricity Tariff per values of &\ {coeff}&')
+plt.xlabel(rf"&\{coeff}&")
+plt.ylabel("Dollar/kWh")
+plt.savefig(f"./Outputs/{parameter}_tariffDistribution.pdf", bbox_inches="tight")
+plt.clf()
+#%%
+results['Utility_Deficit'].rename( lambda x: x[:3],axis=1).boxplot()
+plt.title(rf'Distribution of Utility Budget Deficit per values of &\ {coeff}&')
+
+plt.xlabel(rf"&\{coeff}&")
+plt.ylabel("Dollar")
+plt.savefig(f"./Outputs/{parameter}_deficitDistribution.pdf", bbox_inches="tight")
+plt.clf()
+
+
+#%%
+(1-results['Regular_Consumers']/results['Total_Housholds']).max().rename( lambda x: x[:3],axis=0).plot.bar()
+plt.title(rf'Maximum share of consumers with PV per values of &\ {coeff}&')
+plt.xlabel(rf"&\{coeff}&")
+plt.ylabel("Consumers (%)")
+plt.savefig(f"./Outputs/{parameter}_PVshare.pdf", bbox_inches="tight")
+plt.clf()
+
 
 # #%%
+# px.line(results['Regular_Consumers_Demand_Change'])
+# #%%
+# px.line(1-results['Regular_Consumers']/results['Total_Housholds'])
 
-# px.line(results['Total_Housholds'])
+
+
 # %%
-# parameter="fixed2VariableRatio"
-# dataPath = f"C:/Users/baraz/Documents/Phd-Codes/Outputs/sensitivity_{parameter}_0elas.xlsx"
-# data_file=pd.ExcelFile(dataPath)
-# #%%
-# results={}
-# for sheet in data_file.sheet_names:
-#     results[sheet]= pd.read_excel(data_file, sheet_name=sheet, index_col=0)
-
-# #%%
-# px.line(results['Utility_Sales'])
-# # %%

@@ -111,10 +111,18 @@ def main():
     #     parameter="pvPotential",
     #     evaluationRange=[0.2, 0.4, 0.7],
     # )
+    # RunSensitivityAnalysis(
+    #     case="California",
+    #     parameter="fixed2VariableRatio",
+    #     # evaluationRange=[0,0.3, 0.6,1],
+    #     evaluationRange=np.arange(0,1,0.1).tolist(),
+    #     # evaluationRange=[0,0.1,0.3],
+    # )
     RunSensitivityAnalysis(
         case="California",
-        parameter="fixed2VariableRatio",
-        evaluationRange=[0,0.3, 0.6,1],
+        parameter="buybackRatio",
+        # evaluationRange=[0,0.3, 0.6,1],
+        evaluationRange=np.arange(0,1,0.1).tolist(),
         # evaluationRange=[0,0.1,0.3],
     )
     # RunSensitivityAnalysis(
