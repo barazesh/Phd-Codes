@@ -15,7 +15,7 @@ class Utility:
         lossRate: float,
         residentialShare: float,
         rateCorrectionFreq: int,
-        rateCorrectionMethod:str,
+        rateCorrectionMethod: str,
         retailTariff: ElectricityTariff,
         buybackTariff: ElectricityTariff,
         regularConsumer: RegularConsumer,
@@ -29,7 +29,7 @@ class Utility:
         self._fixed2VariableRatio = fixed2VariableRatio
         self._lossRate = lossRate
         self._rateCorrectionFreq = rateCorrectionFreq
-        self._rateCorrectionMethod=rateCorrectionMethod
+        self._rateCorrectionMethod = rateCorrectionMethod
         self._residentialShare = residentialShare
         self.retailTariff = retailTariff
         self.buybackTariff = buybackTariff
@@ -70,7 +70,9 @@ class Utility:
     def _CalculateRevenueRequirement(self, month: int) -> float:
         return (
             self.costs
-            + self._rateBase[month] * self._authorizedRoR[month] * self._residentialShare
+            + self._rateBase[month]
+            * self._authorizedRoR[month]
+            * self._residentialShare
         )
 
     def CalculateFinances(self, month: int) -> None:
@@ -84,12 +86,12 @@ class Utility:
         )
 
     def CalculateNewTariff(self, time: int) -> None:
-        if self._rateCorrectionMethod=='deficit':
-            if (time==self._rateCorrectionFreq) and (self._fixed2VariableRatio>0):
+        if self._rateCorrectionMethod == "deficit":
+            if (time == self._rateCorrectionFreq) and (self._fixed2VariableRatio > 0):
                 self._CalculateNewTariff_cost(time)
             else:
                 self._CalculateNewTariff_deficit(time)
-        elif self._rateCorrectionMethod=='test_year':
+        elif self._rateCorrectionMethod == "test_year":
             self._CalculateNewTariff_cost(time)
 
     def _CalculateNewTariff_deficit(self, time: int) -> None:
@@ -114,7 +116,7 @@ class Utility:
         # I assume that the test year is the last year
         fixedCost_testYear = sum(self._fixedCosts[time - 12 : time])
         revenueRequirement_testYear = (
-            sum(self._rateBase[time - 12 : time]) * self._authorizedRoR[time-12]
+            sum(self._rateBase[time - 12 : time]) * self._authorizedRoR[time - 12]
         )
         total_fixedCost = (
             fixedCost_testYear + revenueRequirement_testYear + self.budgetDeficit[-1]
@@ -125,6 +127,8 @@ class Utility:
         fixedPrice = (self._fixed2VariableRatio * total_fixedCost) / (
             self.prosumers.currentNumber + self.regularConsumer.currentNumber
         )
+
+        fixedPrice /= 12
 
         totalSale = sum(self.saleHistory[-12:])
         variablePrice = (1 + self._lossRate) * self._generationPrice + (
