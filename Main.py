@@ -114,15 +114,15 @@ def main():
     # RunSensitivityAnalysis(
     #     case="California",
     #     parameter="fixed2VariableRatio",
-    #     # evaluationRange=[0,0.3, 0.6,1],
-    #     evaluationRange=np.arange(0,1,0.1).tolist(),
+    #     evaluationRange=[0,0.3, 0.6,1],
+    #     # evaluationRange=np.arange(0,1,0.1).tolist(),
     #     # evaluationRange=[0,0.1,0.3],
     # )
     RunSensitivityAnalysis(
         case="California",
         parameter="buybackRatio",
-        # evaluationRange=[0,0.3, 0.6,1],
-        evaluationRange=np.arange(0,1,0.1).tolist(),
+        evaluationRange=[0,0.3, 0.6,1],
+        # evaluationRange=np.arange(0,1,0.1).tolist(),
         # evaluationRange=[0,0.1,0.3],
     )
     # RunSensitivityAnalysis(
@@ -136,15 +136,16 @@ def main():
     #     evaluationRange=[0,-0.1,-0.2],
     # )
 
-    # for p in [
-    #     "base",
-    #     "populationGrowthRate",
-    #     "rateCorrectionFreq",
-    #     "pvPotential",
-    #     "fixed2VariableRatio",
-    #     "rateCorrectionMethod",
-    # ]:
-    #     PlotResults(p)
+    for p in [
+        # "base",
+        # "populationGrowthRate",
+        # "rateCorrectionFreq",
+        # "pvPotential",
+        # "fixed2VariableRatio",
+        # "basePriceElasticity",
+        "buybackRatio",
+    ]:
+        PlotResults(p)
 
 
 def RunBaseCae(case: str):

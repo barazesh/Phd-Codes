@@ -115,11 +115,11 @@ class Utility:
         # this method calculates the new tariff based on costs and rate base of the testyear
         # I assume that the test year is the last year
         fixedCost_testYear = sum(self._fixedCosts[time - 12 : time])
-        revenueRequirement_testYear = (
+        returnOnInvestment_testYear = (
             sum(self._rateBase[time - 12 : time]) * self._authorizedRoR[time - 12]
         )
         total_fixedCost = (
-            fixedCost_testYear + revenueRequirement_testYear + self.budgetDeficit[-1]
+            fixedCost_testYear + returnOnInvestment_testYear + self.budgetDeficit[-1]
         ) * self._residentialShare
 
         # total_fixedCost += self.budgetDeficit[-13]

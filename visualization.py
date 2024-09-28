@@ -95,7 +95,7 @@ def PlotSensitivity(parameter: str):
         plt.clf()
 
     for c in ["Regular2ProsumerIRR","Regular2DefectorIRR","Prosumer2DefectorIRR"]:
-        data = pd.read_excel(dataPath, sheet_name=c, index_col=0)
+        data = 100*pd.read_excel(dataPath, sheet_name=c, index_col=0)
         data.plot(markevery=markerinterval)
         temp=c[:-3].split('2')
         plt.title(f"Internal Rate of Return for the transition from {temp[0]} to {temp[1]}")
@@ -167,7 +167,7 @@ def PlotBaseCase():
     plt.savefig("./Outputs/base_CustomersNo.pdf", bbox_inches="tight")
     plt.clf()
 
-    data[["Regular2ProsumerIRR","Regular2DefectorIRR","Prosumer2DefectorIRR"]].plot(markevery=markerinterval)
+    (100*data[["Regular2ProsumerIRR","Regular2DefectorIRR","Prosumer2DefectorIRR"]]).plot(markevery=markerinterval)
     plt.title("Internal Rate of Return for each transition")
     plt.xlim([0, 360])
     plt.legend(loc="center")
